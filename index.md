@@ -1,37 +1,97 @@
-## Welcome to GitHub Pages
+# FBI (Face Brain of I(e:)motion)
 
-You can use the [editor on GitHub](https://github.com/kookmin-sw/cap-template/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Capstone Design Project for Kookmin University, 2020
 
-### Markdown
+[**https://kookmin-sw.github.io/capstone-2020-2/**](https://kookmin-sw.github.io/capstone-2020-1/)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+### **1. 프로젝트 소개**
+---
+<p align="center">
+<img src="./images/FBI_logo.png" >
+</p>
+                                               
+**얼굴 표정 & 뇌파 신호 기반 감정 인식 및 분석 웹 서비스, FBI**<br/>
+FBI는 표정과 뇌파에 기반한 감정 인식기술을 제공하는 웹 어플리케이션이다.
+사용자가 웹 어플리케이션에서 재생되는 영상을 시청하는 동안 모자에 달린 뇌파측정 센서와 카메라로 사용자의 뇌파와 표정을 측정하고, 이를 기반으로 사용자의 감정을 분석하여 감정에 따라 유사한 영상을 재생하거나 추천한다.
+FBI는 기존의 단일 패턴 기반 시스템에서 벗어나, 두 가지 신호 데이터를 기반으로 유저의 감정을 분석하는 멀티 모달 감정인식 시스템을 개발함으로써 각 데이터의 한계점을 보완하여 체계적이고 정확한 감정인식 기술을 제공하는 것을 목표로 한다. 특수환경(교도소, 병원)에서 맞춤형 심리 치료나 감정표현에 어려움을 겪는 사용자의 감정인식이 필요한 곳에서 FBI의 감정 인식 및 분석 서비스가 해결책이 될 수 있을 것이다.
+<br/><br/>
+**Facial recognition & brain wave signal based emotion recognition and analysis web service, FBI**<br/>
+FBI is a web application that provides emotion recognition technology based on facial expressions and brain waves.
+While the user is watching the video played in the web application, the EEG sensor  on the cap and camera are used to measure the user's brainwaves and facial expressions. Based on this, the user's emotions are analyzed to reproduce or recommend similar video according to the emotion.
+FBI aims to provide a systematic and accurate emotion recognition technology by complementing the limitations of each data by developing a multi-modal emotion recognition system which analyzes the user's emotion based on two signal data, not  single pattern-based system which is existing. 
+FBI's emotion recognition and analysis service can be a solution in places where special environment (prison, hospital) needs customized psychological treatment or emotion recognition of users who have difficulty expressing emotions.
+<br/><br/>
 
-# Header 1
-## Header 2
-### Header 3
+### **2. 소개 영상**
+---
+추가 예정
+<br/><br/>
 
-- Bulleted
-- List
+### **3. 팀 소개**
+---
 
-1. Numbered
-2. List
+<img align="left" width="20%" height="20%" src="./images/SM Yoon.jpg">
 
-**Bold** and _Italic_ and `Code` text
+### 윤상민 교수님 (Prof. Sang-Min Yoon)
+&nbsp;&nbsp;- Role: 지도교수 & 멘토 <br/>
+&nbsp;&nbsp;- Email: smyoon@kookmin.ac.kr <br/>
+<br/><br/><br/><br/><br/>
 
-[Link](url) and ![Image](src)
-```
+<img align="left" width="20%" height="20%" src="./images/YJ Lee.png">
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### 이연지 (Yeon-Ji Lee)
 
-### Jekyll Themes
+&nbsp;&nbsp;- Student ID: 20171668 <br/>
+&nbsp;&nbsp;- Role: 팀장 <br/>
+&nbsp;&nbsp;- Email: nelumbotus@kookmin.ac.kr <br/>
+<br/><br/><br/><br/>
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/kookmin-sw/cap-template/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+<img align="left" width="20%" height="20%" src="./images/KJ Kim.jpg">
 
-### Support or Contact
+### 김경진 (Kyung-Jin Kim)
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+&nbsp;&nbsp;- Student ID: 20170292 <br/>
+&nbsp;&nbsp;- Role: <br/>
+&nbsp;&nbsp;- Email: jinnymini@gmail.com <br/>
+<br/><br/><br/><br/>
+
+<img align="left" width="20%" height="20%" src="./images/SJ Kim.jpg">
+
+### 김소정 (So-Jung Kim)
+
+&nbsp;&nbsp;- Student ID: 20162753 <br/>
+&nbsp;&nbsp;- Role:  <br/>
+&nbsp;&nbsp;- Email: sjk1708@gmail.com <br/>
+<br/><br/><br/>
+
+<img align="left" width="20%" height="20%" src="./images/MH Seo.jpg">
+
+### 서명희 (Myoung-Hee Seo)
+
+&nbsp;&nbsp;- Student ID: 20171627 <br/>
+&nbsp;&nbsp;- Role: <br/>
+&nbsp;&nbsp;- Email: myounghee.seo2@gmail.com <br/>
+<br/><br/><br/><br/>
+
+
+<img align="left" width="20%" height="20%" src="./images/YL Lee.png">
+
+### 이예림 (Ye-Rim Lee)
+
+&nbsp;&nbsp;- Student ID: 20171670 <br/>
+&nbsp;&nbsp;- Role:  <br/>
+&nbsp;&nbsp;- Email: lylim5050@kookmin.ac.kr <br/>
+<br/><br/><br/><br/>
+<br/><br/>
+
+### **4. 사용법**
+---
+추가 예정
+<br/><br/>
+
+### **5. 기타**
+---
+추가 예정
+<br/><br/>
