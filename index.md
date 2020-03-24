@@ -3,7 +3,7 @@
 
 Capstone Design Project for Kookmin University, 2020
 
-[**https://kookmin-sw.github.io/capstone-2020-2/**](https://kookmin-sw.github.io/capstone-2020-1/)
+[**https://kookmin-sw.github.io/capstone-2020-2/**](https://kookmin-sw.github.io/capstone-2020-2/)
 
 
 ### **1. 프로젝트 소개**
