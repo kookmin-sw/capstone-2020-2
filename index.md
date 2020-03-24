@@ -37,7 +37,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 ### 윤상민 교수님 (Prof. Sang-Min Yoon)
 &nbsp;&nbsp;- Role: 지도교수 & 멘토 <br/>
 &nbsp;&nbsp;- Email: smyoon@kookmin.ac.kr <br/>
-<br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/>
 
 <img align="left" width="20%" height="20%" src="./images/YJ Lee.png">
 
@@ -46,7 +46,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Student ID: 20171668 <br/>
 &nbsp;&nbsp;- Role: 팀장 <br/>
 &nbsp;&nbsp;- Email: nelumbotus@kookmin.ac.kr <br/>
-<br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/>
 
 <img align="left" width="20%" height="20%" src="./images/KJ Kim.jpg">
 
@@ -55,7 +55,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Student ID: 20170292 <br/>
 &nbsp;&nbsp;- Role: <br/>
 &nbsp;&nbsp;- Email: jinnymini@gmail.com <br/>
-<br/><br/><br/><br/>
+<br/><br/><br/><br/><br/>
 
 <img align="left" width="20%" height="20%" src="./images/SJ Kim.jpg">
 
@@ -73,7 +73,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Student ID: 20171627 <br/>
 &nbsp;&nbsp;- Role: <br/>
 &nbsp;&nbsp;- Email: myounghee.seo2@gmail.com <br/>
-<br/><br/><br/><br/>
+<br/><br/><br/><br/><br/>
 
 
 <img align="left" width="20%" height="20%" src="./images/YL Lee.png">
