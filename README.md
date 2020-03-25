@@ -72,7 +72,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 ### 서명희 (Myoung-Hee Seo)
 
 &nbsp;&nbsp;- Student ID: 20171627 <br/>
-&nbsp;&nbsp;- Role: Serve 및 DB <br/>
+&nbsp;&nbsp;- Role: Server 및 DB <br/>
 &nbsp;&nbsp;- Email: myounghee.seo2@gmail.com <br/>
 <br/><br/><br/>
 
