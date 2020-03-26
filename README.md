@@ -9,7 +9,7 @@ Capstone Design Project for Kookmin University, 2020
 ### **1. 프로젝트 소개**
 ---
 <p align="center">
-<img src="./images/FBI_logo.png" >
+<img src="./images/doc/FBI_logo.png" >
 </p>
                                                
 **얼굴 표정 & 뇌파 신호 기반 감정 인식 및 분석 웹 서비스, FBI**<br/>
@@ -49,7 +49,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Email: nelumbotus@kookmin.ac.kr <br/>
 <br/><br/><br/>
 
-<img align="left" width="15%" height="15%" src="./images/KJ Kim.jpg">
+<img align="left" width="15%" height="15%" src="./doc/images/KJ Kim.jpg">
 
 ### 김경진 (Kyung-Jin Kim)
 
@@ -58,7 +58,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Email: jinnymini@gmail.com <br/>
 <br/><br/><br/>
 
-<img align="left" width="15%" height="15%" src="./images/SJ Kim.jpg">
+<img align="left" width="15%" height="15%" src="./doc/images/SJ Kim.jpg">
 
 ### 김소정 (So-Jung Kim)
 
@@ -67,7 +67,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Email: sjk1708@gmail.com <br/>
 <br/><br/><br/>
 
-<img align="left" width="15%" height="15%" src="./images/MH Seo.jpg">
+<img align="left" width="15%" height="15%" src="./doc/images/MH Seo.jpg">
 
 ### 서명희 (Myoung-Hee Seo)
 
@@ -77,7 +77,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 <br/><br/><br/>
 
 
-<img align="left" width="15%" height="15%" src="./images/YL Lee.png">
+<img align="left" width="15%" height="15%" src="./doc/images/YL Lee.png">
 
 ### 이예림 (Ye-Rim Lee)
 
