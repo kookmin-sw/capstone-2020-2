@@ -40,7 +40,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Email: smyoon@kookmin.ac.kr <br/>
 <br/><br/><br/>
 
-<img align="left" width="15%" height="15%" src="./images/YJ Lee.png">
+<img align="left" width="15%" height="15%" src="./images/YJ Lee.jpg">
 
 ### 이연지 (Yeon-Ji Lee)
 
@@ -77,7 +77,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 <br/><br/><br/>
 
 
-<img align="left" width="15%" height="15%" src="./doc/images/YL Lee.png">
+<img align="left" width="15%" height="15%" src="./doc/images/YL Lee.jpg">
 
 ### 이예림 (Ye-Rim Lee)
 
