@@ -38,9 +38,9 @@ FBI's emotion recognition and analysis service can be a solution in places where
 
 &nbsp;&nbsp;- Role: 지도교수 & 멘토 <br/>
 &nbsp;&nbsp;- Email: smyoon@kookmin.ac.kr <br/>
-<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/>
 
-<img align="left" width="25%" height="25%" src="./doc/images/YJ Lee.jpg">
+<img align="left" width="35%" height="35%" src="./doc/images/YJ Lee.jpg">
 
 ### 이연지 (Yeon-Ji Lee)
 
@@ -49,7 +49,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Email: nelumbotus@kookmin.ac.kr <br/>
 <br/><br/><br/><br/><br/><br/>
 
-<img align="left" width="25%" height="25%" src="./doc/images/KJ Kim.jpg">
+<img align="left" width="35%" height="35%" src="./doc/images/KJ Kim.jpg">
 
 ### 김경진 (Kyung-Jin Kim)
 
@@ -58,7 +58,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Email: jinnymini@gmail.com <br/>
 <br/><br/><br/><br/><br/><br/>
 
-<img align="left" width="25%" height="25%" src="./doc/images/SJ Kim.jpg">
+<img align="left" width="35%" height="35%" src="./doc/images/SJ Kim.jpg">
 
 ### 김소정 (So-Jung Kim)
 
@@ -67,7 +67,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 &nbsp;&nbsp;- Email: sjk1708@gmail.com <br/>
 <br/><br/><br/><br/><br/><br/>
 
-<img align="left" width="25%" height="25%" src="./doc/images/MH Seo.jpg">
+<img align="left" width="35%" height="35%" src="./doc/images/MH Seo.jpg">
 
 ### 서명희 (Myoung-Hee Seo)
 
@@ -77,7 +77,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 <br/><br/><br/><br/><br/><br/>
 
 
-<img align="left" width="25%" height="25%" src="./doc/images/YL Lee.jpg">
+<img align="left" width="35%" height="35%" src="./doc/images/YL Lee.jpg">
 
 ### 이예림 (Ye-Rim Lee)
 
@@ -96,3 +96,4 @@ FBI's emotion recognition and analysis service can be a solution in places where
 ---
 추가 예정
 <br/><br/>
+
