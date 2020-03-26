@@ -38,53 +38,53 @@ FBI's emotion recognition and analysis service can be a solution in places where
 
 &nbsp;&nbsp;- Role: 지도교수 & 멘토 <br/>
 &nbsp;&nbsp;- Email: smyoon@kookmin.ac.kr <br/>
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
-<img align="left" width="15%" height="15%" src="./doc/images/YJ Lee.jpg">
+<img align="left" width="30%" height="30%" src="./doc/images/YJ Lee.jpg">
 
 ### 이연지 (Yeon-Ji Lee)
 
 &nbsp;&nbsp;- Student ID: 20171668 <br/>
 &nbsp;&nbsp;- Role: 팀장, 뇌파 기반 감정 인식 모델 학습 <br/>
 &nbsp;&nbsp;- Email: nelumbotus@kookmin.ac.kr <br/>
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
-<img align="left" width="15%" height="15%" src="./doc/images/KJ Kim.jpg">
+<img align="left" width="30%" height="30%" src="./doc/images/KJ Kim.jpg">
 
 ### 김경진 (Kyung-Jin Kim)
 
 &nbsp;&nbsp;- Student ID: 20170292 <br/>
 &nbsp;&nbsp;- Role: Server 및 DB <br/>
 &nbsp;&nbsp;- Email: jinnymini@gmail.com <br/>
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
-<img align="left" width="15%" height="15%" src="./doc/images/SJ Kim.jpg">
+<img align="left" width="30%" height="30%" src="./doc/images/SJ Kim.jpg">
 
 ### 김소정 (So-Jung Kim)
 
 &nbsp;&nbsp;- Student ID: 20162753 <br/>
 &nbsp;&nbsp;- Role: UI(Front-end) <br/>
 &nbsp;&nbsp;- Email: sjk1708@gmail.com <br/>
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
-<img align="left" width="15%" height="15%" src="./doc/images/MH Seo.jpg">
+<img align="left" width="30%" height="30%" src="./doc/images/MH Seo.jpg">
 
 ### 서명희 (Myoung-Hee Seo)
 
 &nbsp;&nbsp;- Student ID: 20171627 <br/>
 &nbsp;&nbsp;- Role: Server 및 DB <br/>
 &nbsp;&nbsp;- Email: myounghee.seo2@gmail.com <br/>
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
 
-<img align="left" width="15%" height="15%" src="./doc/images/YL Lee.jpg">
+<img align="left" width="30%" height="30%" src="./doc/images/YL Lee.jpg">
 
 ### 이예림 (Ye-Rim Lee)
 
 &nbsp;&nbsp;- Student ID: 20171670 <br/>
 &nbsp;&nbsp;- Role: 표정 기반 감정 인식 모델 학습 <br/>
 &nbsp;&nbsp;- Email: lylim5050@kookmin.ac.kr <br/>
-<br/><br/><br/>
+<br/><br/><br/><br/>
 <br/><br/>
 
 ### **4. 사용법**
