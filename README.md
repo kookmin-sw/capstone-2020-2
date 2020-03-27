@@ -1,4 +1,4 @@
-# FBI (Face Brain of I(e:)motion)
+﻿# FBI (Face Brain of I(e:)motion)
 
 
 Capstone Design Project for Kookmin University, 2020
@@ -26,7 +26,7 @@ FBI's emotion recognition and analysis service can be a solution in places where
 
 ### **2. 소개 영상**
 ---
-추가 예정
+https://www.youtube.com/watch?v=4n9E5AUYYvU
 <br/><br/>
 
 ### **3. 팀 소개**
