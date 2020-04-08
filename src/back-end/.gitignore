@@ -3,6 +3,7 @@
 
 # Ignore migrations
 /FBI/api/migrations
+/FBI/media
 
 # for Mac
 *.DS_store
