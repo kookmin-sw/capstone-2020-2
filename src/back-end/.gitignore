@@ -1,5 +1,5 @@
 # Ignore settings
-/FBI/FBI/settings.py
+/FBI/mysql.cnf
 
 # Ignore migrations
 /FBI/api/migrations
