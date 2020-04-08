@@ -1,0 +1,8 @@
+# Ignore settings
+/FBI/FBI/settings.py
+
+# Ignore migrations
+/FBI/api/migrations
+
+# for Mac
+*.DS_store
