@@ -60,6 +60,8 @@ class Video(models.Model):
     artist = models.CharField(max_length=50)
     link = models.CharField(max_length=100)
     tag = models.CharField(max_length=50)
+    startTime = models.TimeField(default=':00:00')
+    duration = models.IntegerField(default=60)
 
     class Meta:
         db_table = 'Video'
