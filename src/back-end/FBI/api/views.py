@@ -13,13 +13,8 @@ import face_recognition
 import numpy as np
 import os
 
-@api_view(['GET','POST'])
+@api_view(['POST'])
 def signup(request, format=None):
-     if request.method == 'GET':
-        user = User.objects.all()
-        serializer = serializers.UserSerializer(user, many=True)
-        return Response(serializer.data)
-
      if request.method == 'POST':
         serializer = serializers.UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -27,7 +22,6 @@ def signup(request, format=None):
             print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-     return HttpResponse("Bad request", status=400)
 
 @api_view(['GET','POST'])
 def login(request, format=None):
