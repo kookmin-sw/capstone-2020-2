@@ -1,0 +1,97 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.webcam {
+  width: 300px  ;
+  height: 340px;
+  position: relative;
+  top :150px;
+  left: 95px;
+  object-fit: cover;
+  
+}
+
+#blink{
+  opacity: 1;
+  animation: blinker 1s linear infinite;
+}
+
+  
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+#spinner{
+  position: relative;
+  top: 20px;
+ right: 60px ;
+}
+#text {
+  position: relative;
+  top:155px;
+  left: 95px;
+  width: 300px  ;
+  padding: 3px 10px;
+
+}
+#userInput {
+  position:relative;
+  top :155px;
+  left:95px;
+  width: 300px  ;
+}
+#explain {
+
+ height: 720px;
+  background-color: #5882FA;
+}
+
+#login {
+  background-color: #F2F2F2;
+}
+#start{
+  position:relative;
+  top:150px;
+  left:55px;
+  width: 370px;
+  height: 400px;
+}
