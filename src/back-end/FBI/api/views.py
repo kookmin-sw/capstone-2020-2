@@ -13,6 +13,9 @@ import face_recognition
 import numpy as np
 import os
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path = os.path.join(BASE_DIR, 'media')
+
 @api_view(['POST'])
 def signup(request, format=None):
      if request.method == 'POST':
@@ -26,8 +29,6 @@ def signup(request, format=None):
 @api_view(['GET','POST'])
 def login(request, format=None):
     if request == 'GET':
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        path = os.path.join(BASE_DIR, 'media')
 
         users = User.objects.all()
         numpyUsersList = []
