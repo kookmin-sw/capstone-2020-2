@@ -5,5 +5,12 @@
 /FBI/api/migrations
 /FBI/media
 
+# Ignore idea
+/FBI/.idea
+
+# Ignore pycache
+/FBI/FBI/__pycache__
+/FBI/api/__pycache__
+
 # for Mac
 *.DS_store
