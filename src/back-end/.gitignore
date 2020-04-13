@@ -12,5 +12,8 @@
 /FBI/FBI/__pycache__
 /FBI/api/__pycache__
 
+# Ignore encoded users file
+/FBI/encoded_users
+
 # for Mac
 *.DS_store

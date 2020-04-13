@@ -6,25 +6,48 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from . import serializers
-import random
-from numpy import asarray
-import cv2
-import face_recognition
-import numpy as np
-import os
+from .customLogin import *
+import random, os, pickle
+from PIL import Image
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 path = os.path.join(BASE_DIR, 'media')
 
 @api_view(['POST'])
 def signup(request, format=None):
-     if request.method == 'POST':
-        serializer = serializers.UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            print(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer = serializers.UserSerializer(data=request.data)
+    if serializer.is_valid():
+        # Save new user to db.
+        newUser = User.objects.create_user(username=serializer.data['username'], userFace=request.FILES['userFace'])
+        newUser.save()
+        payload = {
+            'id': newUser.id,
+            'username': newUser.username,
+        }
+
+        # Check if the picture can be encoded
+        imgPath = os.path.join(path, str(newUser.userFace))
+        try:
+            img = face_recognition.load_image_file(imgPath)
+            login_face_encoding = face_recognition.face_encodings(img)[0]
+        except IndexError:
+            return HttpResponse("Please take another picture.", status=409)
+
+        # Save encoded image of user.
+        current_dir = os.getcwd()
+        userInfo = [(newUser.id, newUser.username), login_face_encoding]
+        if 'encoded_users' not in os.listdir(current_dir):
+            with open('encoded_users', "wb") as fw:
+                pickle.dump(userInfo, fw)
+                fw.close()
+        else:
+            with open('encoded_users', "ab") as fi:
+                pickle.dump(userInfo, fi)
+                fi.close()
+
+        return JsonResponse(payload)
+
+    # TODO : validate user
 
 @api_view(['GET','POST'])
 def login(request, format=None):
