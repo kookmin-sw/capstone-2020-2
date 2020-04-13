@@ -18,7 +18,8 @@ def signup(request, format=None):
     serializer = serializers.UserSerializer(data=request.data)
     if serializer.is_valid():
         # Save new user to db.
-        newUser = User.objects.create_user(username=serializer.data['username'], userFace=request.FILES['userFace'])
+        newUser = User.objects.create_user(username=serializer.data['username'],
+                                           userFace=request.FILES['userFace'])
         newUser.save()
         payload = {
             'id': newUser.id,
@@ -45,6 +46,8 @@ def signup(request, format=None):
             encodeUsers = getEncodedUsersList()
             user = isUser(login_face_encoding, encodeUsers)
             if user is not None:
+                os.remove(os.path.join(path, str(newUser.userFace)))
+                User.objects.filter(id=newUser.id).delete()
                 return HttpResponse("You already have an account", status=status.HTTP_409_CONFLICT)
             # Add encoded image if new user.
             with open('encoded_users', "ab") as fi:
