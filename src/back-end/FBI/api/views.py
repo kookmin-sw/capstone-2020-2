@@ -49,57 +49,36 @@ def signup(request, format=None):
 
     # TODO : validate user
 
-@api_view(['GET','POST'])
+@api_view(['POST'])
 def login(request, format=None):
-    if request == 'GET':
+    img = Image.open(request.FILES['userFace'])
+    imgPath = os.path.join(BASE_DIR, 'temp.jpg')
+    img.save(imgPath, 'JPEG')
 
-        users = User.objects.all()
-        numpyUsersList = []
-        if users.exists():
-            for user in users:
-                imagePath = os.path.join(path, str(user.userFace))
-                userImage = face_recognition.load_image_file(imagePath)
-                numpyUsersList.append([(user.id, user.username), asarray(userImage)])
+    try:
+        img = face_recognition.load_image_file(imgPath)
+        login_face_encoding = face_recognition.face_encodings(img)[0]
+        os.remove(imgPath)
+    except IndexError:
+        return HttpResponse("Please take another picture.", status=409)
 
-        capture = cv2.VideoCapture(0)
-        capture.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
-        capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
-
+    encodeUsers = []
+    with open('encoded_users', 'rb') as fr:
         while True:
-            ret, frame = capture.read()
-
-            if not ret:
-                break
-
             try:
-                login_face_encoding = face_recognition.face_encodings(frame)[0]
+                encodeUsers.append(pickle.load(fr))
+            except EOFError:
                 break
-            except IndexError:
-                return HttpResponse("Please stay closer to the camera.", status=status.HTTP_404_NOT_FOUND)
 
-        # TODO : Save encoded userface in static file (pickle)
-
-        user_images_encoding = []
-        for each in numpyUsersList:
-            encoding_image = face_recognition.face_encodings(each[1])[0]
-            user_images_encoding.append(encoding_image)
-
-        matches = face_recognition.compare_faces(user_images_encoding, login_face_encoding)
-        face_distances = face_recognition.face_distance(user_images_encoding, login_face_encoding)
-
-        if not True in matches:
-            return HttpResponse("Please sign up first", status=status.HTTP_409_CONFLICT)
-        else:
-            best_match_index = np.argmin(face_distances)
-            if matches[best_match_index]:
-                matched_user = numpyUsersList[best_match_index][0]
-                payload = {
-                    'id': matched_user[0],
-                    'username': matched_user[1],
-                }
-                return JsonResponse(payload)
-            else:
-                return HttpResponse("Please sign up first", status=status.HTTP_409_CONFLICT)
+    user = isUser(login_face_encoding, encodeUsers)
+    if user is None:
+        return HttpResponse("Please sign up first", status=status.HTTP_409_CONFLICT)
+    else:
+        payload = {
+            'id': user[0],
+            'username': user[1],
+        }
+        return JsonResponse(payload)
 
 class getAnalyzingVideo(APIView):
     def get(self, request, id):
