@@ -41,13 +41,19 @@ def signup(request, format=None):
                 pickle.dump(userInfo, fw)
                 fw.close()
         else:
+            # Validate user is a newcomer.
+            encodeUsers = getEncodedUsersList()
+            user = isUser(login_face_encoding, encodeUsers)
+            if user is not None:
+                return HttpResponse("You already have an account", status=status.HTTP_409_CONFLICT)
+            # Add encoded image if new user.
             with open('encoded_users', "ab") as fi:
                 pickle.dump(userInfo, fi)
                 fi.close()
 
         return JsonResponse(payload)
-
-    # TODO : validate user
+    else:
+        return Response(serializer.errors)
 
 @api_view(['POST'])
 def login(request, format=None):
@@ -79,6 +85,12 @@ def login(request, format=None):
             'username': user[1],
         }
         return JsonResponse(payload)
+
+# TODO : Logout
+'''
+@api_view(['POST'])
+def logout(request, format=None):
+'''
 
 class getAnalyzingVideo(APIView):
     def get(self, request, id):

@@ -1,18 +1,16 @@
 import face_recognition
 import numpy as np
-from numpy import asarray
-from .models import User
+import pickle
 
-def getUsersList():
-    '''Returns list holding users' image converted to numpy array.'''
-    users = User.objects.all()
-    numpyUsersList = []
-
-    if users.exists():
-        for user in users:
-            numpyUsersList.append([(user.id, user.username), asarray(user.userFace)])
-
-    return numpyUsersList
+def getEncodedUsersList():
+    encodeUsers = []
+    with open('encoded_users', 'rb') as fr:
+        while True:
+            try:
+                encodeUsers.append(pickle.load(fr))
+            except EOFError:
+                break
+    return encodeUsers
 
 def isUser(login_face_encoding, encodedUsers):
     user_images_encoding = []
