@@ -6,19 +6,18 @@ import numpy as np
 import matplotlib 
 import matplotlib.pyplot as plt
 
-# plot 2d array image
-def show_image(im, color = 'rainbow'):
-    fig = plt.imshow(im, cmap = color) #'YlOrRd', 'gray'
+# plot 2d array as an image
+def show_image(im, color = 'rainbow'): #'YlOrRd', 'gray'
+    fig = plt.imshow(im, cmap = color) 
     fig.axes.get_xaxis().set_visible(False)
     fig.axes.get_yaxis().set_visible(False)
-# =========================================
     
 # plot 1d array as a head contour 
-def head_plot(values):
+def head_plot(values, color = 'rainbow'):
     meanR = values
     
     # parameters
-    N = 300             # number of points for interpolation
+    N = 300 # number of points for interpolation
     xy_center = [4,4]
     radius = 5
     
@@ -69,7 +68,7 @@ def head_plot(values):
 
     # use different number of levels for the fill and the lines
     #CS = ax.contourf(xi, yi, zi, 60, cmap = plt.cm.jet, zorder = 1)
-    CS = ax.contourf(xi, yi, zi, 60, cmap = 'rainbow', zorder = 1)
+    CS = ax.contourf(xi, yi, zi, 60, cmap = color, zorder = 1)
     
     # hide ==============================================
     # 경계선
@@ -93,15 +92,8 @@ def head_plot(values):
     ax.set_xticks([])
     ax.set_yticks([])
     # ===================================================
-
     # set axes limits
     #ax.set_xlim(-0.5, 8.5); ax.set_ylim(-0.5, 8.5)
 
     fig.canvas.draw()
-    
-    arr = np.array(fig.canvas.renderer._renderer)
-    
-    #print(arr.shape) # (288, 432, 4)
-    
-    #plt.savefig('hi2.png')
-    plt.show() # ****
+    plt.show() 
