@@ -42,7 +42,7 @@ class Login2 extends Component {
  };
  
    userFace = async () => {
-   await axios.post('/api/v1/login',{ userFace : this.captureImg})
+   await axios.post('/api/v1/login/',{ userFace : this.captureImg})
  .then(function(response){
    console.log(response );
    console.log("이미지전송..")
