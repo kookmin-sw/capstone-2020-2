@@ -5,7 +5,6 @@ from . import views
 urlpatterns = {
     path('signup/', views.signup, name="signup"),
     path('login/', views.login, name="login"),
-    path('capture/', views.captureImage, name="capture"),
     path('user/<int:id>/analyze/start/', views.getAnalyzingVideo.as_view(), name='analyze'),
 }
 
