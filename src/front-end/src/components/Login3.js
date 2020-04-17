@@ -6,56 +6,69 @@ import { Link ,BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 
 class Login3 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: '',
+    };
 
- state = {
-   userName: ''
- }
+  }
 
- userRegister() {
-  this.setState((state) => {
-  return{ userName: this.state.userName}
-  });
+ userNameChange(event) {
+  this.setState({userName: event.target.value});
   console.log(this.state.userName)
 }
+
+signupSubmit() {
+  console.log(this.state.userName)
+  // Todo: post username and userFace
+}
+
+// userNameSubmit(event){
+//   console.log("Submitted name is:" + this.state.userName)
+//   event.prevent
+// }
 
  render() {
      return (
 
       <div class = "container-fluid">
       <div class = "row">
-     
-        
+
+
          <div class ="col-4" id="login" >
          <>
-      
 
-      <Webcam class = "webcam" 
+
+      <Webcam class = "webcam"
         audio={false}
         facingmode ="user"
         ref={this.loginRef}
         screenshotFormat = "image/jpeg"
-      />  
-     
+      />
 
 
      <div class="input-group" id = "userInput">
+     <form name="login-username">
      <div class="input-group-sm-prepend">
     <span class="input-group-text">UserName </span>
   </div>
+
   <input type="text" value ={this.state.userName}
-    onChange= {this.userRegister}
+    onChange= {this.userNameChange.bind(this)}
    class="form-control" aria-describedby="basic-addon1"/>
- 
+   <button type="button" label="Sign in" onClick = {this.signupSubmit.bind(this)}>Sign up</button>
+  </form>
 </div>
 
-   
+
       </>
 
         </div>
-     
- 
-   
-         
+
+
+
+
     <div class = "col-8" id ="explain">
     <div id="carouselNext" class="carousel slide h-100" data-ride="carousel">
 <ol class="carousel-indicators">
@@ -95,7 +108,7 @@ class Login3 extends Component {
        </div>
    </div>
    </div>
-       
+
      );
  }
 }
