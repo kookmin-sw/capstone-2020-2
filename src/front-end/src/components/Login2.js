@@ -32,26 +32,28 @@ class Login2 extends Component {
 
     console.log("캡처되고있음");
    
-    const captureImg = setTimeout(() =>{
+   const captureImg = setTimeout(() =>{
       this.webcam.getScreenshot();
       console.log("캡처됨");
-      this.loginNext();
+      this.userFace();
      },5000);
  
-    const userFace = await axios.post('/api/v1/login',{ userFace : captureImg})
-    .then(function(response){
-      console.log(response );
-      console.log("이미지전송..")
-    })
-     .catch(function (error){
-       console.log(error)
-     }) 
+    
  };
  
-
+   userFace = async () => {
+   await axios.post('/api/v1/login',{ userFace : this.captureImg})
+ .then(function(response){
+   console.log(response );
+   console.log("이미지전송..")
+   this.loginNext();
+ })
+  .catch(function (error){
+    console.log(error)
+  }) 
   
 
-  
+};
 
 
 
