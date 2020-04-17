@@ -33,18 +33,13 @@ class Login3 extends Component {
         screenshotFormat = "image/jpeg"
       />  
      
-     <div class="input-group" id = "userInput">
-     <div class="input-group-sm-prepend">
-    <span class="input-group-text">UserName </span>
-  </div>
-  <input type="text" value ={this.state.userName}
-    onChange = {this.userRegister}
-   class="form-control" aria-describedby="basic-addon1"/>
- 
-</div>
+     <div class="alert alert-secondary border-0 " id= "text" role="alert" >
+        <strong>[안내]</strong> 5초 후 화면이 캡처됩니다.
+      </div>
+    
 
-   
-      </>
+   </>
+
 
         </div>
      

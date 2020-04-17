@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Webcam from 'react-webcam';
 import '../App.css';
 import { Spinner, Button} from 'reactstrap';
@@ -8,20 +9,15 @@ import { withRouter,Link ,BrowserRouter as Router, Route, Switch} from 'react-ro
 class Login2 extends Component {
 
 
+
+  componentDidMount(Webcam){
+    this.getLogin();
+    
+  }
+
   setRef = webcam => {
     this.webcam =webcam;
   };
-
-  capture = () => {
-  console.log("캡처되고있음");
-   
-  const captureImg = setTimeout(() =>{
-    this.webcam.getScreenshot();
-    console.log("캡처됨");
-    this.loginNext();
-   },5000);
-  };
-  
 
   loginNext = ()=> {
     
@@ -31,16 +27,36 @@ class Login2 extends Component {
 
 
 
-   
-
-
-
-componentDidMount(Webcam){
-  this.capture();
   
-}
-    
+   getLogin = async () => {
+
+    console.log("캡처되고있음");
    
+    const captureImg = setTimeout(() =>{
+      this.webcam.getScreenshot();
+      console.log("캡처됨");
+      this.loginNext();
+     },5000);
+ 
+    const userFace = await axios.post('/api/v1/login',{ userFace : captureImg})
+    .then(function(response){
+      console.log(response );
+      console.log("이미지전송..")
+    })
+     .catch(function (error){
+       console.log(error)
+     }) 
+ };
+ 
+
+  
+
+  
+
+
+
+
+
     
  render() {
      return (
@@ -57,7 +73,7 @@ componentDidMount(Webcam){
         audio={false}
         facingmode ="user"
         ref={this.setRef}
-        screenshotFormat = "image/jpeg"
+        screenshotFormat = "image/png"
        /> 
     
    <Spinner onLoad ={this.capture} color="secondary" id ="spinner"/>

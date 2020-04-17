@@ -4,8 +4,11 @@ import Login2 from './components/Login2';
 import Login3 from './components/Login3';
 import Trial from './components/Trial';
 import './App.css';
-import { Jumbotron, Button} from 'reactstrap';
+import axios from 'axios';
 import { Link ,BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken"
 
 
 class App extends Component {

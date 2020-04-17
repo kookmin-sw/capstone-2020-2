@@ -12,7 +12,7 @@ class Login1 extends Component {
      <div class = "row">
     
        
-        <div class ="col-4" id="login" >
+        <div class = "col-4" id="login" >
          <Jumbotron id="start">
            <h2>Get started!</h2>
            <p className="lead">이곳에 당신의 얼굴을 보여주세요. EEG와 표정을 이용한 감정인식이 가능합니다.</p>
