@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Webcam from 'react-webcam';
 import '../App.css';
 import { Spinner, Button,Label} from 'reactstrap';
@@ -20,14 +21,32 @@ class Login3 extends Component {
 }
 
 signupSubmit() {
-  console.log(this.state.userName)
+  console.log("User Name: " + this.state.userName)
+  console.log(this.props.location.state)
   // Todo: post username and userFace
+  this.signUpRequest()
 }
 
-// userNameSubmit(event){
-//   console.log("Submitted name is:" + this.state.userName)
-//   event.prevent
-// }
+signUpRequest = async () => {
+    console.log(this.props.location.state.userFace)
+    console.log(this.state.userName)
+    let user_form_data = new FormData();
+    user_form_data.append('userFace', this.props.location.state.userFace)
+    user_form_data.append('username', this.state.userName)
+    console.log(user_form_data)
+  try {
+    const response = await axios.post('api/v1/signup/', user_form_data, {
+    headers: {
+      'content-type': 'multipart/form-data'
+    }
+  })
+  console.log(response);
+  console.log("Sign up 성공");
+} catch (error) {
+  console.error(error.content);
+  console.log("Sign up 실패");
+}
+};
 
  render() {
      return (

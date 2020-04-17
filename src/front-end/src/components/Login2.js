@@ -21,7 +21,12 @@ class Login2 extends Component {
 
   faceDetected(){
     this.props.history.push("/Login3");
-    console.log("페이지넘어감");
+    console.log("얼굴 정보 있음, 로그인 3 페이지로 넘어감");
+  }
+
+  faceNotDetected(){
+    this.props.history.push("/Login3", {userFace: this.state.userFace});
+    console.log("얼굴 정보 없음, 로그인 3 페이지로 넘어감");
   }
 
    getLogin = async () => {
@@ -50,11 +55,11 @@ class Login2 extends Component {
       this.setState({
         userFace: file
       })
-      this.userFace(file);
+      this.userFace();
      },5000);
  };
 
- userFace = async (file) => {
+ userFace = async () => {
      let form_data = new FormData();
      form_data.append('userFace', this.state.userFace)
    try {
@@ -67,6 +72,7 @@ class Login2 extends Component {
    this.faceDetected();
  } catch (error) {
    console.error(error);
+   this.faceNotDetected();
  }
 
 };
