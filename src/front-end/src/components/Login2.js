@@ -19,8 +19,7 @@ class Login2 extends Component {
     this.webcam = webcam;
   };
 
-  loginNext(){
-
+  faceDetected(){
     this.props.history.push("/Login3");
     console.log("페이지넘어감");
   }
@@ -58,20 +57,17 @@ class Login2 extends Component {
  userFace = async (file) => {
      let form_data = new FormData();
      form_data.append('userFace', this.state.userFace)
-   await axios.post('api/v1/login/', form_data, {
+   try {
+     const response = await axios.post('api/v1/login/', form_data, {
      headers: {
        'content-type': 'multipart/form-data'
      }
    })
- .then(function(response){
-   console.log(response );
-   console.log("이미지전송..")
-   this.loginNext();
- })
-  .catch(function (error){
-    console.log(error)
-  })
-
+   console.log(response);
+   this.faceDetected();
+ } catch (error) {
+   console.error(error);
+ }
 
 };
 
