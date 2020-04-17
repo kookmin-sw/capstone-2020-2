@@ -1,0 +1,19 @@
+# Ignore settings
+/FBI/mysql.cnf
+
+# Ignore migrations
+/FBI/api/migrations
+/FBI/media
+
+# Ignore idea
+/FBI/.idea
+
+# Ignore pycache
+/FBI/FBI/__pycache__
+/FBI/api/__pycache__
+
+# Ignore encoded users file
+/FBI/encoded_users
+
+# for Mac
+*.DS_store
