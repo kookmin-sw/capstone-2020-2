@@ -4,45 +4,65 @@ import Webcam from 'react-webcam';
 import '../App.css';
 import { Spinner, Button} from 'reactstrap';
 import { withRouter,Link ,BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
+import 'base64-to-image';
 
 class Login2 extends Component {
-
-
+  state = {
+    userFace: null
+  }
 
   componentDidMount(Webcam){
     this.getLogin();
-    
   }
 
   setRef = webcam => {
-    this.webcam =webcam;
+    this.webcam = webcam;
   };
 
-  loginNext = ()=> {
-    
+  loginNext(){
+
     this.props.history.push("/Login3");
     console.log("페이지넘어감");
   }
 
-
-
-  
    getLogin = async () => {
 
     console.log("캡처되고있음");
-   
-   const captureImg = setTimeout(() =>{
-      this.webcam.getScreenshot();
+    const dataURLtoFile = (dataurl, filename) => {
+
+            var arr = dataurl.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+
+            return new File([u8arr], filename, {type:mime});
+        }
+
+   const captureImg = setTimeout(() => {
+      var base64Str = this.webcam.getScreenshot();
+      var file = dataURLtoFile(base64Str,'hello.jpg');
+      console.log(file);
       console.log("캡처됨");
-      this.userFace();
+      this.setState({
+        userFace: file
+      })
+      this.userFace(file);
      },5000);
- 
-    
  };
- 
-   userFace = async () => {
-   await axios.post('/api/v1/login/',{ userFace : this.captureImg})
+
+ userFace = async (file) => {
+     let form_data = new FormData();
+     form_data.append('userFace', this.state.userFace)
+   await axios.post('api/v1/login/', form_data, {
+     headers: {
+       'content-type': 'multipart/form-data'
+     }
+   })
  .then(function(response){
    console.log(response );
    console.log("이미지전송..")
@@ -50,8 +70,8 @@ class Login2 extends Component {
  })
   .catch(function (error){
     console.log(error)
-  }) 
-  
+  })
+
 
 };
 
@@ -59,35 +79,35 @@ class Login2 extends Component {
 
 
 
-    
+
  render() {
      return (
 
       <div class = "container-fluid" >
       <div class = "row">
-     
-        
+
+
          <div class ="col-4" id="login" >
-        
-      
-     
+
+
+
       <Webcam class = "webcam" id= "blink"
         audio={false}
         facingmode ="user"
         ref={this.setRef}
-        screenshotFormat = "image/png"
-       /> 
-    
+        screenshotFormat = "image/jpeg"
+       />
+
    <Spinner onLoad ={this.capture} color="secondary" id ="spinner"/>
       <div class="alert alert-secondary border-0 " id= "text" role="alert" >
         <strong>[안내]</strong> 5초 후 화면이 캡처됩니다.
       </div>
         </div>
-   
-     
- 
-   
-         
+
+
+
+
+
     <div class = "col-8" id ="explain">
     <div id="carouselNext" class="carousel slide h-100" data-ride="carousel">
 <ol class="carousel-indicators">
@@ -127,7 +147,7 @@ class Login2 extends Component {
        </div>
    </div>
    </div>
-       
+
      );
  }
 }
