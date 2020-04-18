@@ -3,7 +3,7 @@ import {Jumbotron, Button} from "reactstrap";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "../App.css";
 
-class Login1 extends Component {
+class Main extends Component {
 	render() {
 		return (
 			<div class="container-fluid">
@@ -18,7 +18,7 @@ class Login1 extends Component {
 							<hr className="my-2" />
 							<p>수집된 데이터는 삭제되지 않습니다.</p>
 							<p className="lead">
-								<Link to="/Login2">
+								<Link to="/Login">
 									<Button color="primary">start</Button>
 								</Link>
 							</p>
@@ -86,4 +86,4 @@ class Login1 extends Component {
 	}
 }
 
-export default Login1;
+export default Main;

@@ -1,51 +1,18 @@
 import React, {Component} from "react";
-import axios from "axios";
 import Webcam from "react-webcam";
 import "../App.css";
 import {Spinner, Button, Label} from "reactstrap";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-class Login3 extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			userName: ""
-		};
-	}
-
-	userNameChange(event) {
-		this.setState({userName: event.target.value});
-		console.log(this.state.userName);
-	}
-
-	signupSubmit() {
-		console.log("User Name: " + this.state.userName);
-		console.log(this.props.location.state);
-		// Todo: post username and userFace
-		this.signUpRequest();
-	}
-
-	signUpRequest = async () => {
-		console.log(this.props.location.state.userFace);
-		console.log(this.state.userName);
-		let user_form_data = new FormData();
-		user_form_data.append("userFace", this.props.location.state.userFace);
-		user_form_data.append("username", this.state.userName);
-		console.log(user_form_data);
-		try {
-			const response = await axios.post("api/v1/signup/", user_form_data, {
-				headers: {
-					"content-type": "multipart/form-data"
-				}
-			});
-			console.log(response);
-			console.log("Sign up 성공");
-		} catch (error) {
-			console.error(error.content);
-			console.log("Sign up 실패");
-		}
+class Option extends Component {
+	state = {
+		userName: ""
 	};
-
+	userRegister = e => {
+		this.setState({
+			userName: e.target.value
+		});
+	};
 	render() {
 		return (
 			<div class="container-fluid">
@@ -60,27 +27,12 @@ class Login3 extends Component {
 								screenshotFormat="image/jpeg"
 							/>
 
-							<div class="input-group" id="userInput">
-								<form name="login-username">
-									<div class="input-group-sm-prepend">
-										<span class="input-group-text">UserName </span>
-									</div>
-
-									<input
-										type="text"
-										value={this.state.userName}
-										onChange={this.userNameChange.bind(this)}
-										class="form-control"
-										aria-describedby="basic-addon1"
-									/>
-									<button
-										type="button"
-										label="Sign in"
-										onClick={this.signupSubmit.bind(this)}
-									>
-										Sign up
-									</button>
-								</form>
+							<div
+								class="alert alert-secondary border-0 "
+								id="text"
+								role="alert"
+							>
+								<strong>[안내]</strong> 5초 후 화면이 캡처됩니다.
 							</div>
 						</>
 					</div>
@@ -155,4 +107,4 @@ class Login3 extends Component {
 	}
 }
 
-export default Login3;
+export default Option;

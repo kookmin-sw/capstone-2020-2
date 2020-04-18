@@ -2,81 +2,47 @@ import React, {Component} from "react";
 import axios from "axios";
 import Webcam from "react-webcam";
 import "../App.css";
-import {Spinner, Button} from "reactstrap";
-import {
-	withRouter,
-	Link,
-	BrowserRouter as Router,
-	Route,
-	Switch
-} from "react-router-dom";
-import "base64-to-image";
+import {Spinner, Button, Label} from "reactstrap";
+import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-class Login2 extends Component {
-	state = {
-		userFace: null
-	};
-
-	componentDidMount(Webcam) {
-		this.getLogin();
-	}
-
-	setRef = webcam => {
-		this.webcam = webcam;
-	};
-
-	faceDetected() {
-		this.props.history.push("/Login3");
-		console.log("얼굴 정보 있음, 로그인 3 페이지로 넘어감");
-	}
-
-	faceNotDetected() {
-		this.props.history.push("/Login3", {userFace: this.state.userFace});
-		console.log("얼굴 정보 없음, 로그인 3 페이지로 넘어감");
-	}
-
-	getLogin = async () => {
-		console.log("캡처되고있음");
-		const dataURLtoFile = (dataurl, filename) => {
-			var arr = dataurl.split(","),
-				mime = arr[0].match(/:(.*?);/)[1],
-				bstr = atob(arr[1]),
-				n = bstr.length,
-				u8arr = new Uint8Array(n);
-
-			while (n--) {
-				u8arr[n] = bstr.charCodeAt(n);
-			}
-
-			return new File([u8arr], filename, {type: mime});
+class Signup extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			userName: ""
 		};
+	}
 
-		const captureImg = setTimeout(() => {
-			var base64Str = this.webcam.getScreenshot();
-			var file = dataURLtoFile(base64Str, "hello.jpg");
-			console.log(file);
-			console.log("캡처됨");
-			this.setState({
-				userFace: file
-			});
-			this.userFace();
-		}, 5000);
-	};
+	userNameChange(event) {
+		this.setState({userName: event.target.value});
+		console.log(this.state.userName);
+	}
 
-	userFace = async () => {
-		let form_data = new FormData();
-		form_data.append("userFace", this.state.userFace);
+	signupSubmit() {
+		console.log("User Name: " + this.state.userName);
+		console.log(this.props.location.state);
+		// Todo: post username and userFace
+		this.signUpRequest();
+	}
+
+	signUpRequest = async () => {
+		console.log(this.props.location.state.userFace);
+		console.log(this.state.userName);
+		let user_form_data = new FormData();
+		user_form_data.append("userFace", this.props.location.state.userFace);
+		user_form_data.append("username", this.state.userName);
+		console.log(user_form_data);
 		try {
-			const response = await axios.post("api/v1/login/", form_data, {
+			const response = await axios.post("api/v1/signup/", user_form_data, {
 				headers: {
 					"content-type": "multipart/form-data"
 				}
 			});
 			console.log(response);
-			this.faceDetected();
+			console.log("Sign up 성공");
 		} catch (error) {
-			console.error(error);
-			this.faceNotDetected();
+			console.error(error.content);
+			console.log("Sign up 실패");
 		}
 	};
 
@@ -85,19 +51,38 @@ class Login2 extends Component {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-4" id="login">
-						<Webcam
-							class="webcam"
-							id="blink"
-							audio={false}
-							facingmode="user"
-							ref={this.setRef}
-							screenshotFormat="image/jpeg"
-						/>
+						<>
+							<Webcam
+								class="webcam"
+								audio={false}
+								facingmode="user"
+								ref={this.loginRef}
+								screenshotFormat="image/jpeg"
+							/>
 
-						<Spinner onLoad={this.capture} color="secondary" id="spinner" />
-						<div class="alert alert-secondary border-0 " id="text" role="alert">
-							<strong>[안내]</strong> 5초 후 화면이 캡처됩니다.
-						</div>
+							<div class="input-group" id="userInput">
+								<form name="login-username">
+									<div class="input-group-sm-prepend">
+										<span class="input-group-text">UserName </span>
+									</div>
+
+									<input
+										type="text"
+										value={this.state.userName}
+										onChange={this.userNameChange.bind(this)}
+										class="form-control"
+										aria-describedby="basic-addon1"
+									/>
+									<button
+										type="button"
+										label="Sign in"
+										onClick={this.signupSubmit.bind(this)}
+									>
+										Sign up
+									</button>
+								</form>
+							</div>
+						</>
 					</div>
 
 					<div class="col-8" id="explain">
@@ -170,4 +155,4 @@ class Login2 extends Component {
 	}
 }
 
-export default withRouter(Login2);
+export default Signup;
