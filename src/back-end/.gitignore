@@ -9,6 +9,7 @@
 /FBI/.idea
 
 # Ignore pycache
+**/__pycache__
 /FBI/FBI/__pycache__
 /FBI/api/__pycache__
 
