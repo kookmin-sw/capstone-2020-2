@@ -1,7 +1,8 @@
 import React, {Component} from "react";
-import Login1 from "./components/Login1";
-import Login2 from "./components/Login2";
-import Login3 from "./components/Login3";
+import Main from "./components/Main";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Option from "./components/Option";
 import Trial from "./components/Trial";
 import "./App.css";
 import axios from "axios";
@@ -31,9 +32,10 @@ class App extends Component {
 		return (
 			<Router>
 				<Switch>
-					<Route exact path="/" component={Login1} />
-					<Route path="/Login2" component={Login2} />
-					<Route path="/Login3" component={Login3} />
+					<Route exact path="/" component={Main} />
+					<Route path="/Login" component={Login} />
+					<Route path="/Signup" component={Signup} />
+          <Route path="/Option" component={Option} />
 					<Route path="/Trial" component={Trial} />
 				</Switch>
 			</Router>
