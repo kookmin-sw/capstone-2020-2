@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+.container-fluid {
+  height: 100%;
+  width: 100%;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -81,7 +86,7 @@
 }
 #explain {
 
- height: 720px;
+ height: 900px;
   background-color: #5882FA;
 }
 
