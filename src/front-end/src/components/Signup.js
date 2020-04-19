@@ -51,7 +51,6 @@ class Signup extends Component {
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-4" id="login">
-						<>
 							<Webcam
 								class="webcam"
 								audio={false}
@@ -82,7 +81,6 @@ class Signup extends Component {
 									</button>
 								</form>
 							</div>
-						</>
 					</div>
 
 					<div class="col-8" id="explain">

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Analyze from "./components/Analyze";
 import Main from "./components/Main";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -35,8 +36,9 @@ class App extends Component {
 					<Route exact path="/" component={Main} />
 					<Route path="/Login" component={Login} />
 					<Route path="/Signup" component={Signup} />
-          <Route path="/Option" component={Option} />
+          			<Route path="/Option" component={Option} />
 					<Route path="/Trial" component={Trial} />
+					<Router path="/Analyze" component={Analyze} />
 				</Switch>
 			</Router>
 		);
