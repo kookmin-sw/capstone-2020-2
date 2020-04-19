@@ -1,14 +1,15 @@
 import React, {Component} from "react";
 import {Jumbotron, Button} from "reactstrap";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {Grid} from "@material-ui/core";
 import "../App.css";
 
 class Main extends Component {
 	render() {
 		return (
 			<div class="container-fluid">
-				<div class="row">
-					<div class="col-4" id="login">
+				<Grid container>
+					<Grid item container xs={12} sm={4} id="loginBox" direction="column" justify="center" alignItems="center">
 						<Jumbotron id="start">
 							<h2>Get started!</h2>
 							<p className="lead">
@@ -23,9 +24,9 @@ class Main extends Component {
 								</Link>
 							</p>
 						</Jumbotron>
-					</div>
+					</Grid>
 
-					<div class="col-8" id="explain">
+					<Grid item xs={12} sm={8} id="explain">
 						<div
 							id="carouselNext"
 							class="carousel slide h-100"
@@ -79,8 +80,8 @@ class Main extends Component {
 								<span class="sr-only">Next</span>
 							</a>
 						</div>
-					</div>
-				</div>
+					</Grid>
+				</Grid>
 			</div>
 		);
 	}
