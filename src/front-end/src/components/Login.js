@@ -11,6 +11,7 @@ import {
 	Switch
 } from "react-router-dom";
 import "base64-to-image";
+import {Grid} from '@material-ui/core';
 
 class Login extends Component {
 	state = {
@@ -83,8 +84,8 @@ class Login extends Component {
 	render() {
 		return (
 			<div class="container-fluid">
-				<div class="row">
-					<div class="col-4" id="login">
+				<Grid container>
+					<Grid item xs={12} sm={3} id="loginBox">
 						<Webcam
 							class="webcam"
 							id="blink"
@@ -98,9 +99,9 @@ class Login extends Component {
 						<div class="alert alert-secondary border-0 " id="text" role="alert">
 							<strong>[안내]</strong> 5초 후 화면이 캡처됩니다.
 						</div>
-					</div>
+					</Grid>
 
-					<div class="col-8" id="explain">
+					<Grid item xs={12} sm={3} id="explain">
 						<div
 							id="carouselNext"
 							class="carousel slide h-100"
@@ -163,8 +164,8 @@ class Login extends Component {
 								<span class="sr-only">Next</span>
 							</a>
 						</div>
-					</div>
-				</div>
+					</Grid>
+				</Grid>
 			</div>
 		);
 	}

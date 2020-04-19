@@ -43,11 +43,10 @@
 }
 
 .webcam {
-  width: 300px  ;
-  height: 340px;
+  width: 80%;
+  height: 85%;
+  margin: 5%;
   position: relative;
-  top :150px;
-  left: 95px;
   object-fit: cover;
   
 }
@@ -72,17 +71,14 @@
 }
 #text {
   position: relative;
-  top:155px;
-  left: 95px;
-  width: 300px  ;
-  padding: 3px 10px;
+
 
 }
 #userInput {
   position:relative;
-  top :155px;
-  left:95px;
-  width: 300px  ;
+  width: 300px;
+  justify-content: center;
+  margin: 5%
 }
 #explain {
 
@@ -90,7 +86,7 @@
   background-color: #5882FA;
 }
 
-#login {
+#loginBox {
   background-color: #F2F2F2;
 }
 #start{
