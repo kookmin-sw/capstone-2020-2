@@ -42,6 +42,14 @@
   }
 }
 
+.videoWebcam{
+ position: absolute;
+  top:0px;
+  right:0px;
+  width: 20%;
+  height: 40%;
+  object-fit: cover;
+}
 .webcam {
   width: 80%;
   height: 85%;
@@ -95,4 +103,10 @@
   left:55px;
   width: 370px;
   height: 400px;
+}
+ #icon
+{
+  position: relative;
+  top:20px;
+  right:20px;
 }

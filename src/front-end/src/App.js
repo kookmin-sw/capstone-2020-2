@@ -4,7 +4,7 @@ import Main from "./components/Main";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Option from "./components/Option";
-import Trial from "./components/Trial";
+import VideoPlay from "./components/VideoPlay";
 import "./App.css";
 import axios from "axios";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -38,7 +38,7 @@ class App extends Component {
 					<Route path="/Login" component={Login} />
 					<Route path="/Signup" component={Signup} />
           			<Route path="/Option" component={Option} />
-					<Route path="/Trial" component={Trial} />
+					<Route path="/VideoPlay" component={VideoPlay} />
 					<Router path="/Analyze" component={Analyze} />
 				</Switch>
 			</Router>

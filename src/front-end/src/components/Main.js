@@ -19,7 +19,7 @@ class Main extends Component {
 							<p>수집된 데이터는 삭제되지 않습니다.</p>
 							<p className="lead">
 								<Link to="/Login">
-									<Button color="primary">start</Button>
+									<Button color="primary" >start</Button>
 								</Link>
 							</p>
 						</Jumbotron>
