@@ -26,7 +26,7 @@ def signup(request, format=None):
             'username': newUser.username,
         }
 
-        # Check if the picture can be encoded
+        # Check if the picture can be encoded.
         imgPath = os.path.join(path, str(newUser.userFace))
         try:
             img = face_recognition.load_image_file(imgPath)
@@ -53,7 +53,7 @@ def signup(request, format=None):
             with open('encoded_users', "ab") as fi:
                 pickle.dump(userInfo, fi)
                 fi.close()
-
+        request.session['id'] = newUser.id
         return JsonResponse(payload)
     else:
         return Response(serializer.errors)
@@ -83,6 +83,7 @@ def login(request, format=None):
     if user is None:
         return HttpResponse("Please sign up first", status=status.HTTP_409_CONFLICT)
     else:
+        request.session['id'] = user[0]
         payload = {
             'id': user[0],
             'username': user[1],
@@ -124,7 +125,7 @@ class getTrialVideo(APIView):
         max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId'))['max_id']
         if max_id is None:
             return HttpResponse("No videos.")
-        
+
         while True:
             randId = random.randint(1, max_id)
             video = Video.objects.filter(pk=randId).first()
