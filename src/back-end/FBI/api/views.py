@@ -90,11 +90,14 @@ def login(request, format=None):
         }
         return JsonResponse(payload)
 
-# TODO : Logout
-'''
 @api_view(['POST'])
 def logout(request, format=None):
-'''
+    try:
+        #del request.session['id']
+        request.session.flush()
+    except KeyError:
+        pass
+    return HttpResponse("You're logged out.")
 
 class getAnalyzingVideo(APIView):
     def get(self, request, id):
