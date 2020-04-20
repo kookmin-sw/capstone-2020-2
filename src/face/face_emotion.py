@@ -13,15 +13,15 @@ from torch.utils.data import TensorDataset, DataLoader, Dataset
 
 
 class FaceEmotion(nn.Module):
-    def __init__(self, num_classes=7):
+    def __init__(self, input_channel=3, num_classes=7):
         super(FaceEmotion, self).__init__()
 
         # base block
         self.base_block = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=8, kernel_size=3, stride=2, padding=1, bias=False),
+            nn.Conv2d(in_channels=input_channel, out_channels=8, kernel_size=3, stride=1, bias=False),
             nn.BatchNorm2d(8),
             nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=8, out_channels=8, kernel_size=3,),
+            nn.Conv2d(in_channels=8, out_channels=8, kernel_size=3, stride=1, bias=False),
             nn.BatchNorm2d(8),
             nn.ReLU(inplace=True))
 
@@ -98,7 +98,7 @@ class FaceEmotion(nn.Module):
     def forward(self, x):
         print(x.shape)
         x = self.base_block(x)
-        print(x.shape)
+        print("base_block shape", x.shape)
         res_x_1 = self.residual_block_1(x)
         print("res_x_1 shape", res_x_1.shape)
         short_x_1 = self.shortcut_1(x)
