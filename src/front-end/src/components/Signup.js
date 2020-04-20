@@ -40,9 +40,11 @@ class Signup extends Component {
 			});
 			console.log(response);
 			console.log("Sign up 성공");
+			this.props.history.push("/Option");
 		} catch (error) {
 			console.error(error.content);
-			console.log("Sign up 실패");
+			console.log("Sign up 실패 - 사진 다시찍어야함");
+			this.props.history.push("/Login");
 		}
 	}; 
 
