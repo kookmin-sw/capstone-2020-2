@@ -4,7 +4,7 @@ import Webcam from "react-webcam";
 import "../App.css";
 import {Spinner, Button, Label} from "reactstrap";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
-
+import {Grid} from "@material-ui/core";
 class Signup extends Component {
 	constructor(props) {
 		super(props);
@@ -49,9 +49,9 @@ class Signup extends Component {
 	render() {
 		return (
 			<div class="container-fluid">
-				<div class="row">
-					<div class="col-4" id="login">
-						<>
+				<Grid container>
+					<Grid item container xs={12} sm={4} id="loginBox" direction="column" justify="center" alignItems="center">
+						<Grid item>
 							<Webcam
 								class="webcam"
 								audio={false}
@@ -59,7 +59,8 @@ class Signup extends Component {
 								ref={this.loginRef}
 								screenshotFormat="image/jpeg"
 							/>
-
+                        </Grid>
+                        <Grid item>
 							<div class="input-group" id="userInput">
 								<form name="login-username">
 									<div class="input-group-sm-prepend">
@@ -82,10 +83,10 @@ class Signup extends Component {
 									</button>
 								</form>
 							</div>
-						</>
-					</div>
+						</Grid>
+					</Grid>
 
-					<div class="col-8" id="explain">
+					<Grid item xs={12} sm={8} id="explain">
 						<div
 							id="carouselNext"
 							class="carousel slide h-100"
@@ -148,8 +149,8 @@ class Signup extends Component {
 								<span class="sr-only">Next</span>
 							</a>
 						</div>
-					</div>
-				</div>
+					</Grid>
+				</Grid>
 			</div>
 		);
 	}

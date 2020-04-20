@@ -1,110 +1,50 @@
 import React, {Component} from "react";
 import Webcam from "react-webcam";
 import "../App.css";
-import {Spinner, Button, Label} from "reactstrap";
+// import {Spinner, Button, Label} from "reactstrap";
+import {Button, Grid, withStyles, Typography} from '@material-ui/core/';
+// import Button from "@material-ui/core/Button";
+// import Grid from '@material-ui/core/Grid';
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
+const style = {
+  btnStyle: {
+    textAlign: 'center',
+    maxWidth: '250px',
+    maxHeight: '200px',
+    minWidth: '250px',
+    minHeight: '200px'
+  },
+};
+
 class Option extends Component {
-	state = {
-		userName: ""
-	};
-	userRegister = e => {
-		this.setState({
-			userName: e.target.value
-		});
-	};
+  constructor(props) {
+		super(props);
+		this.state = {
+		};
+  }
+  
 	render() {
+    const { classes } = this.props;
 		return (
 			<div class="container-fluid">
-				<div class="row">
-					<div class="col-4" id="login">
-						<>
-							<Webcam
-								class="webcam"
-								audio={false}
-								facingmode="user"
-								ref={this.loginRef}
-								screenshotFormat="image/jpeg"
-							/>
-
-							<div
-								class="alert alert-secondary border-0 "
-								id="text"
-								role="alert"
-							>
-								<strong>[안내]</strong> 5초 후 화면이 캡처됩니다.
-							</div>
-						</>
-					</div>
-
-					<div class="col-8" id="explain">
-						<div
-							id="carouselNext"
-							class="carousel slide h-100"
-							data-ride="carousel"
-						>
-							<ol class="carousel-indicators">
-								<li
-									data-target="#carouselNext"
-									data-slide-to="0"
-									class="active"
-								></li>
-								<li data-target="#carouselNext" data-slide-to="1"></li>
-								<li data-target="#carouselNext" data-slide-to="2"></li>
-							</ol>
-							<div class="carousel-inner h-100" role="listbox">
-								<div class="carousel-item  h-100 active">
-									<div class="carousel-caption d-none d-md-block  ">
-										<h5>Slide1_LoginExplain</h5>
-										<p>
-											사용자 얼굴인식으로 로그인/등록이 진행된다.감정인식분석
-											하자.
-										</p>
-									</div>
-								</div>
-								<div class="carousel-item h-100">
-									<div class="carousel-caption d-none d-md-block ">
-										<h5>slide2_experince function</h5>
-										<p>감정인식 체험기능 설명~!@#$$%</p>
-									</div>
-								</div>
-								<div class="carousel-item  h-100">
-									<div class="carousel-caption d-none d-md-block ">
-										<h5>slide3_추천 function</h5>
-										<p>감정인식 추천기능 설명~!@#$$%</p>
-									</div>
-								</div>
-							</div>
-							<a
-								class="carousel-control-prev"
-								href="#carouselNext"
-								role="button"
-								data-slide="prev"
-							>
-								<span
-									class="carousel-control-prev-icon"
-									aria-hidden="true"
-								></span>
-								<span class="sr-only">Previous</span>
-							</a>
-							<a
-								class="carousel-control-next"
-								href="#carouselNext"
-								role="button"
-								data-slide="next"
-							>
-								<span
-									class="carousel-control-next-icon"
-									aria-hidden="true"
-								></span>
-								<span class="sr-only">Next</span>
-							</a>
-						</div>
-					</div>
-				</div>
+          <Grid container spacing={10} direction="row" justify="center" alignItems="center" style={{height: '900px'}}>
+            <Grid item>
+              <Link to = "/Trial">
+              <Button className={classes.btnStyle} color="primary" variant="contained" ><Typography variant="h5">체험</Typography></Button>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link to = "/Analyze">
+                <Button className={classes.btnStyle} color="primary" variant="contained"><Typography variant="h5">분석</Typography></Button>
+              </Link>
+            </Grid>
+          </Grid>
 			</div>
 		);
 	}
 }
 
-export default Option;
+
+Option.propTypes = {};
+export default withStyles(style)(Option);
