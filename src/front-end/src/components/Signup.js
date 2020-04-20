@@ -44,14 +44,14 @@ class Signup extends Component {
 			console.error(error.content);
 			console.log("Sign up 실패");
 		}
-	};
+	}; 
 
 	render() {
 		return (
-			<div class="container-fluid">
-				<Grid container>
-					<Grid item container xs={12} sm={4} id="loginBox" direction="column" justify="center" alignItems="center">
-						<Grid item>
+			<div class="full-container">
+				<Grid container direction="row" style={{height: '100%'}}> 
+					<Grid item container xs={12} sm={4} id="loginBox" direction="column" justify="center">
+						<Grid item >
 							<Webcam
 								class="webcam"
 								audio={false}
@@ -77,6 +77,7 @@ class Signup extends Component {
 									<button
 										type="button"
 										label="Sign in"
+										style={{margin: "5%"}}
 										onClick={this.signupSubmit.bind(this)}
 									>
 										Sign up

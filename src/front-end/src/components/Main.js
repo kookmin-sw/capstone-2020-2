@@ -1,31 +1,36 @@
 import React, {Component} from "react";
-import {Jumbotron, Button} from "reactstrap";
+// import {Jumbotron, Button} from "reactstrap";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {Grid} from "@material-ui/core";
+import {Button, Card, CardContent, createMuiTheme, Grid, Hidden, responsiveFontSizes, Typography, ThemeProvider} from "@material-ui/core";
 import "../App.css";
+
+let theme = createMuiTheme();
+theme = responsiveFontSizes(theme);
 
 class Main extends Component {
 	render() {
 		return (
-			<div class="container-fluid">
-				<Grid container>
+			<ThemeProvider theme={theme}>
+			<div class="container-fluid" > 
+				<Grid container style={{height: '900px'}}>
 					<Grid item container xs={12} sm={4} id="loginBox" direction="column" justify="center" alignItems="center">
-						<Jumbotron id="start">
-							<h2>Get started!</h2>
-							<p className="lead">
-								이곳에 당신의 얼굴을 보여주세요. EEG와 표정을 이용한 감정인식이
-								가능합니다.
-							</p>
-							<hr className="my-2" />
-							<p>수집된 데이터는 삭제되지 않습니다.</p>
-							<p className="lead">
-								<Link to="/Login">
-									<Button color="primary">start</Button>
-								</Link>
-							</p>
-						</Jumbotron>
-					</Grid>
-
+						<Card id="startCard">
+							<CardContent style={{height:"100%", paddingTop: "8%",textAlign: "center"}}>
+								<Grid item style={{marginBottom: "10%"}}><Typography variant="h4" style={{marginBottom: "5%"}}>Get started!</Typography>
+									<Hidden smDown><Typography variant="h6">
+										이 곳에 당신의 얼굴을 보여주세요. 
+										<br/>EEG와 표정을 이용한 감정인식이
+										가능합니다.
+									</Typography></Hidden>
+								</Grid>
+								<Grid item> 
+								<Hidden smDown><hr/>
+									<Typography variant="subtitle1" style={{marginTop: "10%"}}>* 수집된 데이터는 삭제되지 않습니다.</Typography></Hidden>
+									<Button color="primary" variant="outlined" href="/Login" id="startCardBtn" style={{margin: "5%"}}>start</Button>
+								</Grid>
+							</CardContent>
+						</Card>   
+					</Grid>  
 					<Grid item xs={12} sm={8} id="explain">
 						<div
 							id="carouselNext"
@@ -72,7 +77,7 @@ class Main extends Component {
 								class="carousel-control-next"
 								href="#carouselNext"
 								data-slide="next"
-							>
+							> 
 								<span
 									class="carousel-control-next-icon"
 									aria-hidden="true"
@@ -83,6 +88,7 @@ class Main extends Component {
 					</Grid>
 				</Grid>
 			</div>
+			</ThemeProvider>
 		);
 	}
 }

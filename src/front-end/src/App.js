@@ -31,7 +31,6 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
 			<Router>
 				<Switch>
 					<Route exact path="/" component={Main} />
@@ -42,7 +41,6 @@ class App extends Component {
 					<Router path="/Analyze" component={Analyze} />
 				</Switch>
 			</Router>
-			</div>
 		);
 	}
 }
