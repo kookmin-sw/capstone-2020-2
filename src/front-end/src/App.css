@@ -1,15 +1,11 @@
-.App {
-  text-align: center;
-}
-
-.container-fluid {
-  height: 100%;
-  width: 100%;
-}
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.full-container {
+  height: 58em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -51,8 +47,8 @@
   object-fit: cover;
 }
 .webcam {
-  width: 80%;
-  height: 85%;
+  width: 65%;
+  height: 75%;
   margin: 5%;
   position: relative;
   object-fit: cover;
@@ -72,33 +68,23 @@
   }
 }
 
-#spinner{
-  position: relative;
-  top: 20px;
- right: 60px ;
-}
-#text {
-  position: relative;
-
-
-}
 #userInput {
   position:relative;
   width: 300px;
   justify-content: center;
-  margin: 5%
 }
 #explain {
-
- height: 900px;
   background-color: #5882FA;
 }
 
 #loginBox {
   background-color: #F2F2F2;
+  align-items: center;
+  text-align: center;
 }
-#start{
+#startCard{
   position:relative;
+<<<<<<< HEAD
   top:150px;
   left:55px;
   width: 370px;
@@ -110,3 +96,13 @@
   top:20px;
   right:20px;
 }
+=======
+  width: 70%;
+  height: 40%;
+}
+
+#startCardBtn {
+  width: 60%;
+  height: 50%;
+}
+>>>>>>> c819d388dee3af9e868f0f1af4faf167bebaf471
