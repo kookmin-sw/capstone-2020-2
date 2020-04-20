@@ -24,9 +24,10 @@ class VideoPlay extends Component {
 			width = '80%'
 			height ='730px'
 			/>
-			<div id ="icon">
-			<HomeRoundedIcon/><ExitToAppIcon/>
-			</div>
+		
+			<button type ="button" onclick="location.href ='./Option.js'" ><HomeRoundedIcon class = "home"/></button>
+			<button type ="button" onclick="location.href ='./Main.js'" ><ExitToAppIcon class = "logout"/></button>
+		
 			<Webcam
 				class = 'videoWebcam'
 				audio={false}

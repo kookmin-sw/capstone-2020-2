@@ -55,6 +55,23 @@
   
 }
 
+.home{
+ position: absolute;
+ top:0px;
+ right:35px;
+ width: 35px;
+ height: 35px;
+ z-index:1;
+}
+.logout{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+
+  width:35px;
+  height: 35px;
+  z-index:1;
+}
 #blink{
   opacity: 1;
   animation: blinker 1s linear infinite;
@@ -84,19 +101,6 @@
 }
 #startCard{
   position:relative;
-<<<<<<< HEAD
-  top:150px;
-  left:55px;
-  width: 370px;
-  height: 400px;
-}
- #icon
-{
-  position: relative;
-  top:20px;
-  right:20px;
-}
-=======
   width: 70%;
   height: 40%;
 }
@@ -105,4 +109,4 @@
   width: 60%;
   height: 50%;
 }
->>>>>>> c819d388dee3af9e868f0f1af4faf167bebaf471
+
