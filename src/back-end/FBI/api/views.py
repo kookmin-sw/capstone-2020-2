@@ -101,6 +101,9 @@ class getAnalyzingVideo(APIView):
         # TODO : Filter already seen videos using sessions.
 
         max_id = Video.objects.all().aggregate(max_id=Max('videoId'))['max_id']
+        if max_id is None:
+            return HttpResponse("No videos.")
+
         while True:
             randId = random.randint(1, max_id)
             video = Video.objects.filter(pk=randId).first()
@@ -119,6 +122,9 @@ class getTrialVideo(APIView):
         # TODO : Filter already seen videos using sessions.
 
         max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId'))['max_id']
+        if max_id is None:
+            return HttpResponse("No videos.")
+        
         while True:
             randId = random.randint(1, max_id)
             video = Video.objects.filter(pk=randId).first()
