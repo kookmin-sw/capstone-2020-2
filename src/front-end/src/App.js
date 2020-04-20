@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import Login1 from "./components/Login1";
-import Login2 from "./components/Login2";
-import Login3 from "./components/Login3";
-import Trial from "./components/Trial";
+import Login from "./components/Login";
+import Main from "./components/Main";
+import Signup from "./components/Signup";
+import Option from "./components/Option";
+import VideoPlay from "./components/VideoPlay"
 import "./App.css";
 import axios from "axios";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -31,10 +32,10 @@ class App extends Component {
 		return (
 			<Router>
 				<Switch>
-					<Route exact path="/" component={Login1} />
-					<Route path="/Login2" component={Login2} />
-					<Route path="/Login3" component={Login3} />
-					<Route path="/Trial" component={Trial} />
+					<Route exact path="/" component={Main} />
+					<Route path="/Login" component={Login} />
+					<Route path="/Signup" component={Signup} />
+					<Route path="/VideoPlay" component={VideoPlay} />
 				</Switch>
 			</Router>
 		);

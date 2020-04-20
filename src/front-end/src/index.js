@@ -13,5 +13,5 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-export { default as Login } from './components/Login1';
+export { default as Login } from './components/Main';
 

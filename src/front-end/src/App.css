@@ -37,6 +37,20 @@
   }
 }
 
+.videoPlayer{
+  width: 100%;
+  height :100%;
+  position: absolute;
+
+}
+.videoWebcam{
+  width: 390px  ;
+  height: 230px;
+  position: absolute;
+bottom: 5px;
+right: 5px;
+  object-fit: cover;
+}
 .webcam {
   width: 300px  ;
   height: 340px;
@@ -59,6 +73,8 @@
     opacity: 0;
   }
 }
+
+
 
 #spinner{
   position: relative;
