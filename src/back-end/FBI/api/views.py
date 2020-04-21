@@ -12,6 +12,8 @@ from PIL import Image
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 path = os.path.join(BASE_DIR, 'media')
+# Temporarily save encoded image of new user for signup.
+encodedImage = []
 
 @api_view(['POST'])
 def signup(request, format=None):
@@ -25,31 +27,15 @@ def signup(request, format=None):
             'id': newUser.id,
             'username': newUser.username,
         }
-
-        # Check if the picture can be encoded.
-        imgPath = os.path.join(path, str(newUser.userFace))
-        try:
-            img = face_recognition.load_image_file(imgPath)
-            login_face_encoding = face_recognition.face_encodings(img)[0]
-        except IndexError:
-            return HttpResponse("Please take another picture.", status=409)
-
         # Save encoded image of user.
         current_dir = os.getcwd()
-        userInfo = [(newUser.id, newUser.username), login_face_encoding]
+        userInfo = [(newUser.id, newUser.username), encodedImage[0]]
+        del encodedImage[0]
         if 'encoded_users' not in os.listdir(current_dir):
             with open('encoded_users', "wb") as fw:
                 pickle.dump(userInfo, fw)
                 fw.close()
         else:
-            # Validate user is a newcomer.
-            encodeUsers = getEncodedUsersList()
-            user = isUser(login_face_encoding, encodeUsers)
-            if user is not None:
-                os.remove(os.path.join(path, str(newUser.userFace)))
-                User.objects.filter(id=newUser.id).delete()
-                return HttpResponse("You already have an account", status=status.HTTP_409_CONFLICT)
-            # Add encoded image if new user.
             with open('encoded_users', "ab") as fi:
                 pickle.dump(userInfo, fi)
                 fi.close()
@@ -81,6 +67,7 @@ def login(request, format=None):
 
     user = isUser(login_face_encoding, encodeUsers)
     if user is None:
+        encodedImage.append(login_face_encoding)
         return HttpResponse("Please sign up first", status=status.HTTP_404_NOT_FOUND)
     else:
         request.session['id'] = user[0]
