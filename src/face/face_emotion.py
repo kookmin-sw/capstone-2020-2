@@ -18,10 +18,10 @@ class FaceEmotion(nn.Module):
 
         # base block
         self.base_block = nn.Sequential(
-            nn.Conv2d(in_channels=input_channel, out_channels=8, kernel_size=3, stride=1, bias=False),
+            nn.Conv2d(in_channels=input_channel, out_channels=8, kernel_size=3, stride=1, padding=1, bias=False),
             nn.BatchNorm2d(8),
             nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=8, out_channels=8, kernel_size=3, stride=1, bias=False),
+            nn.Conv2d(in_channels=8, out_channels=8, kernel_size=3, stride=1, padding=1, bias=False),
             nn.BatchNorm2d(8),
             nn.ReLU(inplace=True))
 
@@ -96,7 +96,7 @@ class FaceEmotion(nn.Module):
         )
 
     def forward(self, x):
-        print(x.shape)
+        print("origin shape", x.shape)
         x = self.base_block(x)
         print("base_block shape", x.shape)
         res_x_1 = self.residual_block_1(x)
