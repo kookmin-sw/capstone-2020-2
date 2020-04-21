@@ -69,7 +69,7 @@ def login(request, format=None):
         login_face_encoding = face_recognition.face_encodings(img)[0]
         os.remove(imgPath)
     except IndexError:
-        return HttpResponse("Please take another picture.", status=409)
+        return HttpResponse("Please take another picture.", status=status.HTTP_409_CONFLICT)
 
     encodeUsers = []
     with open('encoded_users', 'rb') as fr:
@@ -81,7 +81,7 @@ def login(request, format=None):
 
     user = isUser(login_face_encoding, encodeUsers)
     if user is None:
-        return HttpResponse("Please sign up first", status=status.HTTP_409_CONFLICT)
+        return HttpResponse("Please sign up first", status=status.HTTP_404_NOT_FOUND)
     else:
         request.session['id'] = user[0]
         payload = {
