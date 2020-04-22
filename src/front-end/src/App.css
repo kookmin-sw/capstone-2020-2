@@ -50,7 +50,7 @@
   top:0px;
   right:0px;
   width: 20%;
-  height: 40%;
+  height: 45%;
   object-fit: cover;
 }
 .webcam {
@@ -84,8 +84,16 @@
   animation: blinker 1s linear infinite;
 }
 
-  
-
+.recharts-wrapper{
+    position: absolute !important;
+    bottom: 0px;
+    right: 0px;
+    width: 20% !important;
+    height: 40% !important;
+  }
+.recharts-legend-wrapper{
+  display:none;
+}
 @keyframes blinker {
   50% {
     opacity: 0;
