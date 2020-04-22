@@ -2,8 +2,12 @@ import React, {Component} from "react";
 import "../App.css";
 import ReactPlayer from "react-player";
 import {
-	Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
-  } from 'recharts';
+	withRouter,
+	Link,
+	BrowserRouter as Router,
+	Route,
+	Switch
+} from "react-router-dom";
 import Webcam from "react-webcam";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
