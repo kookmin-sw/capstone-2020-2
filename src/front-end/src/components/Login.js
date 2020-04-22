@@ -62,7 +62,7 @@ class Login extends Component {
 				userFace: file
 			});
 			this.userFace();
-		}, 5000);
+		}, 3000);
 	};
 
 	userFace = async () => {
