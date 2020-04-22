@@ -46,14 +46,22 @@ class Signup extends Component {
 			console.log("Sign up 실패 - 사진 다시찍어야함");
 			this.props.history.push("/Login");
 		}
-	}; 
+	};
 
 	render() {
 		return (
 			<div class="full-container">
-				<Grid container direction="row" style={{height: '100%'}}> 
-					<Grid item container xs={12} sm={4} id="loginBox" direction="column" justify="center">
-						<Grid item >
+				<Grid container direction="row" style={{height: "100%"}}>
+					<Grid
+						item
+						container
+						xs={12}
+						sm={4}
+						id="loginBox"
+						direction="column"
+						justify="center"
+					>
+						<Grid item>
 							<Webcam
 								class="webcam"
 								audio={false}
@@ -61,8 +69,8 @@ class Signup extends Component {
 								ref={this.loginRef}
 								screenshotFormat="image/jpeg"
 							/>
-                        </Grid>
-                        <Grid item>
+						</Grid>
+						<Grid item>
 							<div class="input-group" id="userInput">
 								<form name="login-username">
 									<div class="input-group-sm-prepend">
@@ -90,7 +98,7 @@ class Signup extends Component {
 					</Grid>
 
 					<Grid item xs={12} sm={8} id="explain">
-						<IntroCarousel/>
+						<IntroCarousel />
 					</Grid>
 				</Grid>
 			</div>
