@@ -7,72 +7,96 @@ import {
 import Webcam from "react-webcam";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
-  
-  const data = [
-	{
-	  emotion: 'Happiness', pv: 2400, fullMark: 10000,
-	},
-	{
-	  emotion: 'anger', pv: 1398, fullMark: 10000,
-	},
-	{
-	  emotion: 'fear',  pv: 9800, fullMark: 10000,
-	},
-	{
-	  emotion: 'disgust', pv: 3908,fullMark: 10000,
-	},
-	{
-	  emotion: 'sadness', pv: 4800, fullMark: 10000,
-	},
-	{
-	  emotion: 'surprise',  pv: 3800, fullMark: 10000,
-	},
-	{
-	  emotion: 'neutral', pv: 4300,fullMark: 10000,
-	},
-  ];
+import {
+	BarChart,
+	Bar,
+	XAxis,
+	YAxis,
+	CartesianGrid,
+	Tooltip,
+	Legend
+} from "recharts";
 
+const data = [
+	{
+		name: "Happiness",
+		pv: 2400,
+		amt: 2400
+	},
+	{
+		name: "anger",
+		pv: 1398,
+		amt: 2210
+	},
+	{
+		name: "fear",
+		pv: 9800,
+		amt: 2290
+	},
+	{
+		name: "disgust",
+		pv: 3908,
+		amt: 2000
+	},
+	{
+		name: "sadness",
+		pv: 4800,
+		amt: 2181
+	},
+	{
+		name: "surprise",
+		pv: 3800,
+		amt: 2500
+	},
+	{
+		name: "neutral",
+		pv: 4300,
+		amt: 2100
+	}
+];
 
 class VideoPlay extends Component {
-
 	setRef = webcam => {
 		this.webcam = webcam;
 	};
 
-
 	render() {
 		return (
-<>
-			<ReactPlayer 
-			classemotion = 'videoPlayer'
-			url = 'https://www.youtube.com/watch?v=vqNdWSJyD9Y' 
-			playing 
-			width = '80%'
-			height ='730px'
-			/>
-		
-			<Link to ="/Option"><HomeRoundedIcon class = "home"/></Link>
-		<Link to ="/">	<ExitToAppIcon class = "logout"/></Link>
-		
-			<Webcam
-				class = 'videoWebcam'
-				audio={false}
-				facingmode="user"
-				ref={this.setRef}
-						/>
+			<div class="full-container">
+				<ReactPlayer
+					className="videoPlayer"
+					url="https://www.youtube.com/watch?v=vqNdWSJyD9Y"
+					playing
+					width="80%"
+					height="100%"
+				/>
 
-<RadarChart cx={300} cy={250} outerRadius={150} width={100} height={100} data={data}>
-        <PolarGrid />
-        <PolarAngleAxis dataKey="emotion" />
-        <PolarRadiusAxis />
-        <Radar name="Mike" dataKey="pv" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-      </RadarChart>
+				<Link to="/Option">
+					<HomeRoundedIcon class="home" />
+				</Link>
+				<Link to="/">
+					{"  "}
+					<ExitToAppIcon class="logout" />
+				</Link>
 
-					</>
+				<Webcam
+					class="videoWebcam"
+					audio={false}
+					facingmode="user"
+					ref={this.setRef}
+				/>
+
+				<BarChart width={300} height={300} data={data} barSize={20}>
+					{" "}
+					<XAxis dataKey="name" scale="point" padding={{left: 10, right: 10}} />
+					<Tooltip />
+					<Legend />
+					<CartesianGrid strokeDasharray="3 3" />
+					<Bar dataKey="pv" fill="#8884d8" background={{fill: "#eee"}} />
+				</BarChart>
+			</div>
 		);
-	} 
+	}
 }
 
 export default VideoPlay;
-

@@ -5,7 +5,7 @@
 }
 
 .full-container {
-  height: 58em;
+  height: 60em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -42,8 +42,12 @@
 
 }
 .carousel-caption{
- top: 500px;
+ top: 500px;  
  z-index: 1;
+}
+
+.carousel-inner {
+  height: 100%;
 }
 .videoWebcam{
  position: absolute;
@@ -90,6 +94,7 @@
     right: 0px;
     width: 20% !important;
     height: 40% !important;
+    text-align: center;
   }
   .recharts-surface{
     position: absolute !important;
@@ -118,6 +123,7 @@
   background-color: #F2F2F2;
   align-items: center;
   text-align: center;
+  height: 100%;
 }
 #startCard{
   position:relative;
