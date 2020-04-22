@@ -17,7 +17,7 @@ def isUser(login_face_encoding, encodedUsers):
     for user in encodedUsers:
         user_images_encoding.append(user[1])
 
-    matches = face_recognition.compare_faces(user_images_encoding, login_face_encoding)
+    matches = face_recognition.compare_faces(user_images_encoding, login_face_encoding, 0.42)
     face_distances = face_recognition.face_distance(user_images_encoding, login_face_encoding)
 
     if not True in matches:

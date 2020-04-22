@@ -30,7 +30,7 @@ def signup(request, format=None):
         imgPath = os.path.join(path, str(newUser.userFace))
         try:
             img = face_recognition.load_image_file(imgPath)
-            login_face_encoding = face_recognition.face_encodings(img)[0]
+            login_face_encoding = face_recognition.face_encodings(img, num_jitters=10, model="large")[0]
         except IndexError:
             return HttpResponse("Please take another picture.", status=409)
 
@@ -66,7 +66,7 @@ def login(request, format=None):
 
     try:
         img = face_recognition.load_image_file(imgPath)
-        login_face_encoding = face_recognition.face_encodings(img)[0]
+        login_face_encoding = face_recognition.face_encodings(img, num_jitters=10, model="large")[0]
         os.remove(imgPath)
     except IndexError:
         return HttpResponse("Please take another picture.", status=409)
