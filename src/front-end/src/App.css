@@ -42,8 +42,12 @@
 
 }
 .carousel-caption{
- top: 500px;
+ top: 500px;  
  z-index: 1;
+}
+
+.carousel-inner {
+  height: 100%;
 }
 .videoWebcam{
  position: absolute;
