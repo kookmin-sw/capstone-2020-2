@@ -98,7 +98,6 @@ class Login extends Component {
 						<Grid item>
 							<Webcam
 								class="webcam"
-								id="blink"
 								audio={false}
 								facingmode="user"
 								ref={this.setRef}
@@ -115,7 +114,7 @@ class Login extends Component {
 								id="text"
 								role="alert"
 							>
-								<strong>[안내]</strong> 5초 후 화면이 캡처됩니다.
+								<strong>[안내]</strong> 잠시동안 가만히 화면을 응시해주세요.
 							</div>
 						</Grid>
 					</Grid>

@@ -83,10 +83,7 @@
   height: 35px;
   z-index:1;
 }
-#blink{
-  opacity: 1;
-  animation: blinker 1s linear infinite;
-}
+
 
 .recharts-wrapper{
     position: absolute !important;
