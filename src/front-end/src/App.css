@@ -54,8 +54,8 @@
   object-fit: cover;
 }
 .webcam {
-  width: 65%;
-  height: 75%;
+  width: 55%;
+  height: 350px;
   margin: 5%;
   position: relative;
   object-fit: cover;
@@ -105,9 +105,9 @@
   width: 300px;
   justify-content: center;
 }
-#explain {
+/* #explain {
   background-color: #5882FA;
-}
+} */
 
 #loginBox {
   background-color: #F2F2F2;
