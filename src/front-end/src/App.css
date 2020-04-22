@@ -93,6 +93,9 @@
     height: 40% !important;
     text-align: center;
   }
+  .recharts-legeng-wrapper{
+    display :none;
+  }
   .recharts-surface{
     position: absolute !important;
     bottom: 0px;
