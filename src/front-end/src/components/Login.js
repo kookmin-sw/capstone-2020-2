@@ -85,12 +85,8 @@ class Login extends Component {
 	render() {
 		return (
 			<div class="full-container">
-				<Grid container direction="row" style={{height: "100%"}}>
 					<Grid
-						item
 						container
-						xs={12}
-						sm={4}
 						id="loginBox"
 						direction="column"
 						justify="center"
@@ -121,10 +117,9 @@ class Login extends Component {
 						</Grid>
 					</Grid>
 
-					<Grid item xs={12} sm={8} id="explain">
+					{/* <Grid item xs={12} sm={8} id="explain">
 						<IntroCarousel />
-					</Grid>
-				</Grid>
+					</Grid> */}
 			</div>
 		);
 	}

@@ -117,6 +117,7 @@
   background-color: #F2F2F2;
   align-items: center;
   text-align: center;
+  height: 100%;
 }
 #startCard{
   position:relative;
