@@ -9,6 +9,7 @@ import {
 	IconButton
 } from "@material-ui/core/";
 import {Alert, AlertTitle} from "@material-ui/lab/";
+import Collapse from '@material-ui/core/Collapse';
 import CloseIcon from "@material-ui/icons/Close";
 
 // import Button from "@material-ui/core/Button";
@@ -38,6 +39,7 @@ class Option extends Component {
 
 		return (
 			<div class="container-fluid">
+				<Collapse in={this.state.close}>
 				<Alert
 					severity="info"
 					action={
@@ -56,6 +58,7 @@ class Option extends Component {
 					<AlertTitle>Login!</AlertTitle>
 					{this.props.location.state.userName}님 안녕하세요! <strong></strong>
 				</Alert>
+				</Collapse>
 				<Grid
 					container
 					spacing={10}
