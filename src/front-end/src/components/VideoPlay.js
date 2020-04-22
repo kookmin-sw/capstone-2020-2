@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "../App.css";
 import ReactPlayer from "react-player";
+import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Webcam from "react-webcam";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -25,8 +26,8 @@ class VideoPlay extends Component {
 			height ='730px'
 			/>
 		
-			<button type ="button" onclick="location.href ='./Option.js'" ><HomeRoundedIcon class = "home"/></button>
-			<button type ="button" onclick="location.href ='./Main.js'" ><ExitToAppIcon class = "logout"/></button>
+			<Link to ="/Option"><HomeRoundedIcon class = "home"/></Link>
+		<Link to ="/">	<ExitToAppIcon class = "logout"/></Link>
 		
 			<Webcam
 				class = 'videoWebcam'
