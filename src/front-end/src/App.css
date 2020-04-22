@@ -37,7 +37,14 @@
     transform: rotate(360deg);
   }
 }
+.carousel{
+  height: 100%;
 
+}
+.carousel-caption{
+ top: 500px;
+ z-index: 1;
+}
 .videoWebcam{
  position: absolute;
   top:0px;
