@@ -5,7 +5,7 @@
 }
 
 .full-container {
-  height: 58em;
+  height: 60em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -94,6 +94,7 @@
     right: 0px;
     width: 20% !important;
     height: 40% !important;
+    text-align: center;
   }
 .recharts-legend-wrapper{
   display:none;

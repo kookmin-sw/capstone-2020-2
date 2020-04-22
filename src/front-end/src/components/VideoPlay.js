@@ -60,20 +60,20 @@ class VideoPlay extends Component {
 
 	render() {
 		return (
-			<>
+			<div class="full-container">
 				<ReactPlayer
 					className="videoPlayer"
 					url="https://www.youtube.com/watch?v=vqNdWSJyD9Y"
 					playing
 					width="80%"
-					height="730px"
+					height="100%"
 				/>
 
 				<Link to="/Option">
 					<HomeRoundedIcon class="home" />
 				</Link>
 				<Link to="/">
-					{" "}
+					{"  "}
 					<ExitToAppIcon class="logout" />
 				</Link>
 
@@ -92,7 +92,7 @@ class VideoPlay extends Component {
 					<CartesianGrid strokeDasharray="3 3" />
 					<Bar dataKey="pv" fill="#8884d8" background={{fill: "#eee"}} />
 				</BarChart>
-			</>
+			</div>
 		);
 	}
 }

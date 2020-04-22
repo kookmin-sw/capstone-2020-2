@@ -28,7 +28,7 @@ class Login extends Component {
 	};
 
 	faceDetected() {
-		this.props.history.push("/Option");
+		this.props.history.push("/Option", {userName: this.state.userName});
 		console.log("얼굴 정보 있음, 로그인 4 페이지로 넘어감");
 	}
 
@@ -75,6 +75,9 @@ class Login extends Component {
 				}
 			});
 			console.log(response);
+			this.setState({
+				userName: response.data.username
+			})
 			this.faceDetected();
 		} catch (error) {
 			console.error(error);

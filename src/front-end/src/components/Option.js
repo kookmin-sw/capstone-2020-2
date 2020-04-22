@@ -54,7 +54,7 @@ class Option extends Component {
 					}
 				>
 					<AlertTitle>Login!</AlertTitle>
-					로그인 되었습니다. - <strong></strong>
+					{this.props.location.state.userName}님 안녕하세요! <strong></strong>
 				</Alert>
 				<Grid
 					container
