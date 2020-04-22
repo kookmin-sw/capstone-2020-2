@@ -87,6 +87,8 @@ class VideoPlay extends Component {
 					class="videoWebcam"
 					audio={false}
 					facingmode="user"
+					mirrored={true}
+					screenshotQuality={1}
 					ref={this.setRef}
 				/>
 

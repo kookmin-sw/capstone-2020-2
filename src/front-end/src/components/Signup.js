@@ -62,6 +62,8 @@ class Signup extends Component {
 								class="webcam"
 								audio={false}
 								facingmode="user"
+								mirrored = {true}
+								screenshotQuality = {1}
 								ref={this.loginRef}
 								screenshotFormat="image/jpeg"
 							/>
