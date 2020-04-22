@@ -91,9 +91,14 @@
     width: 20% !important;
     height: 40% !important;
   }
-.recharts-legend-wrapper{
-  display:none;
-}
+  .recharts-surface{
+    position: absolute !important;
+    bottom: 0px;
+    right: 0px;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
 @keyframes blinker {
   50% {
     opacity: 0;

@@ -1,35 +1,35 @@
 import React, {Component} from "react";
 import "../App.css";
 import ReactPlayer from "react-player";
-import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {
+	Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  } from 'recharts';
 import Webcam from "react-webcam";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import {
-	BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  } from 'recharts';
+import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
   
   const data = [
 	{
-	  name: 'Happiness', pv: 2400, amt: 2400,
+	  emotion: 'Happiness', pv: 2400, fullMark: 10000,
 	},
 	{
-	  name: 'anger', pv: 1398, amt: 2210,
+	  emotion: 'anger', pv: 1398, fullMark: 10000,
 	},
 	{
-	  name: 'fear',  pv: 9800, amt: 2290,
+	  emotion: 'fear',  pv: 9800, fullMark: 10000,
 	},
 	{
-	  name: 'disgust', pv: 3908, amt: 2000,
+	  emotion: 'disgust', pv: 3908,fullMark: 10000,
 	},
 	{
-	  name: 'sadness', pv: 4800, amt: 2181,
+	  emotion: 'sadness', pv: 4800, fullMark: 10000,
 	},
 	{
-	  name: 'surprise',  pv: 3800, amt: 2500,
+	  emotion: 'surprise',  pv: 3800, fullMark: 10000,
 	},
 	{
-	  name: 'neutral', pv: 4300, amt: 2100,
+	  emotion: 'neutral', pv: 4300,fullMark: 10000,
 	},
   ];
 
@@ -45,7 +45,7 @@ class VideoPlay extends Component {
 		return (
 <>
 			<ReactPlayer 
-			className = 'videoPlayer'
+			classemotion = 'videoPlayer'
 			url = 'https://www.youtube.com/watch?v=vqNdWSJyD9Y' 
 			playing 
 			width = '80%'
@@ -62,15 +62,12 @@ class VideoPlay extends Component {
 				ref={this.setRef}
 						/>
 
-		<BarChart width={300} height={300} data ={data}  
- 		  barSize={20}
-    			  > <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
-				
-				  <Tooltip />
-				  <Legend />
-				  <CartesianGrid strokeDasharray="3 3" />
-				  <Bar dataKey="pv" fill="#8884d8" background={{ fill: '#eee' }} />
-				</BarChart>
+<RadarChart cx={300} cy={250} outerRadius={150} width={100} height={100} data={data}>
+        <PolarGrid />
+        <PolarAngleAxis dataKey="emotion" />
+        <PolarRadiusAxis />
+        <Radar name="Mike" dataKey="pv" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+      </RadarChart>
 
 					</>
 		);
