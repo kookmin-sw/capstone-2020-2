@@ -19,5 +19,10 @@
 # Ignore encoded users file
 /back-end/FBI/encoded_users
 
+
+# face
+# Ignore dataset
+/face/dataset/
+
 # for Mac
 *.DS_store
