@@ -9,7 +9,7 @@
 
 # Ignore idea
 /back-end/FBI/.idea
-../.idea/
+#../.idea/
 
 # Ignore pycache
 **/__pycache__
