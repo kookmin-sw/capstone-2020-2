@@ -26,7 +26,11 @@ FBI's emotion recognition and analysis service can be a solution in places where
 
 ### **2. 소개 영상**
 ---
+**수행 계획 소개 영상**
 [![youtube_img](https://img.youtube.com/vi/4n9E5AUYYvU/0.jpg)](https://www.youtube.com/watch?v=4n9E5AUYYvU?t=0s)
+<br/>
+**1차 중간평가 시연 영상**
+[![youtube_img](https://img.youtube.com/vi/JV1dCH-8sd8/0.jpg)](https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s)
 <br/><br/>
 
 ### **3. 팀 소개**
