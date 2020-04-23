@@ -1,5 +1,4 @@
 # back-end
-
 # Ignore settings
 /src/back-end/FBI/mysql.cnf
 
@@ -23,6 +22,28 @@
 # face
 # Ignore dataset
 /src/face/dataset/
+
+#frontend
+# dependencies
+/src/front-end/node_modules
+/src/front-end/.pnp
+/src/front-end/.pnp.js
+
+# testing
+/src/front-end/coverage
+
+# production
+/src/front-end/build
+
+/src/front-end/npm-debug.log*
+/src/front-end/yarn-debug.log*
+/src/front-end/yarn-error.log*
+
+# misc
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
 
 # for Mac
 *.DS_store
