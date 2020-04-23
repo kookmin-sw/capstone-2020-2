@@ -40,29 +40,35 @@ class Signup extends Component {
 			});
 			console.log(response);
 			console.log("Sign up 성공");
-			this.props.history.push("/Option");
+			this.props.history.push("/Option", {userName: this.state.userName});
 		} catch (error) {
 			console.error(error.content);
-			console.log("Sign up 실패 - 사진 다시찍어야함");
+			console.log("Sign up 실패 -  사진 다시찍어야함");
 			this.props.history.push("/Login");
 		}
-	}; 
+	};
 
 	render() {
 		return (
 			<div class="full-container">
-				<Grid container direction="row" style={{height: '100%'}}> 
-					<Grid item container xs={12} sm={4} id="loginBox" direction="column" justify="center">
-						<Grid item >
+					<Grid
+						container
+						id="loginBox"
+						direction="column"
+						justify="center"
+					>
+						<Grid item>
 							<Webcam
 								class="webcam"
 								audio={false}
 								facingmode="user"
+								mirrored = {true}
+								screenshotQuality = {1}
 								ref={this.loginRef}
 								screenshotFormat="image/jpeg"
 							/>
-                        </Grid>
-                        <Grid item>
+						</Grid>
+						<Grid item>
 							<div class="input-group" id="userInput">
 								<form name="login-username">
 									<div class="input-group-sm-prepend">
@@ -88,11 +94,6 @@ class Signup extends Component {
 							</div>
 						</Grid>
 					</Grid>
-
-					<Grid item xs={12} sm={8} id="explain">
-						<IntroCarousel/>
-					</Grid>
-				</Grid>
 			</div>
 		);
 	}

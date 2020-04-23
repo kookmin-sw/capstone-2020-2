@@ -2,18 +2,10 @@ import React, {Component} from "react";
 import "../App.css";
 
 class Analyze extends Component {
-	state = {
-
-	};
-
-	
+	state = {};
 
 	render() {
-		return (
-			<div>
-				
-			</div>
-		);
+		return <div></div>;
 	}
 }
 

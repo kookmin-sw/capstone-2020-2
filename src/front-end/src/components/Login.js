@@ -11,7 +11,7 @@ import {
 	Switch
 } from "react-router-dom";
 import "base64-to-image";
-import {Grid} from '@material-ui/core';
+import {Grid} from "@material-ui/core";
 import IntroCarousel from "./IntroCarousel";
 
 class Login extends Component {
@@ -28,7 +28,7 @@ class Login extends Component {
 	};
 
 	faceDetected() {
-		this.props.history.push("/Option");
+		this.props.history.push("/Option", {userName: this.state.userName});
 		console.log("얼굴 정보 있음, 로그인 4 페이지로 넘어감");
 	}
 
@@ -62,7 +62,7 @@ class Login extends Component {
 				userFace: file
 			});
 			this.userFace();
-		}, 5000);
+		}, 3000);
 	};
 
 	userFace = async () => {
@@ -75,6 +75,9 @@ class Login extends Component {
 				}
 			});
 			console.log(response);
+			this.setState({
+				userName: response.data.username
+			})
 			this.faceDetected();
 		} catch (error) {
 			console.error(error);
@@ -85,31 +88,42 @@ class Login extends Component {
 	render() {
 		return (
 			<div class="full-container">
-				<Grid container direction="row" style={{height: '100%'}}>
-					<Grid item container xs={12} sm={4} id="loginBox"  direction="column" justify="center" alignItems="center">
+					<Grid
+						container
+						id="loginBox"
+						direction="column"
+						justify="center"
+						alignItems="center"
+					>
 						<Grid item>
-						<Webcam
-							class="webcam"
-							id="blink"
-							audio={false}
-							facingmode="user"
-							ref={this.setRef}
-							screenshotFormat="image/jpeg"
-						/>
+							<Webcam
+								class="webcam"
+								audio={false}
+								facingmode="user"
+								mirrored={true}
+								screenshotQuality = {1}
+								ref={this.setRef}
+								screenshotFormat="image/jpeg"
+							/>
 						</Grid>
 						<Grid item>
-						<Spinner onLoad={this.capture} color="secondary" id="spinner" /></Grid>
+							<Spinner onLoad={this.capture} color="secondary" id="spinner" />
+						</Grid>
 						<Grid item>
-							<div class="alert alert-secondary border-0" style={{marginTop: '5%'}} id="text" role="alert">
-							<strong>[안내]</strong> 5초 후 화면이 캡처됩니다.
-						</div>
+							<div
+								class="alert alert-secondary border-0"
+								style={{marginTop: "5%"}}
+								id="text"
+								role="alert"
+							>
+								<strong>[안내]</strong> 잠시동안 가만히 화면을 응시해주세요.
+							</div>
 						</Grid>
 					</Grid>
 
-					<Grid item xs={12} sm={8} id="explain">
-						<IntroCarousel/>
-					</Grid>
-				</Grid>
+					{/* <Grid item xs={12} sm={8} id="explain">
+						<IntroCarousel />
+					</Grid> */}
 			</div>
 		);
 	}

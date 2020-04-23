@@ -5,7 +5,7 @@
 }
 
 .full-container {
-  height: 58em;
+  height: 60em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -37,18 +37,29 @@
     transform: rotate(360deg);
   }
 }
+.carousel{
+  height: 100%;
 
+}
+.carousel-caption{
+ top: 500px;  
+ z-index: 1;
+}
+
+.carousel-inner {
+  height: 100%;
+}
 .videoWebcam{
  position: absolute;
   top:0px;
   right:0px;
   width: 20%;
-  height: 40%;
+  height: 45%;
   object-fit: cover;
 }
 .webcam {
-  width: 65%;
-  height: 75%;
+  width: 55%;
+  height: 350px;
   margin: 5%;
   position: relative;
   object-fit: cover;
@@ -72,12 +83,26 @@
   height: 35px;
   z-index:1;
 }
-#blink{
-  opacity: 1;
-  animation: blinker 1s linear infinite;
-}
 
-  
+
+.recharts-wrapper{
+    position: absolute !important;
+    bottom: 0px;
+    right: 0px;
+    width: 20% !important;
+    height: 40% !important;
+    text-align: center;
+  }
+  .recharts-legend-wrapper{
+    display :none;
+  }
+  .recharts-surface{
+    position: absolute !important;
+    bottom: 0px;
+    right: 0px;
+    width: 100% !important;
+    height: 100% !important;
+  }
 
 @keyframes blinker {
   50% {
@@ -90,14 +115,15 @@
   width: 300px;
   justify-content: center;
 }
-#explain {
+/* #explain {
   background-color: #5882FA;
-}
+} */
 
 #loginBox {
   background-color: #F2F2F2;
   align-items: center;
   text-align: center;
+  height: 100%;
 }
 #startCard{
   position:relative;

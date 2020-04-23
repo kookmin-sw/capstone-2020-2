@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.11",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.50",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -20,6 +21,7 @@
     "lodash": "^4.17.15",
     "ract": "0.0.1",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-player": "^1.15.3",
     "react-redux": "^7.2.0",
@@ -27,6 +29,7 @@
     "react-scripts": "3.4.1",
     "react-webcam": "^5.0.1",
     "reactstrap": "^8.4.1",
+    "recharts": "^1.8.5",
     "redux": "^4.0.5",
     "redux-form": "^8.3.5",
     "typescript": "^3.8.3"

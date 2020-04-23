@@ -27,6 +27,7 @@ def signup(request, format=None):
             'id': newUser.id,
             'username': newUser.username,
         }
+
         # Save encoded image of user.
         current_dir = os.getcwd()
         userInfo = [(newUser.id, newUser.username), encodedImage[0]]
@@ -52,7 +53,7 @@ def login(request, format=None):
 
     try:
         img = face_recognition.load_image_file(imgPath)
-        login_face_encoding = face_recognition.face_encodings(img)[0]
+        login_face_encoding = face_recognition.face_encodings(img, num_jitters=10, model="large")[0]
         os.remove(imgPath)
     except IndexError:
         return HttpResponse("Please take another picture.", status=status.HTTP_409_CONFLICT)
