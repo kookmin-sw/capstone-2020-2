@@ -20,8 +20,8 @@ image_size = (48,48)
 
 # 하이퍼 파라미터 설정
 batch_size = 32
-# num_epochs = 110
-num_epochs = 10
+num_epochs = 110
+# num_epochs = 10
 input_shape = (1, 48, 48)
 validation_split = 0.2
 verbose = 1
@@ -50,14 +50,12 @@ class MyDataset(Dataset):
         # self.emotions = pd.get_dummies(df_data['emotion']).values
         self.emotions = df_data['emotion'].values
         self.transform = transform
-        print(self.faces[0].shape)
 
     def __len__(self):
         return self.emotions.shape[0]
     
     def __getitem__(self, index):
         return self.faces[index], self.emotions[index]
-
 
 
 
@@ -160,9 +158,9 @@ class FaceEmotion(nn.Module):
         # 벡터로 펴준다.
         x = x.view(x.size(0), -1)
 
-        output = F.softmax(x, dim=0)
+        # output = F.softmax(x, dim=0)
 
-        return output
+        return x
 
 
 
@@ -202,7 +200,7 @@ print("Network 생성")
 # print(model)
 model.cuda()
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=l2_regularization)
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 total_step = len(loader_train)
 for epoch in range(0, num_epochs):
@@ -211,17 +209,27 @@ for epoch in range(0, num_epochs):
         labels = labels.to(device)
         outputs = model(images)
 
+        y_true = labels.cpu().numpy()
+        _, predicted = torch.max(outputs.data, 1)
+        predicted = predicted.cpu().numpy()
+
         loss = criterion(outputs, labels)
 
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
         
-        if (i%50) == 0:
-            print(f"Epoch [{epoch+1}/{num_epochs}], Step [{i+1}/{total_step}], Loss : {loss.item()}")
-            print(classification_report(labels, outputs, target_names=['class 1', 'class 2', 'class 3',
-                                                'class 4', 'class 5', 'class 6', 'class 7']))
+        # if (i%100) == 0:
+            # print(outputs[0])
+            # print(f"labels shape : {labels.shape}, outputs shape : {outputs.shape}")
+    
+    print(f"Epoch [{epoch+1}/{num_epochs}], Step [{i+1}/{total_step}], Loss : {loss.item()}")
 
+    '''
+    print(classification_report(y_true, predicted, 
+        target_names=['class 0(Angry)', 'class 1(Disgust)', 'class 2(Fear)', 
+                'class 3(Happy)', 'class 4(Sad)', 'class 5(Surprise)', 'class 6(Neutral)']))
+    '''
 
 model.eval()
 with torch.no_grad():
