@@ -1,0 +1,49 @@
+# back-end
+# Ignore settings
+/src/back-end/FBI/mysql.cnf
+
+# Ignore migrations
+/src/back-end/FBI/api/migrations
+/src/back-end/FBI/media
+
+# Ignore idea
+/src/back-end/FBI/.idea
+.idea/
+
+# Ignore pycache
+**/__pycache__
+/src/back-end/FBI/FBI/__pycache__
+/src/back-end/FBI/api/__pycache__
+
+# Ignore encoded users file
+/src/back-end/FBI/encoded_users
+
+
+# face
+# Ignore dataset
+/src/face/dataset/
+
+#frontend
+# dependencies
+/src/front-end/node_modules
+/src/front-end/.pnp
+/src/front-end/.pnp.js
+
+# testing
+/src/front-end/coverage
+
+# production
+/src/front-end/build
+
+/src/front-end/npm-debug.log*
+/src/front-end/yarn-debug.log*
+/src/front-end/yarn-error.log*
+
+# misc
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# for Mac
+*.DS_store

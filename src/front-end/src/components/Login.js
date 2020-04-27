@@ -100,6 +100,8 @@ class Login extends Component {
 								class="webcam"
 								audio={false}
 								facingmode="user"
+								mirrored={true}
+								screenshotQuality = {1}
 								ref={this.setRef}
 								screenshotFormat="image/jpeg"
 							/>
