@@ -38,13 +38,8 @@ class App extends Component {
 					<Route exact path="/" component={Main} />
 					<Route path="/Login" component={Login} />
 					<Route path="/Signup" component={Signup} />
-<<<<<<< HEAD
-					<Route path="/VideoPlay" component={VideoPlay} />
-=======
           			<Route path="/Option" component={Option} />
 					<Route path="/VideoPlay" component={VideoPlay} />
-					<Router path="/Analyze" component={Analyze} />
->>>>>>> fb903e8c7c8d28dc16df70cad12bbced2def76d9
 				</Switch>
 			</Router>
 		);

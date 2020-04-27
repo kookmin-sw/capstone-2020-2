@@ -1,13 +1,6 @@
 import React, {Component} from "react";
 import "../App.css";
 import ReactPlayer from "react-player";
-<<<<<<< HEAD
-import Webcam from "react-webcam";
-
-
-class VideoPlay extends Component {
-
-=======
 import {
 	withRouter,
 	Link,
@@ -67,35 +60,10 @@ const data = [
 ];
 
 class VideoPlay extends Component {
->>>>>>> milestone-1
 	setRef = webcam => {
 		this.webcam = webcam;
 	};
 
-<<<<<<< HEAD
-
-	render() {
-		return (
-<>
-			<ReactPlayer 
-			className = 'videoPlayer'
-			url = 'https://www.youtube.com/watch?v=vqNdWSJyD9Y' 
-			playing 
-			width='100%'
-			height='100%'
-			/>
-			
-			<Webcam
-				class = 'videoWebcam'
-				audio={false}
-				facingmode="user"
-				ref={this.setRef}
-			
-						/>
-						</>
-		);
-	} 
-=======
 	render() {
 		return (
 			<div class="full-container">
@@ -133,7 +101,6 @@ class VideoPlay extends Component {
 			</div>
 		);
 	}
->>>>>>> milestone-1
 }
 
 export default VideoPlay;
