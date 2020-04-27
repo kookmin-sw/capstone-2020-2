@@ -1,15 +1,11 @@
-.App {
-  text-align: center;
-}
-
-.container-fluid {
-  height: 100%;
-  width: 100%;
-}
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.full-container {
+  height: 60em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -41,7 +37,10 @@
     transform: rotate(360deg);
   }
 }
+.carousel{
+  height: 100%;
 
+<<<<<<< HEAD
 .videoPlayer{
   width: 100%;
   height :100%;
@@ -54,23 +53,71 @@
   position: absolute;
 bottom: 5px;
 right: 5px;
+=======
+}
+.carousel-caption{
+ top: 500px;  
+ z-index: 1;
+}
+
+.carousel-inner {
+  height: 100%;
+}
+.videoWebcam{
+ position: absolute;
+  top:0px;
+  right:0px;
+  width: 20%;
+  height: 45%;
+>>>>>>> milestone-1
   object-fit: cover;
 }
 .webcam {
-  width: 80%;
-  height: 85%;
+  width: 55%;
+  height: 350px;
   margin: 5%;
   position: relative;
   object-fit: cover;
   
 }
 
-#blink{
-  opacity: 1;
-  animation: blinker 1s linear infinite;
+.home{
+ position: absolute;
+ top:0px;
+ right:35px;
+ width: 35px;
+ height: 35px;
+ z-index:1;
+}
+.logout{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+
+  width:35px;
+  height: 35px;
+  z-index:1;
 }
 
-  
+
+.recharts-wrapper{
+    position: absolute !important;
+    bottom: 0px;
+    right: 0px;
+    width: 20% !important;
+    height: 40% !important;
+    text-align: center;
+  }
+  .recharts-legend-wrapper{
+    display :none;
+  }
+  .recharts-surface{
+    position: absolute !important;
+    bottom: 0px;
+    right: 0px;
+    width: 100% !important;
+    height: 100% !important;
+  }
 
 @keyframes blinker {
   50% {
@@ -78,6 +125,7 @@ right: 5px;
   }
 }
 
+<<<<<<< HEAD
 
 
 #spinner{
@@ -90,25 +138,31 @@ right: 5px;
 
 
 }
+=======
+>>>>>>> milestone-1
 #userInput {
   position:relative;
   width: 300px;
   justify-content: center;
-  margin: 5%
 }
-#explain {
-
- height: 900px;
+/* #explain {
   background-color: #5882FA;
-}
+} */
 
 #loginBox {
   background-color: #F2F2F2;
+  align-items: center;
+  text-align: center;
+  height: 100%;
 }
-#start{
+#startCard{
   position:relative;
-  top:150px;
-  left:55px;
-  width: 370px;
-  height: 400px;
+  width: 70%;
+  height: 40%;
 }
+
+#startCardBtn {
+  width: 60%;
+  height: 50%;
+}
+
