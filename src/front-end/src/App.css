@@ -3,9 +3,19 @@
   height: 40vmin;
   pointer-events: none;
 }
+body {
+        width: 100%;
+        height: 100%;
+      }
+html {
+        width: 100%;
+        height: 100% !important;
+      }
+
 
 .full-container {
-  height: 60em;
+width: 100%;
+height: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -20,7 +20,7 @@ theme = responsiveFontSizes(theme);
 class Main extends Component {
 	render() {
 		return (
-			<ThemeProvider theme={theme}>
+			<ThemeProvider theme={theme} >
 				<div class="full-container">
 					<Grid container style={{height: "100%"}}>
 						<Grid
@@ -46,7 +46,7 @@ class Main extends Component {
 											Get started!
 										</Typography>
 										<Hidden smDown>
-											<Typography variant="h6">
+											<Typography variant="subtitle1">
 												이 곳에 당신의 얼굴을 보여주세요.
 												<br />
 												EEG와 표정을 이용한 감정인식이 가능합니다.
@@ -57,7 +57,7 @@ class Main extends Component {
 										<Hidden smDown>
 											<hr />
 											<Typography
-												variant="subtitle1"
+												variant="caption"
 												style={{marginTop: "10%"}}
 											>
 												* 수집된 데이터는 삭제되지 않습니다.
