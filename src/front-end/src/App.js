@@ -40,6 +40,7 @@ class App extends Component {
 					<Route path="/Signup" component={Signup} />
           			<Route path="/Option" component={Option} />
 					<Route path="/VideoPlay" component={VideoPlay} />
+					<Router path="/Analyze" component={Analyze} />
 				</Switch>
 			</Router>
 		);
