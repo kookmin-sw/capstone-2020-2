@@ -1,10 +1,12 @@
 import React, {Component} from "react";
-import Analyze from "./components/Analyze";
-import Main from "./components/Main";
+
 import Login from "./components/Login";
+import Main from "./components/Main";
 import Signup from "./components/Signup";
 import Option from "./components/Option";
-import VideoPlay from "./components/VideoPlay";
+import VideoPlay from "./components/VideoPlay"
+
+
 import "./App.css";
 import axios from "axios";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -38,7 +40,6 @@ class App extends Component {
 					<Route path="/Signup" component={Signup} />
           			<Route path="/Option" component={Option} />
 					<Route path="/VideoPlay" component={VideoPlay} />
-					<Router path="/Analyze" component={Analyze} />
 				</Switch>
 			</Router>
 		);
