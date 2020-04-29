@@ -2,11 +2,9 @@ import React, {Component} from "react";
 import "../App.css";
 import ReactPlayer from "react-player";
 import {
-	withRouter,
 	Link,
 	BrowserRouter as Router,
 	Route,
-	Switch
 } from "react-router-dom";
 import Webcam from "react-webcam";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
@@ -14,6 +12,13 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import {
 	Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   } from 'recharts';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
+
 
 const data = [
 	{
@@ -57,16 +62,28 @@ class VideoPlay extends Component {
 	setRef = webcam => {
 		this.webcam = webcam;
 	};
-
+	
 	render() {
 		return (
 			<div class="full-container">
+				<div >
+      <AppBar position="static" color = "default">
+        <Toolbar variant="dense">
+          <IconButton edge="start"  color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit">
+            RealTime Emotion
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </div>	
 				<ReactPlayer
 					className="videoPlayer"
 					url="https://www.youtube.com/watch?v=vqNdWSJyD9Y"
 					playing
 					width="80%"
-					height="100%"
+					height="94%"
 				/>
 
 				<Link to="/Option">
