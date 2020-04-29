@@ -132,21 +132,3 @@ class getTrialVideo(APIView):
                     'duration' : video.duration,
                     'tag' : video.tag,
                 })
-
-class getTrialVideo(APIView):
-    def get(self, request, id, emotionTag):
-
-        # TODO : Filter already seen videos using sessions.
-
-        max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId'))['max_id']
-        while True:
-            randId = random.randint(1, max_id)
-            video = Video.objects.filter(pk=randId).first()
-            if video:
-                return JsonResponse({
-                    'user' : id,
-                    'link' : video.link,
-                    'startTime' : video.startTime,
-                    'duration' : video.duration,
-                    'tag' : video.tag,
-                })
