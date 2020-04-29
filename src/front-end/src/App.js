@@ -1,12 +1,10 @@
 import React, {Component} from "react";
-
 import Login from "./components/Login";
 import Main from "./components/Main";
 import Signup from "./components/Signup";
 import Option from "./components/Option";
 import VideoPlay from "./components/VideoPlay"
-
-
+import Analyze from "./components/Analyze";
 import "./App.css";
 import axios from "axios";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";

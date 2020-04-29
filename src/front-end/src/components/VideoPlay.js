@@ -12,50 +12,44 @@ import Webcam from "react-webcam";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import {
-	BarChart,
-	Bar,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-	Tooltip,
-	Legend
-} from "recharts";
+	Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
+  } from 'recharts';
 
 const data = [
 	{
 		name: "Happiness",
-		pv: 2400,
-		amt: 2400
+		A: 86,
+		fullMark: 100
 	},
 	{
 		name: "anger",
-		pv: 1398,
-		amt: 2210
+		A: 17,
+		fullMark: 100
 	},
 	{
 		name: "fear",
-		pv: 9800,
-		amt: 2290
+		A: 29,
+		fullMark: 100
 	},
 	{
 		name: "disgust",
-		pv: 3908,
-		amt: 2000
+		A: 46,
+		fullMark: 100
 	},
 	{
 		name: "sadness",
-		pv: 4800,
-		amt: 2181
+		A: 23,
+		fullMark: 100
 	},
 	{
 		name: "surprise",
-		pv: 3800,
-		amt: 2500
+		A: 45,
+		fullMark: 100
 	},
 	{
 		name: "neutral",
-		pv: 4300,
-		amt: 2100
+		A: 56,
+		fullMark: 100
 	}
 ];
 
@@ -92,14 +86,12 @@ class VideoPlay extends Component {
 					ref={this.setRef}
 				/>
 
-				<BarChart width={300} height={300} data={data} barSize={20}>
-					{" "}
-					<XAxis dataKey="name" scale="point" padding={{left: 10, right: 10}} />
-					<Tooltip />
-					<Legend />
-					<CartesianGrid strokeDasharray="3 3" />
-					<Bar dataKey="pv" fill="#8884d8" background={{fill: "#eee"}} />
-				</BarChart>
+<RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data}>
+        <PolarGrid />
+        <PolarAngleAxis dataKey="name" />
+        <PolarRadiusAxis />
+        <Radar dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+      </RadarChart>
 			</div>
 		);
 	}
