@@ -58,6 +58,10 @@ def login(request, format=None):
     except IndexError:
         return HttpResponse("Please take another picture.", status=status.HTTP_409_CONFLICT)
 
+    current_dir = os.getcwd()
+    if 'encoded_users' not in os.listdir(current_dir):
+        return HttpResponse("First user.", status=status.HTTP_406_NOT_ACCEPTABLE)
+
     encodeUsers = []
     with open('encoded_users', 'rb') as fr:
         while True:
