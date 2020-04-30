@@ -76,24 +76,15 @@ height: 100%;
   
 }
 
-.home{
- position: absolute;
- top:0px;
- right:35px;
- width: 35px;
- height: 35px;
- z-index:1;
-}
-.logout{
+#menu{
   position: absolute;
-  top: 0px;
-  right: 0px;
-
-  width:35px;
-  height: 35px;
-  z-index:1;
+  right: 10px;
+  color : black ;
 }
 
+.menuLink{
+  color: black;
+}
 .recharts-wrapper{
     position: absolute !important;
     bottom: 0px;

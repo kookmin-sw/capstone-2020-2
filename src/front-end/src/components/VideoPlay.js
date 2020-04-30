@@ -17,6 +17,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
 
 
@@ -59,8 +60,67 @@ const data = [
 ];
 
 class VideoPlay extends Component {
+
+	state = {
+		realtimeUserFace: null
+	};
+
+	componentDidMount(Webcam) {
+		this.getUserImg();
+	}
+
 	setRef = webcam => {
 		this.webcam = webcam;
+	};
+
+	getUserImg = async () => {
+		//console.log("캡처되고있음");
+		
+		const dataURLtoFile = (dataurl, filename) => {
+			var arr = dataurl.split(","),
+				mime = arr[0].match(/:(.*?);/)[1],
+				bstr = atob(arr[1]),
+				n = bstr.length,
+				u8arr = new Uint8Array(n);
+
+			while (n--) {
+				u8arr[n] = bstr.charCodeAt(n);
+			}
+
+			return new File([u8arr], filename, {type: mime});
+		};
+
+		const captureImg = setInterval(() => {
+			var base64Str = this.webcam.getScreenshot();
+			var file = dataURLtoFile(base64Str, "hello.jpg");
+			console.log(file);
+			console.log("캡처됨");
+			this.setState({
+				realtimeUserFace: file
+			});
+			this.realtimeUserFace();
+		}, 1000);
+		
+	};
+	
+	realtimeUserFace = async () => {
+		let form_data = new FormData();
+		form_data.append("userFace", this.state.userFace);
+		try {
+			const response = await axios.post("api/v1/login/", form_data, {
+				headers: {
+					"content-type": "multipart/form-data"
+				}
+			});
+			console.log(response);
+			this.setState({
+				userName: response.data.username
+			})
+			this.faceDetected();
+		} catch (error) {
+			console.error(error);
+			this.faceNotDetected();
+		}
 	};
 	
 	render() {
@@ -75,6 +135,15 @@ class VideoPlay extends Component {
           <Typography variant="h6" color="inherit">
             RealTime Emotion
           </Typography>
+		  
+<Breadcrumbs aria-label="breadcrumb" id ="menu">
+      <Link to="/Option" class ="menuLink" >
+        Home
+      </Link>
+      <Link to="/" class ="menuLink" >
+      Logout
+      </Link>
+    </Breadcrumbs>
         </Toolbar>
       </AppBar>
     </div>	
@@ -86,13 +155,6 @@ class VideoPlay extends Component {
 					height="94%"
 				/>
 
-				<Link to="/Option">
-					<HomeRoundedIcon class="home" />
-				</Link>
-				<Link to="/">
-					{"  "}
-					<ExitToAppIcon class="logout" />
-				</Link>
 
 				<Webcam
 					class="videoWebcam"
@@ -101,6 +163,7 @@ class VideoPlay extends Component {
 					mirrored={true}
 					screenshotQuality={1}
 					ref={this.setRef}
+					screenshotFormat="image/jpeg"
 				/>
 
 <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data}>
