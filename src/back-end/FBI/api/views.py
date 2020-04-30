@@ -97,24 +97,29 @@ def logout(request, format=None):
 
 class getAnalyzingVideo(APIView):
     def get(self, request, id):
-
-        # TODO : Filter already seen videos using sessions.
-
+        viewed_video_list = request.session.get('viewed_videos', [])
         max_id = Video.objects.all().aggregate(max_id=Max('videoId'))['max_id']
         if max_id is None:
             return HttpResponse("No videos.")
 
         while True:
             randId = random.randint(1, max_id)
-            video = Video.objects.filter(pk=randId).first()
-            if video:
-                return JsonResponse({
-                    'user' : id,
-                    'link' : video.link,
-                    'startTime' : video.startTime,
-                    'duration' : video.duration,
-                    'tag' : video.tag,
-                })
+            # Check if the video is in viewed video session list.
+            if randId in viewed_video_list:
+                continue
+            else:
+                video = Video.objects.filter(pk=randId).first()
+                if video:
+                    viewed_video_list.append(randId)
+                    request.session['viewed_videos'] = viewed_video_list
+                    request.session.modified = True
+                    return JsonResponse({
+                        'user' : id,
+                        'link' : video.link,
+                        'startTime' : video.startTime,
+                        'duration' : video.duration,
+                        'tag' : video.tag,
+                    })
 
 class getTrialVideo(APIView):
     def get(self, request, id, emotionTag):
