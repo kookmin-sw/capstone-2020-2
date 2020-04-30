@@ -63,6 +63,7 @@ def login(request, format=None):
 
     current_dir = os.getcwd()
     if 'encoded_users' not in os.listdir(current_dir):
+        encodedImage.append(login_face_encoding)
         return HttpResponse("First user.", status=status.HTTP_406_NOT_ACCEPTABLE)
 
     encodeUsers = []
