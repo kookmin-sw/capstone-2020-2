@@ -101,7 +101,8 @@ class getAnalyzingVideo(APIView):
         max_id = Video.objects.all().aggregate(max_id=Max('videoId'))['max_id']
         if max_id is None:
             return HttpResponse("No videos.")
-
+        if Video.objects.count() == len(request.session.['viewed_videos']):
+            return HttpResponse("Seen every videos.", status=status.HTTP_404_NOT_FOUND)
         while True:
             randId = random.randint(1, max_id)
             # Check if the video is in viewed video session list.
