@@ -37,6 +37,12 @@ class VideoPlay extends Component {
 	setRef = webcam => {
 		this.webcam = webcam;
 	};
+	getVideo = async () => {
+		const video = await axios.get(
+		  'api/v1api/v1/user/{userid}/trial/{emotionTag}/',
+		).then(video => console.log(video))
+		.catch(error => console.log(error));;
+	  };
 
 	getUserImg = async () => {
 		//console.log("캡처되고있음");
@@ -116,7 +122,7 @@ class VideoPlay extends Component {
     </div>	
 				<ReactPlayer
 					className="videoPlayer"
-					url="https://www.youtube.com/watch?v=vqNdWSJyD9Y"
+					url="this.video.link"
 					playing
 					width="80%"
 					height="94%"
