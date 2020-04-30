@@ -21,7 +21,10 @@ def signup(request, format=None):
     if serializer.is_valid():
         # Save new user to db.
         newUser = User.objects.create_user(username=serializer.data['username'],
-                                           userFace=request.FILES['userFace'])
+                                           userFace='default')
+        newUser.save()
+        # Update userFace file name.
+        newUser.userFace = request.FILES['userFace']
         newUser.save()
         payload = {
             'id': newUser.id,

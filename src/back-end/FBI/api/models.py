@@ -3,6 +3,10 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
+def rename_and_upload(instance, filename):
+    filebase, extension = filename.split('.')
+    return 'user/{}_{}.{}'.format(instance.username, instance.id, extension)
+
 class UserManager(BaseUserManager):
     def create_user(self, username, userFace):
         if not username:
@@ -29,7 +33,7 @@ class User(AbstractBaseUser):
         max_length=100,
         unique=False,
     )
-    userFace = models.ImageField(unique=True, upload_to='user/')       # TODO : change to ByteString
+    userFace = models.ImageField(unique=True, upload_to=rename_and_upload)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
