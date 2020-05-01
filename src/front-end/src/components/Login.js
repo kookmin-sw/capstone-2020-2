@@ -62,7 +62,7 @@ class Login extends Component {
 				userFace: file
 			});
 			this.userFace();
-		}, 3000);
+		}, 1000);
 	};
 
 	userFace = async () => {
@@ -107,12 +107,12 @@ class Login extends Component {
 							/>
 						</Grid>
 						<Grid item>
-							<Spinner onLoad={this.capture} color="secondary" id="spinner" />
+							{/* //<Spinner onLoad={this.capture} color="secondary" id="spinner" /> */}
 						</Grid>
 						<Grid item>
 							<div
 								class="alert alert-secondary border-0"
-								style={{marginTop: "5%"}}
+								// style={{marginTop: "5%"}}
 								id="text"
 								role="alert"
 							>
