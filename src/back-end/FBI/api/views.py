@@ -21,7 +21,10 @@ def signup(request, format=None):
     if serializer.is_valid():
         # Save new user to db.
         newUser = User.objects.create_user(username=serializer.data['username'],
-                                           userFace=request.FILES['userFace'])
+                                           userFace='default')
+        newUser.save()
+        # Update userFace file name.
+        newUser.userFace = request.FILES['userFace']
         newUser.save()
         payload = {
             'id': newUser.id,
@@ -58,6 +61,11 @@ def login(request, format=None):
     except IndexError:
         return HttpResponse("Please take another picture.", status=status.HTTP_409_CONFLICT)
 
+    current_dir = os.getcwd()
+    if 'encoded_users' not in os.listdir(current_dir):
+        encodedImage.append(login_face_encoding)
+        return HttpResponse("First user.", status=status.HTTP_406_NOT_ACCEPTABLE)
+
     encodeUsers = []
     with open('encoded_users', 'rb') as fr:
         while True:
@@ -89,24 +97,30 @@ def logout(request, format=None):
 
 class getAnalyzingVideo(APIView):
     def get(self, request, id):
-
-        # TODO : Filter already seen videos using sessions.
-
+        viewed_video_list = request.session.get('viewed_videos', [])
         max_id = Video.objects.all().aggregate(max_id=Max('videoId'))['max_id']
         if max_id is None:
             return HttpResponse("No videos.")
-
+        if Video.objects.count() == len(request.session['viewed_videos']):
+            return HttpResponse("Seen every videos.", status=status.HTTP_404_NOT_FOUND)
         while True:
             randId = random.randint(1, max_id)
-            video = Video.objects.filter(pk=randId).first()
-            if video:
-                return JsonResponse({
-                    'user' : id,
-                    'link' : video.link,
-                    'startTime' : video.startTime,
-                    'duration' : video.duration,
-                    'tag' : video.tag,
-                })
+            # Check if the video is in viewed video session list.
+            if randId in viewed_video_list:
+                continue
+            else:
+                video = Video.objects.filter(pk=randId).first()
+                if video:
+                    viewed_video_list.append(randId)
+                    request.session['viewed_videos'] = viewed_video_list
+                    request.session.modified = True
+                    return JsonResponse({
+                        'user' : id,
+                        'link' : video.link,
+                        'startTime' : video.startTime,
+                        'duration' : video.duration,
+                        'tag' : video.tag,
+                    })
 
 class getTrialVideo(APIView):
     def get(self, request, id, emotionTag):
