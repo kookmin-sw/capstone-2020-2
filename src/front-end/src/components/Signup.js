@@ -3,8 +3,8 @@ import axios from "axios";
 import Webcam from "react-webcam";
 import "../App.css";
 import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {Grid} from "@material-ui/core";
-import IntroCarousel from "./IntroCarousel";
+import {Grid, Button, Input, TextField, InputAdornment} from "@material-ui/core";
+import AccountCircle from '@material-ui/icons/AccountCircle';
 class Signup extends Component {
 	constructor(props) {
 		super(props);
@@ -70,27 +70,27 @@ class Signup extends Component {
 						</Grid>
 						<Grid item>
 							<div class="input-group" id="userInput">
-								<form name="login-username">
-									<div class="input-group-sm-prepend">
-										<span class="input-group-text">UserName </span>
-									</div>
-
-									<input
-										type="text"
-										value={this.state.userName}
-										onChange={this.userNameChange.bind(this)}
-										class="form-control"
-										aria-describedby="basic-addon1"
-									/>
-									<button
-										type="button"
+						
+							<TextField
+       						 id="input-with-icon-textfield"
+        					label="UserName"
+      							  InputProps={{
+     						     startAdornment: (
+         						   <InputAdornment position="start">
+         					   	  <AccountCircle />
+          						  </InputAdornment>
+        								  ),
+      	 									 }}
+    									  />
+									<Button variant="contained" 
 										label="Sign in"
 										style={{margin: "5%"}}
 										onClick={this.signupSubmit.bind(this)}
 									>
-										Sign up
-									</button>
-								</form>
+										Sign Up
+									</Button>
+						
+							
 							</div>
 						</Grid>
 					</Grid>

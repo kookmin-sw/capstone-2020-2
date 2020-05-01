@@ -3,9 +3,19 @@
   height: 40vmin;
   pointer-events: none;
 }
+body {
+        width: 100%;
+        height: 100%;
+      }
+html {
+        width: 100%;
+        height: 100% !important;
+      }
+
 
 .full-container {
-  height: 60em;
+width: 100%;
+height: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -51,10 +61,10 @@
 }
 .videoWebcam{
  position: absolute;
-  top:0px;
+  top:48px;
   right:0px;
   width: 20%;
-  height: 45%;
+  height: 40%;
   object-fit: cover;
 }
 .webcam {
@@ -66,36 +76,24 @@
   
 }
 
-.home{
- position: absolute;
- top:0px;
- right:35px;
- width: 35px;
- height: 35px;
- z-index:1;
-}
-.logout{
+#menu{
   position: absolute;
-  top: 0px;
-  right: 0px;
-
-  width:35px;
-  height: 35px;
-  z-index:1;
+  right: 10px;
+  color : black ;
 }
 
-
+.menuLink{
+  color: black;
+}
 .recharts-wrapper{
     position: absolute !important;
     bottom: 0px;
     right: 0px;
     width: 20% !important;
-    height: 40% !important;
+    height: 45% !important;
     text-align: center;
   }
-  .recharts-legend-wrapper{
-    display :none;
-  }
+
   .recharts-surface{
     position: absolute !important;
     bottom: 0px;
@@ -109,10 +107,13 @@
     opacity: 0;
   }
 }
-
+#root {
+  width: 100%;
+  height: 100%;
+}
 #userInput {
   position:relative;
-  width: 300px;
+  width: 350px;
   justify-content: center;
 }
 /* #explain {
@@ -130,7 +131,6 @@
   width: 70%;
   height: 40%;
 }
-
 #startCardBtn {
   width: 60%;
   height: 50%;
