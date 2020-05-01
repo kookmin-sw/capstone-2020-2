@@ -29,14 +29,12 @@ class Login extends Component {
 
 	faceDetected() {
 		this.props.history.push("/Option", {userName: this.state.userName});
+		console.log("얼굴 정보 있음, 로그인 4 페이지로 넘어감");
 	}
 
 	faceNotDetected() {
 		this.props.history.push("/Signup", {userFace: this.state.userFace});
-	}
-
-	faceNotFound() {
-        window.location.reload(false);
+		console.log("얼굴 정보 없음, 로그인 3 페이지로 넘어감");
 	}
 
 	getLogin = async () => {
@@ -82,19 +80,8 @@ class Login extends Component {
 			})
 			this.faceDetected();
 		} catch (error) {
-			console.error(error.response);
-		    if (error.response.status == 404) {
-		        // No user info.
-		        this.faceNotDetected();
-		    }
-		    else if (error.response.status == 406) {
-		        // First user error occured.
-                this.faceNotDetected();
-		    }
-		    else if (error.response.status == 409) {
-		        // Cannot recognize face on image.
-		        this.faceNotFound();
-		    }
+			console.error(error);
+			this.faceNotDetected();
 		}
 	};
 
@@ -119,6 +106,7 @@ class Login extends Component {
 								screenshotFormat="image/jpeg"
 							/>
 						</Grid>
+
 						<Grid item>
 							{/* //<Spinner onLoad={this.capture} color="secondary" id="spinner" /> */}
 						</Grid>
