@@ -38,11 +38,8 @@ def print_cm(cm, labels, hide_zeroes=False, hide_diagonal=False, hide_threshold=
             print(cell, end=" ")
         print()
         
-def testModel(net, testloader, numOfClass, criterion, model_type,  detail=False):
-    if numOfClass == 2:
-        target_names = ['Low', "High"]
-    elif  numOfClass == 3:
-        target_names = ['Low', 'Neutral', 'High']
+def testModel(net, testloader, target_names, criterion, model_type,  detail=False):
+    numOfClass = len(target_names)
     co = 0 # 맞은 개수
     to = 0 # 테스트셋 개수
 
@@ -97,7 +94,7 @@ def testModel(net, testloader, numOfClass, criterion, model_type,  detail=False)
 
     
 # Train method
-def train_model(net, model_type, trainloader, testloader, numOfClass, epoch=100, detail=True):
+def train_model(net, model_type, trainloader, testloader, target_names, epoch=100, detail=True):
     t_loss_list = []
     v_loss_list = []
     f1_list = []
@@ -134,7 +131,7 @@ def train_model(net, model_type, trainloader, testloader, numOfClass, epoch=100,
             print("\n[ Epoch %d ] T_Loss = %f \n"%(epoch+1, t_loss), end='' )
         
         try:
-            val_loss, acc, f1 = testModel(net, testloader, numOfClass, criterion, model_type, False)
+            val_loss, acc, f1 = testModel(net, testloader, target_names, criterion, model_type, False)
         except: continue
 
         if acc > prev_acc:

@@ -39,7 +39,7 @@ class EEG_Dataset(Dataset):
     def __getitem__(self, idx):
         if self.dataset == 'DEAP':
             spectro, label = self.data_list[idx][0], self.data_list[idx][1][self.target]
-        elif self.dataset == 'SEED':
+        elif self.dataset == 'SEED' or self.dataset == 'BCI':
             spectro, label = self.data_list[idx][0], self.data_list[idx][1]
         if self.transform:
             spectro = self.transform(spectro)
