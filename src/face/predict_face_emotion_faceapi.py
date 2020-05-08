@@ -1,18 +1,21 @@
 import requests
 import json
 
-def predict_emotion(image)):
-    # 결제한 다음에 아래 key 값 바꿔줘야 함.
+def predict_emotion(image):
+    # 얘네 두 개는 상수로 밖에 빼놔도 괜찮을 듯... 아니면 말고...
     # Key
-    subscription_key = "93d41a68c59b4e19b350ddf7fd5fd5a5"
+    subscription_key = "ac039e4790244804a34be1b1afa4e4ee"
     # Endpoint
+    endpoint = "https://capstone-faceapi.cognitiveservices.azure.com/"
     base_uri = "https://koreacentral.api.cognitive.microsoft.com"
-
+    
     '''
     with open(image_path, 'rb') as f:
         image_data = f.read()
     '''
-    image_data = image      # 이거 저장되어 있는 파일로만 보내야됐나 그랬던 것 같은데.. 일단 돌려봐야 할 듯.
+    image_data = image
+    
+    print(f"image_data 타입 : {type(image_data)}")
     # header 설정
     headers = {
         'Content-Type': 'application/octet-stream',
@@ -23,7 +26,7 @@ def predict_emotion(image)):
     params = {
         'returnFaceId': 'true',
         'returnFaceLandmarks': 'false',
-        'returnFaceAttributes': 'smile,emotion',
+        'returnFaceAttributes': 'emotion',
     }
 
     # 리퀘스트 요청
@@ -35,7 +38,7 @@ def predict_emotion(image)):
     # 예측한 감정 중 가장 높은 것 3 개를 가져옴.
     first, second, third = emotion_dicts[0][0], emotion_dicts[1][0], emotion_dicts[2][0]
     '''
-    emotions = emotion_dicts.items()      # anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
-
-    # return (first, second, third)
+    emotions = list(emotion_dicts.items())
+    emotions = [e[1] for e in emotions]
+    
     return emotions

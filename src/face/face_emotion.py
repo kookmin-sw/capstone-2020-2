@@ -13,8 +13,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.metrics import plot_confusion_matrix
-import seaborn as sns
-import matplotlib.pyplot as plt
+# import seaborn as sns
+# import matplotlib.pyplot as plt
 from pandas import DataFrame
 
 
@@ -360,8 +360,8 @@ def test_model():
 
     df = DataFrame(conf_matrix, index=class_names, columns=class_names)
     print(df)
-    plt.figure(figsize=(15, 15))
-    sns.heatmap(df, annot=True)
+    # plt.figure(figsize=(15, 15))
+    # sns.heatmap(df, annot=True)
 
 
 if __name__ == "__main__":

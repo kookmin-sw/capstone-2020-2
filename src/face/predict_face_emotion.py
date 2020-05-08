@@ -10,7 +10,7 @@ model = FaceEmotion()
 model.load_state_dict(torch.load("FaceEmotionModel.pt"))
 
 
-image = cv2.imread('46.jpg',cv2.IMREAD_GRAYSCALE)
+image = cv2.imread('10.jpg',cv2.IMREAD_GRAYSCALE)
 transformation = transforms.Compose([transforms.ToTensor()]) 
 image_tensor = transformation(image).float()
 inp = Variable(image_tensor)
@@ -19,4 +19,4 @@ output = model.predict(inp.unsqueeze_(0))
 print(output.data)
 
 emotion = torch.max(output.data, 1)
-print(predicted)
+print(emotion)
