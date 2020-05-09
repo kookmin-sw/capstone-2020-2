@@ -68,7 +68,7 @@ class Option extends Component {
 					style={{height: "900px"}}
 				>
 					<Grid item>
-						<Link to="/VideoPlay">
+						<Link to="/Trial">
 							<Button
 								className={classes.btnStyle}
 								color="primary"

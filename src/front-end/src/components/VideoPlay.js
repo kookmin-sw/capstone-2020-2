@@ -26,8 +26,9 @@ class VideoPlay extends Component {
 	state = [];
 
 
-	componentDidMount(Webcam) {
-		this.getUserImg();
+	componentWillMount() {
+		let emotionTag = this.props.location.state.emotionTag;
+	
 	}
 	componentWillUnmount() {
 		this.getUserImg = null;
@@ -39,7 +40,7 @@ class VideoPlay extends Component {
 	};
 	getVideo = async () => {
 		const video = await axios.get(
-		  'api/v1api/v1/user/{userid}/trial/{emotionTag}/',
+		  'api/v1/user/${userid}/trial/${emotionTag}/',
 		).then(video => console.log(video))
 		.catch(error => console.log(error));;
 	  };
@@ -63,7 +64,7 @@ class VideoPlay extends Component {
 
 		const captureImg = setInterval(() => {
 			var base64Str = this.webcam.getScreenshot();
-			var file = dataURLtoFile(base64Str, "${userid}-${videoid}-001");
+			var file = dataURLtoFile(base64Str, "${userid}-${this.props.video.videoid}-001");
 			console.log(file);
 			console.log("캡처됨");
 			this.setState({
@@ -77,7 +78,7 @@ class VideoPlay extends Component {
 	realtimeUserFace = async () => {
 		const image = new FormData();
 		image.append("realtimeUserFace", this.state.realtimeUserFace);
-			const response = await axios.post("api/v1/user/{userid}/trial/{emotionTag}/real-time-result/", image, {
+			const response = await axios.post("api/v1/user/${userid}/trial/${emotionTag}/real-time-result/", image, {
 				headers: {
 					"content-type": "multipart/form-data"
 				}
@@ -88,7 +89,7 @@ class VideoPlay extends Component {
 	};
 	getEmotions = async () => {
 		const response = await axios.get(
-		  'api/v1/user/{userid}/trial/{emotionTag}/real-time-result/',
+		  'api/v1/user/${userid}/trial/${emotionTag}/real-time-result/',
 		).then(response => console.log(response))
 		.catch(error => console.log(error));;
 		this.append(response);
@@ -122,7 +123,7 @@ class VideoPlay extends Component {
     </div>	
 				<ReactPlayer
 					className="videoPlayer"
-					url="this.video.link"
+					url="this.props.video.link"
 					playing
 					width="80%"
 					height="94%"
