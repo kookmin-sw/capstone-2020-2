@@ -1,12 +1,12 @@
-import React, {Component} from "react";
-import "../App.css";
+import React, { Component } from 'react';
+import '../App.css';
 
 class Analyze extends Component {
-	state = {};
+  state = {};
 
-	render() {
-		return <div></div>;
-	}
+  render() {
+    return <div> </div>;
+  }
 }
 
 export default Analyze;
