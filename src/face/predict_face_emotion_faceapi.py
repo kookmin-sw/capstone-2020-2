@@ -32,13 +32,11 @@ def predict_emotion(image):
     # 리퀘스트 요청
     response = requests.request('POST', base_uri + '/face/v1.0/detect', json=None, data=image_data, headers=headers, params=params)
     emotion_dicts = response.json()[0]['faceAttributes']['emotion']
-    '''
-    # 가장 높은 확률 순으로 정렬
-    emotion_dicts = sorted(emotion_dicts.items(), reverse=True, key=lambda x:x[1])
-    # 예측한 감정 중 가장 높은 것 3 개를 가져옴.
-    first, second, third = emotion_dicts[0][0], emotion_dicts[1][0], emotion_dicts[2][0]
+
     '''
     emotions = list(emotion_dicts.items())
     emotions = [e[1] for e in emotions]
     
     return emotions
+    '''
+    return emotion_dicts
