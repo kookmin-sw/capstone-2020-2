@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Login from './components/Login';
-import Main from './components/Main';
-import Signup from './components/Signup';
-import Option from './components/Option';
-import Trial from './components/TrialOption';
-import VideoPlay from './components/VideoPlay';
-import Analyze from './components/Analyze';
+import Login from './pages/Login';
+import Main from './pages/Main';
+import Signup from './pages/Signup';
+import Option from './pages/Option';
+import Trial from './pages/TrialOption';
+import VideoPlay from './pages/VideoPlay';
+import Analyze from './pages/Analyze';
 import './App.css';
 import axios from 'axios';
 import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';

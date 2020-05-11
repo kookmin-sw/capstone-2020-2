@@ -11,7 +11,7 @@ import {
   Typography,
   ThemeProvider,
 } from '@material-ui/core';
-import IntroCarousel from './IntroCarousel';
+import IntroCarousel from '../components/IntroCarousel';
 import '../App.css';
 
 let theme = createMuiTheme();

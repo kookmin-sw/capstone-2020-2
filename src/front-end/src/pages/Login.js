@@ -12,7 +12,7 @@ import {
 } from 'react-router-dom';
 import 'base64-to-image';
 import { Grid } from '@material-ui/core';
-import IntroCarousel from './IntroCarousel';
+import IntroCarousel from '../components/IntroCarousel';
 
 class Login extends Component {
   state = {

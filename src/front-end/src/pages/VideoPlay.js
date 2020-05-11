@@ -121,7 +121,7 @@ class VideoPlay extends Component {
         </div>
         <ReactPlayer
           className="videoPlayer"
-          url="this.props.video.link"
+          url={this.props.video.link}
           playing
           width="80%"
           height="94%"
