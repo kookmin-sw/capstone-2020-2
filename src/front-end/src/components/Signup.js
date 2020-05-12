@@ -18,7 +18,7 @@ class Signup extends Component {
       userName: '',
     };
   }
-
+  
   userNameChange(event) {
     this.setState({
       userName: event.target.value,

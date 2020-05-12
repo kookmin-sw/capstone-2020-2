@@ -19,27 +19,55 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
 class VideoPlay extends Component {
-  state = [];
-
-  componentWillMount() {
+  state = {
+    realtimeUserFace: null
+  };
+   
+ 
+ 
+ 
+  componentWillMount(){
+    this.getUser();
     let emotionTag = this.props.location.state.emotionTag;
+    console.log(emotionTag);
   }
   componentWillUnmount() {
     this.getUserImg = null;
     this.props.isLast = true;
   }
-
+  componentDidMount(){
+    this.getVideo();
+    this.realtimeUserFace();
+    
+  }
   setRef = webcam => {
     this.webcam = webcam;
   };
-  getVideo = async () => {
-    const video = await axios
-      .get('api/v1/user/${userid}/trial/${emotionTag}/')
-      .then(video => console.log(video))
+
+
+  getUser =async () => {
+    try{
+      let form_data = new FormData();
+   const response = axios.post('api/v1/login/', form_data, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  }) ;
+    console.log(response);
+    let id = response.data.id;
+    }catch(error){
+      console.error(error);
+    }
+  };
+  
+    getVideo = () => {
+     return axios
+      .get('api/v1/user/${id}/trial/${emotionTag}/')
+      .then(response => console.log(response))
       .catch(error => console.log(error));
   };
 
-  getUserImg = async () => {
+  getUserImg = () => {
     //console.log("캡처되고있음");
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -60,7 +88,7 @@ class VideoPlay extends Component {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
         base64Str,
-        '${userid}-${this.props.video.videoid}-001',
+        '${id}-${this.props.video.videoId}-001',
       );
       console.log(file);
       console.log('캡처됨');
@@ -71,25 +99,30 @@ class VideoPlay extends Component {
     }, 1000);
   };
 
-  realtimeUserFace = async () => {
-    const image = new FormData();
-    image.append('realtimeUserFace', this.state.realtimeUserFace);
-    const response = await axios
-      .post(
-        'api/v1/user/${userid}/trial/${emotionTag}/real-time-result/',
-        image,
-        {
-          headers: {
-            'content-type': 'multipart/form-data',
+  realtimeUserFace = () => {
+    try{
+      const image = new FormData();
+      image.append('realtimeUserFace', this.state.realtimeUserFace);
+      return axios
+        .get(
+          'api/v1/user/${id}/trial/${emotionTag}/real-time-result/',
+          image,
+          {
+            headers: {
+              'content-type': 'multipart/form-data',
+            },
           },
-        },
-      )
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
+        )
+    } catch(error){
+      console.log(error);
+    }
+
+     
   };
+
   getEmotions = async () => {
     const response = await axios
-      .get('api/v1/user/${userid}/trial/${emotionTag}/real-time-result/')
+      .get('api/v1/user/${id}/trial/${emotionTag}/result/')
       .then(response => console.log(response))
       .catch(error => console.log(error));
     this.append(response);
@@ -121,7 +154,7 @@ class VideoPlay extends Component {
         </div>
         <ReactPlayer
           className="videoPlayer"
-          url="this.props.video.link"
+          url='api/v1/user/${id}/trial/${emotionTag}/'
           playing
           width="80%"
           height="94%"
