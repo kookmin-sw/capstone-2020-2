@@ -154,7 +154,11 @@ class VideoPlay extends Component {
         </div>
         <ReactPlayer
           className="videoPlayer"
+<<<<<<< HEAD:src/front-end/src/components/VideoPlay.js
           url='api/v1/user/${id}/trial/${emotionTag}/'
+=======
+          url={this.props.video.link}
+>>>>>>> ce140324470b599a0be3c43b269dd8d1b348d440:src/front-end/src/pages/VideoPlay.js
           playing
           width="80%"
           height="94%"

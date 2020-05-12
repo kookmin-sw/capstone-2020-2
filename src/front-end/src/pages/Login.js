@@ -12,23 +12,37 @@ import {
 } from 'react-router-dom';
 import 'base64-to-image';
 import { Grid } from '@material-ui/core';
-import IntroCarousel from './IntroCarousel';
+import IntroCarousel from '../components/IntroCarousel';
+import UserContext from '../UserContext';
 
 class Login extends Component {
-  state = {
-    userFace: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      userFace: null,
+    };
+  }
+
+  static contextType = UserContext;
 
   componentDidMount(Webcam) {
     this.getLogin();
   }
 
-  setRef = webcam => {
+  setRef = (webcam) => {
     this.webcam = webcam;
   };
 
-  faceDetected() {
-    this.props.history.push('/Option', { userName: this.state.userName });
+  faceDetected(data) {
+    console.log(data);
+    const { user, setUser } = this.context;
+    const newUser = {
+      id: data.id,
+      name: data.username,
+      loggedIn: true,
+    };
+    setUser(newUser);
+    this.props.history.push('/Option');
   }
 
   faceNotDetected() {
@@ -81,8 +95,9 @@ class Login extends Component {
       this.setState({
         userName: response.data.username,
       });
-      this.faceDetected();
+      this.faceDetected(response.data);
     } catch (error) {
+      console.log(error);
       console.error(error.response);
       if (error.response.status == 404) {
         // No user info.
