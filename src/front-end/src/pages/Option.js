@@ -9,6 +9,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import UserContext from '../UserContext';
 
 const style = {
   btnStyle: {
@@ -21,19 +22,19 @@ const style = {
 };
 
 class Option extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      close: true,
-    };
-  }
+  state = {
+    close: true,
+  };
 
+  static contextType = UserContext;
   render() {
     const { classes } = this.props;
+    const { user } = this.context;
+    console.log(user);
 
     return (
       <div class="container-fluid">
-        <LoginAlert userName={this.props.location.state.userName}></LoginAlert>
+        <LoginAlert userName={user.name}></LoginAlert>
         <Grid
           container
           spacing={10}
