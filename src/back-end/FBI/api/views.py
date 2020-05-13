@@ -9,6 +9,7 @@ from . import serializers
 from .customLogin import *
 import random, os, pickle
 from PIL import Image
+from src.face.predict_face_emotion_faceapi import predict_emotion
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 path = os.path.join(BASE_DIR, 'media')
@@ -148,8 +149,8 @@ class realTimeAnalyze(APIView):
         image = request.FILES['image']
 
         # Pass image to face analyze model.
-        # methodName(image)
-
+        payload = predict_emotion(image)
+        return JsonResponse(payload)
         # Retrieve result and send to FE.
         # result = []
         # while True:
