@@ -86,14 +86,11 @@ WSGI_APPLICATION = 'FBI.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fbi',
-        'USER': 'root',
-        'PASSWORD': '111111',
-        'HOST': 'localhost',
-        'PORT': '3306'
-        },
+        'OPTIONS': {
+            'read_default_file': os.path.join(BASE_DIR, 'mysql.cnf')
+        }
     }
-
+}
 
 
 # Password validation
