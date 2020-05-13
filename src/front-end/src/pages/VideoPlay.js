@@ -92,7 +92,7 @@ class VideoPlay extends Component {
 
     getVideo = (id,emotionTag) => {
      return axios
-      .get(`api/v1/user/${id}/trial/${emotionTag}/`)
+      .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
       .then(res => {
         const video= res.data;
         this.setState({link:video.link});
@@ -137,13 +137,13 @@ class VideoPlay extends Component {
     };
   };
 
-  realtimeUserFace = (id,emotionTag) => {
+  realtimeUserFace = (id) => {
     try{
       const image = new FormData();
       image.append('realtimeUserFace', this.state.realtimeUserFace);
       return axios
         .get(
-          `api/v1/user/${id}/trial/${emotionTag}/real-time-result/`,
+          `api/v1/user/${id}/analyze/real-time-result/`,
           image,
           {
             headers: {
@@ -160,7 +160,7 @@ class VideoPlay extends Component {
 
   getEmotions = async (id, emotionTag) => {
     const response = await axios
-      .get(`api/v1/user/${id}/trial/${emotionTag}/result/`)
+      .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
       .then(response => console.log(response))
       .catch(error => console.log(error));
     this.append(response);
