@@ -7,8 +7,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from . import serializers
 from .customLogin import *
-import random, os, pickle
+import random, os, pickle, sys
 from PIL import Image
+
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))))))
 from src.face.predict_face_emotion_faceapi import predict_emotion
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
