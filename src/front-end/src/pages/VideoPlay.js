@@ -10,6 +10,7 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
+  Legend,
 } from 'recharts';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,8 +23,30 @@ import UserContext from '../UserContext';
 class VideoPlay extends Component {
   state = {
     realtimeUserFace: null,
-    link:''
-  };
+    link:'',
+    data :
+      [
+        {
+          emotionTag: 'happy', A: 120, B: 110, fullMark: 150,
+        },
+        {
+          emotionTag: 'sad', A: 98, B: 130, fullMark: 150,
+        },
+        {
+          emotionTag: 'angry', A: 86, B: 130, fullMark: 150,
+        },
+        {
+          emotionTag: 'disgust', A: 99, B: 100, fullMark: 150,
+        },
+        {
+          emotionTag: 'fear', A: 85, B: 90, fullMark: 150,
+        },
+        {
+          emotionTag: 'neutral', A: 65, B: 85, fullMark: 150,
+        },
+      ]
+    };
+
    
  
   static contextType = UserContext;
@@ -43,15 +66,11 @@ class VideoPlay extends Component {
     this.props.isLast = true;
   }
   componentDidMount(){
-    
 
-    
   }
   setRef = webcam => {
     this.webcam = webcam;
   };
-
-
   // getUser =async () => {
   //   try{
   //     let form_data = new FormData();
@@ -192,27 +211,16 @@ class VideoPlay extends Component {
           screenshotFormat="image/jpeg"
         />
 
-        <RadarChart
-          cx={300}
-          cy={250}
-          outerRadius={150}
-          width={500}
-          height={500}
-          data={this.state}
-        >
-          <PolarGrid />
-          <PolarAngleAxis dataKey="emotionTag" />
-          <PolarRadiusAxis />
-          <Radar
-            dataKey="num"
-            stroke="#8884d8"
-            fill="#8884d8"
-            fillOpacity={0.6}
-          />
-        </RadarChart>
+                                    
+<RadarChart outerRadius={90} width={250} height={250} data={this.state.data}>
+  <PolarGrid />
+  <PolarAngleAxis dataKey="emotionTag" />
+  <PolarRadiusAxis angle={30} domain={[0, 150]} />
+  <Radar name="emotion" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+</RadarChart>
       </div>
     );
   }
-}
+};
 
 export default VideoPlay;
