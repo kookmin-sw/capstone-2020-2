@@ -22,7 +22,7 @@ import UserContext from '../UserContext';
 class VideoPlay extends Component {
   state = {
     realtimeUserFace: null,
-    link : ''
+    link:''
   };
    
  
@@ -36,7 +36,7 @@ class VideoPlay extends Component {
     const id = user.id;
     console.log(id);
    this.getVideo(id,emotionTag);
-
+   this.getUserImg(id,emotionTag);
   }
   componentWillUnmount() {
     this.getUserImg = null;
@@ -44,7 +44,7 @@ class VideoPlay extends Component {
   }
   componentDidMount(){
     
-    this.realtimeUserFace();
+
     
   }
   setRef = webcam => {
@@ -76,14 +76,15 @@ class VideoPlay extends Component {
       .get(`api/v1/user/${id}/trial/${emotionTag}/`)
       .then(res => {
         const video= res.data;
-        this.setState({link: video.link});
+        this.setState({link:video.link});
         console.log(this.state.link)
       })
       .catch(error => console.log(error));
   };
 
+  
 
-  getUserImg = () => {
+  getUserImg = (id,emotionTag) => {
     //console.log("캡처되고있음");
 
 
@@ -92,14 +93,14 @@ class VideoPlay extends Component {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
         base64Str,
-        `${this.props.id}-${this.props.video.videoId}-001`,
+        `${this.props.id}-001`,
       );
       console.log(file);
       console.log('캡처됨');
       this.setState({
         realtimeUserFace: file,
       });
-      this.realtimeUserFace();
+      this.realtimeUserFace(id,emotionTag);
     }, 1000);
 
     const dataURLtoFile = (dataurl, filename) => {
