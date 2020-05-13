@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import UserContext from '../UserContext';
 
 class VideoPlay extends Component {
   state = {
@@ -24,7 +25,7 @@ class VideoPlay extends Component {
   };
    
  
- 
+  static contextType = UserContext;
  
   componentWillMount(){
     this.getUser();
