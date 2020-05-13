@@ -56,6 +56,17 @@ class Login extends Component {
 
   getLogin = async () => {
     console.log('캡처되고있음');
+
+    const captureImg = setTimeout(() => {
+      var base64Str = this.webcam.getScreenshot();
+      var file = dataURLtoFile(base64Str, 'hello.jpg');
+      console.log(file);
+      console.log('캡처됨');
+      this.setState({
+        userFace: file,
+      });
+      this.userFace();
+    }, 1000);
     const dataURLtoFile = (dataurl, filename) => {
       var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -69,17 +80,6 @@ class Login extends Component {
 
       return new File([u8arr], filename, { type: mime });
     };
-
-    const captureImg = setTimeout(() => {
-      var base64Str = this.webcam.getScreenshot();
-      var file = dataURLtoFile(base64Str, 'hello.jpg');
-      console.log(file);
-      console.log('캡처됨');
-      this.setState({
-        userFace: file,
-      });
-      this.userFace();
-    }, 1000);
   };
 
   userFace = async () => {

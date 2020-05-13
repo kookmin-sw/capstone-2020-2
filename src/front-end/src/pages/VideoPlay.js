@@ -21,23 +21,29 @@ import UserContext from '../UserContext';
 
 class VideoPlay extends Component {
   state = {
-    realtimeUserFace: null
+    realtimeUserFace: null,
+    link : ''
   };
    
  
   static contextType = UserContext;
- 
+  
   componentWillMount(){
-    this.getUser();
-    let emotionTag = this.props.location.state.emotionTag;
+    const emotionTag = this.props.location.state.emotionTag;
     console.log(emotionTag);
+    const { user } = this.context;
+    console.log(user);
+    const id = user.id;
+    console.log(id);
+   this.getVideo(id,emotionTag);
+
   }
   componentWillUnmount() {
     this.getUserImg = null;
     this.props.isLast = true;
   }
   componentDidMount(){
-    this.getVideo();
+    
     this.realtimeUserFace();
     
   }
@@ -46,30 +52,55 @@ class VideoPlay extends Component {
   };
 
 
-  getUser =async () => {
-    try{
-      let form_data = new FormData();
-   const response = axios.post('api/v1/login/', form_data, {
-    headers: {
-      'content-type': 'multipart/form-data',
-    },
-  }) ;
-    console.log(response);
-    let id = response.data.id;
-    }catch(error){
-      console.error(error);
-    }
-  };
-  
-    getVideo = () => {
+  // getUser =async () => {
+  //   try{
+  //     let form_data = new FormData();
+  //  const response = axios.post('api/v1/login/', form_data, {
+  //   headers: {
+  //     'content-type': 'multipart/form-data',
+  //   },
+  // }) ;
+  //   console.log(response);
+  //     this.setState({
+  //      id: response.data.id,
+  //     });
+    
+  //   }catch(error){
+  //     console.error(error);
+  //   }
+  // };
+
+
+    getVideo = (id,emotionTag) => {
      return axios
-      .get('api/v1/user/${id}/trial/${emotionTag}/')
-      .then(response => console.log(response))
+      .get(`api/v1/user/${id}/trial/${emotionTag}/`)
+      .then(res => {
+        const video= res.data;
+        this.setState({link: video.link});
+        console.log(this.state.link)
+      })
       .catch(error => console.log(error));
   };
 
+
   getUserImg = () => {
     //console.log("캡처되고있음");
+
+
+
+    const captureImg = setInterval(() => {
+      var base64Str = this.webcam.getScreenshot();
+      var file = dataURLtoFile(
+        base64Str,
+        `${this.props.id}-${this.props.video.videoId}-001`,
+      );
+      console.log(file);
+      console.log('캡처됨');
+      this.setState({
+        realtimeUserFace: file,
+      });
+      this.realtimeUserFace();
+    }, 1000);
 
     const dataURLtoFile = (dataurl, filename) => {
       var arr = dataurl.split(','),
@@ -84,29 +115,15 @@ class VideoPlay extends Component {
 
       return new File([u8arr], filename, { type: mime });
     };
-
-    const captureImg = setInterval(() => {
-      var base64Str = this.webcam.getScreenshot();
-      var file = dataURLtoFile(
-        base64Str,
-        '${id}-${this.props.video.videoId}-001',
-      );
-      console.log(file);
-      console.log('캡처됨');
-      this.setState({
-        realtimeUserFace: file,
-      });
-      this.realtimeUserFace();
-    }, 1000);
   };
 
-  realtimeUserFace = () => {
+  realtimeUserFace = (id,emotionTag) => {
     try{
       const image = new FormData();
       image.append('realtimeUserFace', this.state.realtimeUserFace);
       return axios
         .get(
-          'api/v1/user/${id}/trial/${emotionTag}/real-time-result/',
+          `api/v1/user/${id}/trial/${emotionTag}/real-time-result/`,
           image,
           {
             headers: {
@@ -121,15 +138,18 @@ class VideoPlay extends Component {
      
   };
 
-  getEmotions = async () => {
+  getEmotions = async (id, emotionTag) => {
     const response = await axios
-      .get('api/v1/user/${id}/trial/${emotionTag}/result/')
+      .get(`api/v1/user/${id}/trial/${emotionTag}/result/`)
       .then(response => console.log(response))
       .catch(error => console.log(error));
     this.append(response);
   };
 
   render() {
+ 
+
+
     return (
       <div class="full-container">
         <div>
@@ -155,11 +175,7 @@ class VideoPlay extends Component {
         </div>
         <ReactPlayer
           className="videoPlayer"
-<<<<<<< HEAD:src/front-end/src/components/VideoPlay.js
-          url='api/v1/user/${id}/trial/${emotionTag}/'
-=======
-          url={this.props.video.link}
->>>>>>> ce140324470b599a0be3c43b269dd8d1b348d440:src/front-end/src/pages/VideoPlay.js
+          url= {this.state.link}
           playing
           width="80%"
           height="94%"
