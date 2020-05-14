@@ -69,6 +69,7 @@ class VideoPlay extends Component {
         loggedIn: false,
       },
       emotionTag: '',
+      imageIndex: 1,
     };
   }
 
@@ -102,7 +103,7 @@ class VideoPlay extends Component {
     const { user } = this.context;
     console.log('user is', user);
     if (user) {
-      this.getVideo(user.id, this.state.emotionTag);
+      this.getVideo(user.id);
       this.getUserImg(user.id, this.state.emotionTag);
       this.randomValues();
     } else {
@@ -114,7 +115,7 @@ class VideoPlay extends Component {
     this.webcam = webcam;
   };
 
-  getVideo = (id, emotionTag) => {
+  getVideo = (id) => {
     console.log(id, this.state.emotionTag);
     return axios
       .get(`api/v1/user/${id}/analyze/${this.state.emotionTag}/`)
@@ -131,13 +132,15 @@ class VideoPlay extends Component {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
         base64Str,
-        `${id}-${this.state.video.id}-001.jpg`,
+        `${id}-${this.state.video.id}-${('000' + this.state.imageIndex).slice(
+          -3,
+        )}.jpg`,
       );
-      console.log(file);
       console.log(id, emotionTag);
       console.log('캡처됨');
       this.setState({
         realtimeUserFace: file,
+        imageIndex: this.state.imageIndex + 1,
       });
       this.realtimeUserFace(id);
     }, 1000);
