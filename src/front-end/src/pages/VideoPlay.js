@@ -27,22 +27,25 @@ class VideoPlay extends Component {
     data :
       [
         {
-          emotionTag: 'happy', A: 120, B: 110, fullMark: 150,
+          emotionTag: 'happy', A: 1.0, fullMark: 1.0,
         },
         {
-          emotionTag: 'sad', A: 98, B: 130, fullMark: 150,
+          emotionTag: 'sad', A: 0.0,  fullMark: 1.0,
         },
         {
-          emotionTag: 'angry', A: 86, B: 130, fullMark: 150,
+          emotionTag: 'angry', A: 0.0,  fullMark: 1.0,
         },
         {
-          emotionTag: 'disgust', A: 99, B: 100, fullMark: 150,
+          emotionTag: 'disgust', A: 0.0,fullMark: 1.0,
         },
         {
-          emotionTag: 'fear', A: 85, B: 90, fullMark: 150,
+          emotionTag: 'fear', A: 0.0, fullMark: 1.0,
         },
         {
-          emotionTag: 'neutral', A: 65, B: 85, fullMark: 150,
+          emotionTag: 'neutral', A: 0.0, fullMark: 1.0,
+        },
+        {
+          emotionTag: 'surprise', A: 0.0,  fullMark: 1.0,
         },
       ]
     };
@@ -66,29 +69,11 @@ class VideoPlay extends Component {
     this.props.isLast = true;
   }
   componentDidMount(){
-
+    this.randomValues();
   }
   setRef = webcam => {
     this.webcam = webcam;
   };
-  // getUser =async () => {
-  //   try{
-  //     let form_data = new FormData();
-  //  const response = axios.post('api/v1/login/', form_data, {
-  //   headers: {
-  //     'content-type': 'multipart/form-data',
-  //   },
-  // }) ;
-  //   console.log(response);
-  //     this.setState({
-  //      id: response.data.id,
-  //     });
-    
-  //   }catch(error){
-  //     console.error(error);
-  //   }
-  // };
-
 
     getVideo = (id,emotionTag) => {
      return axios
@@ -101,7 +86,7 @@ class VideoPlay extends Component {
       .catch(error => console.log(error));
   };
 
-  
+
 
   getUserImg = (id,emotionTag) => {
     //console.log("캡처되고있음");
@@ -150,13 +135,27 @@ class VideoPlay extends Component {
               'content-type': 'multipart/form-data',
             },
           },
-        )
+        ).then(response => {
+          let values = response.emotionValues;
+          console.log(response)
+        })
     } catch(error){
       console.log(error);
-    }
-
-     
+    } 
   };
+ 
+  randomValues =()=>{
+    values =setInterval(function(){
+      for(let emotions in this.state.data ){
+          emotions.A = Math.random();
+      }
+     
+    },1000);
+  };
+  
+
+ 
+
 
   getEmotions = async (id, emotionTag) => {
     const response = await axios
@@ -215,7 +214,7 @@ class VideoPlay extends Component {
 <RadarChart outerRadius={90} width={250} height={250} data={this.state.data}>
   <PolarGrid />
   <PolarAngleAxis dataKey="emotionTag" />
-  <PolarRadiusAxis angle={30} domain={[0, 150]} />
+  <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
   <Radar name="emotion" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
 </RadarChart>
       </div>
