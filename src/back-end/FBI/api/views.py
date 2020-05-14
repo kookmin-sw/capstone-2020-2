@@ -120,6 +120,7 @@ class getAnalyzingVideo(APIView):
                     return JsonResponse({
                         'user' : id,
                         'link' : video.link,
+                        'id' : video.videoId,
                         'startTime' : video.startTime,
                         'duration' : video.duration,
                         'tag' : video.tag,
@@ -148,8 +149,8 @@ class getTrialVideo(APIView):
 
 class realTimeAnalyze(APIView):
     def get(self, request, id):
-        image = request.FILES['image']
-
+        # print(request)
+        image = request.FILES.get('image')
         # Pass image to face analyze model.
         payload = predict_emotion(image)
         return JsonResponse(payload)
