@@ -27,7 +27,6 @@ class Signup extends Component {
     this.setState({
       userName: event.target.value,
     });
-    console.log(this.state.userName);
   }
 
   signupSubmit() {
@@ -95,6 +94,8 @@ class Signup extends Component {
                     </InputAdornment>
                   ),
                 }}
+                value={this.state.userName}
+                onChange={this.userNameChange.bind(this)}
               />{' '}
               <Button
                 variant="contained"
