@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 const UserContext = React.createContext({
   user: { id: '', name: '', loggedIn: false },
-  setUser: () => {},
 });
 
 class UserProvider extends Component {
@@ -15,7 +14,7 @@ class UserProvider extends Component {
 
   // Method to update state
   setUser(newUser) {
-    console.log('hihihi setUser');
+    // console.log('hihihi setUser');
     this.setState({ user: newUser });
     console.log('hey setUser success');
   }

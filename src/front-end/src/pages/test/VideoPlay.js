@@ -24,93 +24,85 @@ class VideoPlay extends Component {
   state = {
     realtimeUserFace: null,
     link: '',
-    signalData: [
+    data: [
       {
         emotionTag: 'happy',
-        A: 1.0,
-        fullMark: 1.0,
+        A: 120,
+        B: 110,
+        fullMark: 150,
       },
       {
         emotionTag: 'sad',
-        A: 0.0,
-        fullMark: 1.0,
+        A: 98,
+        B: 130,
+        fullMark: 150,
       },
       {
         emotionTag: 'angry',
-        A: 0.0,
-        fullMark: 1.0,
+        A: 86,
+        B: 130,
+        fullMark: 150,
       },
       {
         emotionTag: 'disgust',
-        A: 0.0,
-        fullMark: 1.0,
+        A: 99,
+        B: 100,
+        fullMark: 150,
       },
       {
         emotionTag: 'fear',
-        A: 0.0,
-        fullMark: 1.0,
+        A: 85,
+        B: 90,
+        fullMark: 150,
       },
       {
         emotionTag: 'neutral',
-        A: 0.0,
-        fullMark: 1.0,
-      },
-      {
-        emotionTag: 'surprise',
-        A: 0.0,
-        fullMark: 1.0,
+        A: 65,
+        B: 85,
+        fullMark: 150,
       },
     ],
-    user: {
-      id: 0,
-      name: '',
-      loggedIn: false,
-    },
-    emotionTag: '',
   };
-
-  redirectToLogin() {
-    return this.props.history.push(`/Login`);
-  }
 
   static contextType = UserContext;
 
   componentWillMount() {
-    try {
-      const emotionTag = this.props.location.state.emotionTag;
-      console.log(emotionTag);
-      this.setState({
-        // user: {id: user.id, loggedIn: user.loggedIn, }
-        emotionTag: emotionTag,
-      });
-      // console.log(this.state.user);
-      console.log('this is signalData', this.state.signalData);
-    } catch (error) {
-      console.log(error);
-      this.props.history.push('/Option');
-    }
+    const emotionTag = this.props.location.state.emotionTag;
+    console.log(emotionTag);
     const { user } = this.context;
-    console.log('user is', user);
-    if (user) {
-      this.getVideo(user.id, this.state.emotionTag);
-      this.getUserImg(user.id, this.state.emotionTag);
-    } else {
-      this.redirectToLogin()
-    }
+    console.log(user);
+    const id = user.id;
+    console.log(id);
+    this.getVideo(id, emotionTag);
+    this.getUserImg(id, emotionTag);
   }
   componentWillUnmount() {
     this.getUserImg = null;
-    // this.props.isLast = true;
+    this.props.isLast = true;
   }
-  componentDidMount() {
-    this.randomValues();
-  }
+  componentDidMount() {}
   setRef = (webcam) => {
     this.webcam = webcam;
   };
+  // getUser =async () => {
+  //   try{
+  //     let form_data = new FormData();
+  //  const response = axios.post('api/v1/login/', form_data, {
+  //   headers: {
+  //     'content-type': 'multipart/form-data',
+  //   },
+  // }) ;
+  //   console.log(response);
+  //     this.setState({
+  //      id: response.data.id,
+  //     });
+
+  //   }catch(error){
+  //     console.error(error);
+  //   }
+  // };
 
   getVideo = (id, emotionTag) => {
-    console.log(id, emotionTag);
     return axios
       .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
       .then((res) => {
@@ -150,40 +142,24 @@ class VideoPlay extends Component {
     };
   };
 
-  realtimeUserFace = (id) => {
+  realtimeUserFace = (id, emotionTag) => {
     try {
-      const image = new FormData();
-      image.append('realtimeUserFace', this.state.realtimeUserFace);
-      return axios
-        .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
+      const form_data = new FormData();
+
+      form_data.append('image', this.state.realtimeUserFace);
+      console.log(image);
+      return axios.get(
+        `api/v1/user/${id}/analyze/real-time-result/`,
+        form_data,
+        {
           headers: {
             'content-type': 'multipart/form-data',
           },
-        })
-        .then((response) => {
-          let values = response.emotionValues;
-          console.log(response);
-        });
+        },
+      );
     } catch (error) {
       console.log(error);
     }
-  };
-
-  randomValues = () => {
-    var emotionFunction = function () {
-      const randVal = Math.random();
-      const { signalData } = this.state;
-      this.setState({
-        signalData: signalData.map((A) => randVal),
-      });
-      // for (let emotions in this.state.signalData) {
-      // this.state.signalData.map((emotions) => )
-      // console.log(emotions);
-      // console.log(emotions['A']);
-      // emotions.A = Math.random();
-      // }
-    };
-    const values = setInterval(emotionFunction.bind(this), 1000);
   };
 
   getEmotions = async (id, emotionTag) => {
@@ -240,11 +216,11 @@ class VideoPlay extends Component {
           outerRadius={90}
           width={250}
           height={250}
-          data={this.state.signalData}
+          data={this.state.data}
         >
           <PolarGrid />
           <PolarAngleAxis dataKey="emotionTag" />
-          <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
+          <PolarRadiusAxis angle={30} domain={[0, 150]} />
           <Radar
             name="emotion"
             dataKey="A"
