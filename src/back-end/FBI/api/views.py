@@ -99,9 +99,9 @@ def logout(request, format=None):
     return HttpResponse("You're logged out.")
 
 class getAnalyzingVideo(APIView):
-    def get(self, request, id):
+    def get(self, request, id, emotionTag):
         viewed_video_list = request.session.get('viewed_videos', [])
-        max_id = Video.objects.all().aggregate(max_id=Max('videoId'))['max_id']
+        max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId'))['max_id']
         if max_id is None:
             return HttpResponse("No videos.")
         if Video.objects.count() == len(request.session['viewed_videos']):
@@ -125,27 +125,6 @@ class getAnalyzingVideo(APIView):
                         'duration' : video.duration,
                         'tag' : video.tag,
                     })
-
-class getTrialVideo(APIView):
-    def get(self, request, id, emotionTag):
-
-        # TODO : Filter already seen videos using sessions.
-
-        max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId'))['max_id']
-        if max_id is None:
-            return HttpResponse("No videos.")
-
-        while True:
-            randId = random.randint(1, max_id)
-            video = Video.objects.filter(pk=randId).first()
-            if video:
-                return JsonResponse({
-                    'user' : id,
-                    'link' : video.link,
-                    'startTime' : video.startTime,
-                    'duration' : video.duration,
-                    'tag' : video.tag,
-                })
 
 class realTimeAnalyze(APIView):
     def get(self, request, id):
