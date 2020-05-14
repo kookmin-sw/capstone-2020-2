@@ -21,53 +21,56 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import UserContext from '../UserContext';
 
 class VideoPlay extends Component {
-  state = {
-    realtimeUserFace: null,
-    link: '',
-    signalData: [
-      {
-        emotionTag: 'happy',
-        A: 1.0,
-        fullMark: 1.0,
+  constructor(props) {
+    super(props);
+    this.state = {
+      realtimeUserFace: null,
+      video: {},
+      signalData: [
+        {
+          emotionTag: 'happy',
+          A: 1.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'sad',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'angry',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'disgust',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'fear',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'neutral',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'surprise',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+      ],
+      user: {
+        id: 0,
+        name: '',
+        loggedIn: false,
       },
-      {
-        emotionTag: 'sad',
-        A: 0.0,
-        fullMark: 1.0,
-      },
-      {
-        emotionTag: 'angry',
-        A: 0.0,
-        fullMark: 1.0,
-      },
-      {
-        emotionTag: 'disgust',
-        A: 0.0,
-        fullMark: 1.0,
-      },
-      {
-        emotionTag: 'fear',
-        A: 0.0,
-        fullMark: 1.0,
-      },
-      {
-        emotionTag: 'neutral',
-        A: 0.0,
-        fullMark: 1.0,
-      },
-      {
-        emotionTag: 'surprise',
-        A: 0.0,
-        fullMark: 1.0,
-      },
-    ],
-    user: {
-      id: 0,
-      name: '',
-      loggedIn: false,
-    },
-    emotionTag: '',
-  };
+      emotionTag: '',
+    };
+  }
 
   redirectToLogin() {
     return this.props.history.push(`/Login`);
@@ -77,25 +80,18 @@ class VideoPlay extends Component {
 
   componentWillMount() {
     try {
-      const emotionTag = this.props.location.state.emotionTag;
-      console.log(emotionTag);
+      const selectedEmotionTag = this.props.location.state.emotionTag;
+      console.log(selectedEmotionTag);
       this.setState({
         // user: {id: user.id, loggedIn: user.loggedIn, }
-        emotionTag: emotionTag,
+        emotionTag: selectedEmotionTag,
       });
+      console.log(this.state);
       // console.log(this.state.user);
       console.log('this is signalData', this.state.signalData);
     } catch (error) {
       console.log(error);
       this.props.history.push('/Option');
-    }
-    const { user } = this.context;
-    console.log('user is', user);
-    if (user) {
-      this.getVideo(user.id, this.state.emotionTag);
-      this.getUserImg(user.id, this.state.emotionTag);
-    } else {
-      this.redirectToLogin()
     }
   }
   componentWillUnmount() {
@@ -103,36 +99,47 @@ class VideoPlay extends Component {
     // this.props.isLast = true;
   }
   componentDidMount() {
-    this.randomValues();
+    const { user } = this.context;
+    console.log('user is', user);
+    if (user) {
+      this.getVideo(user.id, this.state.emotionTag);
+      this.getUserImg(user.id, this.state.emotionTag);
+      this.randomValues();
+    } else {
+      this.redirectToLogin();
+    }
   }
+
   setRef = (webcam) => {
     this.webcam = webcam;
   };
 
   getVideo = (id, emotionTag) => {
-    console.log(id, emotionTag);
+    console.log(id, this.state.emotionTag);
     return axios
-      .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
+      .get(`api/v1/user/${id}/analyze/${this.state.emotionTag}/`)
       .then((res) => {
-        const video = res.data;
-        this.setState({ link: video.link });
-        console.log(this.state.link);
+        const videoData = res.data;
+        this.setState({ video: videoData });
+        console.log('video is', this.state.video);
       })
       .catch((error) => console.log(error));
   };
 
   getUserImg = (id, emotionTag) => {
-    //console.log("캡처되고있음");
-
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
-      var file = dataURLtoFile(base64Str, `${this.props.id}-001`);
+      var file = dataURLtoFile(
+        base64Str,
+        `${id}-${this.state.video.id}-001.jpg`,
+      );
       console.log(file);
+      console.log(id, emotionTag);
       console.log('캡처됨');
       this.setState({
         realtimeUserFace: file,
       });
-      this.realtimeUserFace(id, emotionTag);
+      this.realtimeUserFace(id);
     }, 1000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -152,8 +159,9 @@ class VideoPlay extends Component {
 
   realtimeUserFace = (id) => {
     try {
-      const image = new FormData();
-      image.append('realtimeUserFace', this.state.realtimeUserFace);
+      let image = new FormData();
+      image.append('image', this.state.realtimeUserFace);
+      console.log('testing....', this.state.realtimeUserFace);
       return axios
         .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
           headers: {
@@ -220,7 +228,7 @@ class VideoPlay extends Component {
         </div>
         <ReactPlayer
           className="videoPlayer"
-          url={this.state.link}
+          url={this.state.video.link}
           playing
           width="80%"
           height="94%"

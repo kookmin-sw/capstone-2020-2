@@ -101,10 +101,11 @@ def logout(request, format=None):
 class getAnalyzingVideo(APIView):
     def get(self, request, id, emotionTag):
         viewed_video_list = request.session.get('viewed_videos', [])
-        max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId'))['max_id']
+        max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId')).get('max_id')
+        print(max_id)
         if max_id is None:
             return HttpResponse("No videos.")
-        if Video.objects.count() == len(request.session['viewed_videos']):
+        if request.session.get('viewed_videos') and Video.objects.count() == len(request.session.get('viewed_videos')):
             return HttpResponse("Seen every videos.", status=status.HTTP_404_NOT_FOUND)
         while True:
             randId = random.randint(1, max_id)
