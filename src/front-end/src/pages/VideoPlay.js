@@ -23,88 +23,111 @@ import UserContext from '../UserContext';
 class VideoPlay extends Component {
   state = {
     realtimeUserFace: null,
-    link:'',
-    data :
-      [
-        {
-          emotionTag: 'happy', A: 1.0, fullMark: 1.0,
-        },
-        {
-          emotionTag: 'sad', A: 0.0,  fullMark: 1.0,
-        },
-        {
-          emotionTag: 'angry', A: 0.0,  fullMark: 1.0,
-        },
-        {
-          emotionTag: 'disgust', A: 0.0,fullMark: 1.0,
-        },
-        {
-          emotionTag: 'fear', A: 0.0, fullMark: 1.0,
-        },
-        {
-          emotionTag: 'neutral', A: 0.0, fullMark: 1.0,
-        },
-        {
-          emotionTag: 'surprise', A: 0.0,  fullMark: 1.0,
-        },
-      ]
-    };
+    link: '',
+    data: [
+      {
+        emotionTag: 'happy',
+        A: 1.0,
+        fullMark: 1.0,
+      },
+      {
+        emotionTag: 'sad',
+        A: 0.0,
+        fullMark: 1.0,
+      },
+      {
+        emotionTag: 'angry',
+        A: 0.0,
+        fullMark: 1.0,
+      },
+      {
+        emotionTag: 'disgust',
+        A: 0.0,
+        fullMark: 1.0,
+      },
+      {
+        emotionTag: 'fear',
+        A: 0.0,
+        fullMark: 1.0,
+      },
+      {
+        emotionTag: 'neutral',
+        A: 0.0,
+        fullMark: 1.0,
+      },
+      {
+        emotionTag: 'surprise',
+        A: 0.0,
+        fullMark: 1.0,
+      },
+    ],
+    user: {
+      id: 0,
+      name: '',
+      loggedIn: false,
+    },
+    emotionTag: '',
+  };
 
-   
- 
+  redirectToLogin() {
+    return this.props.history.push(`/Login`);
+  }
+
   static contextType = UserContext;
-  
-  componentWillMount(){
-    const emotionTag = this.props.location.state.emotionTag;
-    console.log(emotionTag);
-    const { user } = this.context;
-    console.log(user);
-    const id = user.id;
-    console.log(id);
-   this.getVideo(id,emotionTag);
-   this.getUserImg(id,emotionTag);
+
+  componentWillMount() {
+    try {
+      const emotionTag = this.props.location.state.emotionTag;
+      console.log(emotionTag);
+      const { user } = this.context;
+      console.log(user);
+      this.setState({
+        user: user,
+        emotionTag: emotionTag,
+      });
+    } catch (error) {
+      console.log(error);
+      this.props.history.push('/Option');
+    }
+    // const id = this.state.user.id;
+    // console.log(id);
+    this.getVideo(this.state.user.id, this.state.emotionTag);
+    this.getUserImg(this.state.user.id, this.state.emotionTag);
   }
   componentWillUnmount() {
     this.getUserImg = null;
-    this.props.isLast = true;
+    // this.props.isLast = true;
   }
-  componentDidMount(){
+  componentDidMount() {
     this.randomValues();
   }
-  setRef = webcam => {
+  setRef = (webcam) => {
     this.webcam = webcam;
   };
 
-    getVideo = (id,emotionTag) => {
-     return axios
+  getVideo = (id, emotionTag) => {
+    return axios
       .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
-      .then(res => {
-        const video= res.data;
-        this.setState({link:video.link});
-        console.log(this.state.link)
+      .then((res) => {
+        const video = res.data;
+        this.setState({ link: video.link });
+        console.log(this.state.link);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
-
-
-  getUserImg = (id,emotionTag) => {
+  getUserImg = (id, emotionTag) => {
     //console.log("캡처되고있음");
-
-
 
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
-      var file = dataURLtoFile(
-        base64Str,
-        `${this.props.id}-001`,
-      );
+      var file = dataURLtoFile(base64Str, `${this.props.id}-001`);
       console.log(file);
       console.log('캡처됨');
       this.setState({
         realtimeUserFace: file,
       });
-      this.realtimeUserFace(id,emotionTag);
+      this.realtimeUserFace(id, emotionTag);
     }, 1000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -123,103 +146,108 @@ class VideoPlay extends Component {
   };
 
   realtimeUserFace = (id) => {
-    try{
+    try {
       const image = new FormData();
       image.append('realtimeUserFace', this.state.realtimeUserFace);
       return axios
-        .get(
-          `api/v1/user/${id}/analyze/real-time-result/`,
-          image,
-          {
-            headers: {
-              'content-type': 'multipart/form-data',
-            },
+        .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
+          headers: {
+            'content-type': 'multipart/form-data',
           },
-        ).then(response => {
-          let values = response.emotionValues;
-          console.log(response)
         })
-    } catch(error){
+        .then((response) => {
+          let values = response.emotionValues;
+          console.log(response);
+        });
+    } catch (error) {
       console.log(error);
-    } 
+    }
   };
- 
-  randomValues =()=>{
-    values =setInterval(function(){
-      for(let emotions in this.state.data ){
-          emotions.A = Math.random();
+
+  randomValues = () => {
+    const values = setInterval(function () {
+      for (let emotions in this.state.data) {
+        emotions.A = Math.random();
       }
-     
-    },1000);
+    }, 1000);
   };
-  
-
- 
-
 
   getEmotions = async (id, emotionTag) => {
     const response = await axios
       .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
     this.append(response);
   };
 
   render() {
- 
-
-
     return (
       <div class="full-container">
-        <div>
-          <AppBar position="static" color="default">
-            <Toolbar variant="dense">
-              <IconButton edge="start" color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit">
-                RealTime Emotion
-              </Typography>
+        {this.state.user.loggedIn ? (
+          <div>
+            <div>
+              <AppBar position="static" color="default">
+                <Toolbar variant="dense">
+                  <IconButton edge="start" color="inherit" aria-label="menu">
+                    <MenuIcon />
+                  </IconButton>
+                  <Typography variant="h6" color="inherit">
+                    RealTime Emotion
+                  </Typography>
 
-              <Breadcrumbs aria-label="breadcrumb" id="menu">
-                <Link to="/Option" class="menuLink">
-                  Home
-                </Link>
-                <Link to="/" class="menuLink">
-                  Logout
-                </Link>
-              </Breadcrumbs>
-            </Toolbar>
-          </AppBar>
-        </div>
-        <ReactPlayer
-          className="videoPlayer"
-          url= {this.state.link}
-          playing
-          width="80%"
-          height="94%"
-        />
+                  <Breadcrumbs aria-label="breadcrumb" id="menu">
+                    <Link to="/Option" class="menuLink">
+                      Home
+                    </Link>
+                    <Link to="/" class="menuLink">
+                      Logout
+                    </Link>
+                  </Breadcrumbs>
+                </Toolbar>
+              </AppBar>
+            </div>
+            <ReactPlayer
+              className="videoPlayer"
+              url={this.state.link}
+              playing
+              width="80%"
+              height="94%"
+            />
 
-        <Webcam
-          class="videoWebcam"
-          audio={false}
-          facingmode="user"
-          mirrored={true}
-          screenshotQuality={1}
-          ref={this.setRef}
-          screenshotFormat="image/jpeg"
-        />
+            <Webcam
+              class="videoWebcam"
+              audio={false}
+              facingmode="user"
+              mirrored={true}
+              screenshotQuality={1}
+              ref={this.setRef}
+              screenshotFormat="image/jpeg"
+            />
 
-                                    
-<RadarChart outerRadius={90} width={250} height={250} data={this.state.data}>
-  <PolarGrid />
-  <PolarAngleAxis dataKey="emotionTag" />
-  <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
-  <Radar name="emotion" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-</RadarChart>
+            <RadarChart
+              outerRadius={90}
+              width={250}
+              height={250}
+              data={this.state.data}
+            >
+              <PolarGrid />
+              <PolarAngleAxis dataKey="emotionTag" />
+              <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
+              <Radar
+                name="emotion"
+                dataKey="A"
+                stroke="#8884d8"
+                fill="#8884d8"
+                fillOpacity={0.6}
+              />
+            </RadarChart>
+          </div>
+        ) : (
+          this.redirectToLogin()
+        )}
       </div>
     );
   }
-};
+}
 
 export default VideoPlay;
