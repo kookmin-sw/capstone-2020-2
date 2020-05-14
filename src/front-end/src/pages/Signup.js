@@ -11,6 +11,8 @@ import {
   InputAdornment,
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import UserContext from '../UserContext';
+
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,9 @@ class Signup extends Component {
       userName: '',
     };
   }
-  
+
+  static contextType = UserContext;
+
   userNameChange(event) {
     this.setState({
       userName: event.target.value,
@@ -48,9 +52,15 @@ class Signup extends Component {
       });
       console.log(response);
       console.log('Sign up 성공');
-      this.props.history.push('/Option', {
-        userName: this.state.userName,
-      });
+      const { user, setUser } = this.context;
+      const newUser = {
+        id: response.data.id,
+        name: response.data.username,
+        loggedIn: true,
+      };
+      console.log(newUser);
+      setUser(newUser);
+      this.props.history.push('/Option');
     } catch (error) {
       console.error(error.content);
       console.log('Sign up 실패 -  사진 다시찍어야함');
