@@ -145,8 +145,10 @@ class VideoPlay extends Component {
   };
  
   randomValues =()=>{
-    values =setInterval(function(){
-      for(let emotions in this.state.data ){
+    const values =setInterval(function(){
+      let emotionData = this. state.data;
+      console.log(emotionData);
+      for(let emotions in emotionData ){
           emotions.A = Math.random();
       }
      
