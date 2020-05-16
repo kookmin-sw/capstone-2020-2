@@ -35,48 +35,50 @@ class Option extends Component {
     const { classes } = this.props;
     const { user } = this.context;
     console.log(user);
-    if (user.loggedIn) {
-      return (
-        <div class="container-fluid">
-          <LoginAlert userName={user.name}></LoginAlert>
-          <Grid
-            container
-            spacing={10}
-            direction="row"
-            justify="center"
-            alignItems="center"
-            style={{
-              height: '900px',
-            }}
-          >
-            <Grid item>
-              <Link to="/Trial">
-                <Button
-                  className={classes.btnStyle}
-                  color="primary"
-                  variant="contained"
-                >
-                  <Typography variant="h5"> 체험 </Typography>{' '}
-                </Button>{' '}
-              </Link>{' '}
-            </Grid>{' '}
-            <Grid item>
-              <Link to="/Analyze">
-                <Button
-                  className={classes.btnStyle}
-                  color="primary"
-                  variant="contained"
-                >
-                  <Typography variant="h5"> 분석 </Typography>{' '}
-                </Button>{' '}
-              </Link>{' '}
-            </Grid>{' '}
-          </Grid>{' '}
-        </div>
-      );
-    } else {
-      return <div>{this.redirectToLogin()}</div>;
-    }
+    return (
+      <div class="container-fluid">
+        {user.loggedIn ? (
+          <div>
+            <LoginAlert userName={user.name}></LoginAlert>
+            <Grid
+              container
+              spacing={10}
+              direction="row"
+              justify="center"
+              alignItems="center"
+              style={{
+                height: '900px',
+              }}
+            >
+              <Grid item>
+                <Link to="/Trial">
+                  <Button
+                    className={classes.btnStyle}
+                    color="primary"
+                    variant="contained"
+                  >
+                    <Typography variant="h5"> 체험 </Typography>{' '}
+                  </Button>{' '}
+                </Link>{' '}
+              </Grid>{' '}
+              <Grid item>
+                <Link to="/Analyze">
+                  <Button
+                    className={classes.btnStyle}
+                    color="primary"
+                    variant="contained"
+                  >
+                    <Typography variant="h5"> 분석 </Typography>{' '}
+                  </Button>{' '}
+                </Link>{' '}
+              </Grid>{' '}
+            </Grid>
+          </div>
+        ) : (
+          this.redirectToLogin()
+        )}
+      </div>
+    );
   }
 }
 

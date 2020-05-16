@@ -99,12 +99,13 @@ def logout(request, format=None):
     return HttpResponse("You're logged out.")
 
 class getAnalyzingVideo(APIView):
-    def get(self, request, id):
+    def get(self, request, id, emotionTag):
         viewed_video_list = request.session.get('viewed_videos', [])
-        max_id = Video.objects.all().aggregate(max_id=Max('videoId'))['max_id']
+        max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId')).get('max_id')
+        print(max_id)
         if max_id is None:
             return HttpResponse("No videos.")
-        if Video.objects.count() == len(request.session['viewed_videos']):
+        if request.session.get('viewed_videos') and Video.objects.count() == len(request.session.get('viewed_videos')):
             return HttpResponse("Seen every videos.", status=status.HTTP_404_NOT_FOUND)
         while True:
             randId = random.randint(1, max_id)
@@ -120,36 +121,16 @@ class getAnalyzingVideo(APIView):
                     return JsonResponse({
                         'user' : id,
                         'link' : video.link,
+                        'id' : video.videoId,
                         'startTime' : video.startTime,
                         'duration' : video.duration,
                         'tag' : video.tag,
                     })
 
-class getTrialVideo(APIView):
-    def get(self, request, id, emotionTag):
-
-        # TODO : Filter already seen videos using sessions.
-
-        max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId'))['max_id']
-        if max_id is None:
-            return HttpResponse("No videos.")
-
-        while True:
-            randId = random.randint(1, max_id)
-            video = Video.objects.filter(pk=randId).first()
-            if video:
-                return JsonResponse({
-                    'user' : id,
-                    'link' : video.link,
-                    'startTime' : video.startTime,
-                    'duration' : video.duration,
-                    'tag' : video.tag,
-                })
-
 class realTimeAnalyze(APIView):
     def get(self, request, id):
-        image = request.FILES['image']
-
+        # print(request)
+        image = request.FILES.get('image')
         # Pass image to face analyze model.
         payload = predict_emotion(image)
         return JsonResponse(payload)

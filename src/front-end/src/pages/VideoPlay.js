@@ -21,90 +21,128 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import UserContext from '../UserContext';
 
 class VideoPlay extends Component {
-  state = {
-    realtimeUserFace: null,
-    link:'',
-    data :
-      [
+  constructor(props) {
+    super(props);
+    this.state = {
+      realtimeUserFace: null,
+      video: {},
+      signalData: [
         {
-          emotionTag: 'happy', A: 1.0, fullMark: 1.0,
+          emotionTag: 'happy',
+          A: 1.0,
+          fullMark: 1.0,
         },
         {
-          emotionTag: 'sad', A: 0.0,  fullMark: 1.0,
+          emotionTag: 'sad',
+          A: 0.0,
+          fullMark: 1.0,
         },
         {
-          emotionTag: 'angry', A: 0.0,  fullMark: 1.0,
+          emotionTag: 'angry',
+          A: 0.0,
+          fullMark: 1.0,
         },
         {
-          emotionTag: 'disgust', A: 0.0,fullMark: 1.0,
+          emotionTag: 'disgust',
+          A: 0.0,
+          fullMark: 1.0,
         },
         {
-          emotionTag: 'fear', A: 0.0, fullMark: 1.0,
+          emotionTag: 'fear',
+          A: 0.0,
+          fullMark: 1.0,
         },
         {
-          emotionTag: 'neutral', A: 0.0, fullMark: 1.0,
+          emotionTag: 'neutral',
+          A: 0.0,
+          fullMark: 1.0,
         },
         {
-          emotionTag: 'surprise', A: 0.0,  fullMark: 1.0,
+          emotionTag: 'surprise',
+          A: 0.0,
+          fullMark: 1.0,
         },
-      ]
+      ],
+      user: {
+        id: 0,
+        name: '',
+        loggedIn: false,
+      },
+      emotionTag: '',
+      imageIndex: 1,
     };
+  }
 
-   
- 
+  redirectToLogin() {
+    return this.props.history.push(`/Login`);
+  }
+
   static contextType = UserContext;
-  
-  componentWillMount(){
-    const emotionTag = this.props.location.state.emotionTag;
-    console.log(emotionTag);
-    const { user } = this.context;
-    console.log(user);
-    const id = user.id;
-    console.log(id);
-   this.getVideo(id,emotionTag);
-   this.getUserImg(id,emotionTag);
+
+  componentWillMount() {
+    try {
+      const selectedEmotionTag = this.props.location.state.emotionTag;
+      console.log(selectedEmotionTag);
+      this.setState({
+        // user: {id: user.id, loggedIn: user.loggedIn, }
+        emotionTag: selectedEmotionTag,
+      });
+      console.log(this.state);
+      // console.log(this.state.user);
+      console.log('this is signalData', this.state.signalData);
+    } catch (error) {
+      console.log(error);
+      this.props.history.push('/Option');
+    }
   }
   componentWillUnmount() {
     this.getUserImg = null;
-    this.props.isLast = true;
+    // this.props.isLast = true;
   }
-  componentDidMount(){
-    this.randomValues();
+  componentDidMount() {
+    const { user } = this.context;
+    console.log('user is', user);
+    if (user) {
+      this.getVideo(user.id);
+      this.getUserImg(user.id, this.state.emotionTag);
+      this.randomValues();
+    } else {
+      this.redirectToLogin();
+    }
   }
-  setRef = webcam => {
+
+  setRef = (webcam) => {
     this.webcam = webcam;
   };
 
-    getVideo = (id,emotionTag) => {
-     return axios
-      .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
-      .then(res => {
-        const video= res.data;
-        this.setState({link:video.link});
-        console.log(this.state.link)
+  getVideo = (id) => {
+    console.log(id, this.state.emotionTag);
+    return axios
+      .get(`api/v1/user/${id}/analyze/${this.state.emotionTag}/`)
+      .then((res) => {
+        const videoData = res.data;
+        this.setState({ video: videoData });
+        console.log('video is', this.state.video);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
-
-
-  getUserImg = (id,emotionTag) => {
-    //console.log("캡처되고있음");
-
-
-
+  getUserImg = (id, emotionTag) => {
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
         base64Str,
-        `${this.props.id}-001`,
+        `${id}-${this.state.video.id}-${('000' + this.state.imageIndex).slice(
+          -3,
+        )}.jpg`,
       );
-      console.log(file);
+      console.log(id, emotionTag);
       console.log('캡처됨');
       this.setState({
         realtimeUserFace: file,
+        imageIndex: this.state.imageIndex + 1,
       });
-      this.realtimeUserFace(id,emotionTag);
+      this.realtimeUserFace(id);
     }, 1000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -123,26 +161,25 @@ class VideoPlay extends Component {
   };
 
   realtimeUserFace = (id) => {
-    try{
-      const image = new FormData();
-      image.append('realtimeUserFace', this.state.realtimeUserFace);
+    try {
+      let image = new FormData();
+      image.append('image', this.state.realtimeUserFace);
+      console.log('testing....', this.state.realtimeUserFace);
       return axios
-        .get(
-          `api/v1/user/${id}/analyze/real-time-result/`,
-          image,
-          {
-            headers: {
-              'content-type': 'multipart/form-data',
-            },
+        .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
+          headers: {
+            'content-type': 'multipart/form-data',
           },
-        ).then(response => {
-          let values = response.emotionValues;
-          console.log(response)
         })
-    } catch(error){
+        .then((response) => {
+          let values = response.emotionValues;
+          console.log(response);
+        });
+    } catch (error) {
       console.log(error);
-    } 
+    }
   };
+<<<<<<< HEAD
  
   randomValues =()=>{
     const values =setInterval(function(){
@@ -157,20 +194,35 @@ class VideoPlay extends Component {
   
 
  
+=======
+>>>>>>> 37c23890e0ad444586b253d3d37019b74ad73c8b
 
+  randomValues = () => {
+    var emotionFunction = function () {
+      const randVal = Math.random();
+      const { signalData } = this.state;
+      this.setState({
+        signalData: signalData.map((A) => randVal),
+      });
+      // for (let emotions in this.state.signalData) {
+      // this.state.signalData.map((emotions) => )
+      // console.log(emotions);
+      // console.log(emotions['A']);
+      // emotions.A = Math.random();
+      // }
+    };
+    const values = setInterval(emotionFunction.bind(this), 1000);
+  };
 
   getEmotions = async (id, emotionTag) => {
     const response = await axios
       .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
     this.append(response);
   };
 
   render() {
- 
-
-
     return (
       <div class="full-container">
         <div>
@@ -196,7 +248,7 @@ class VideoPlay extends Component {
         </div>
         <ReactPlayer
           className="videoPlayer"
-          url= {this.state.link}
+          url={this.state.video.link}
           playing
           width="80%"
           height="94%"
@@ -212,16 +264,26 @@ class VideoPlay extends Component {
           screenshotFormat="image/jpeg"
         />
 
-                                    
-<RadarChart outerRadius={90} width={250} height={250} data={this.state.data}>
-  <PolarGrid />
-  <PolarAngleAxis dataKey="emotionTag" />
-  <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
-  <Radar name="emotion" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-</RadarChart>
+        <RadarChart
+          outerRadius={90}
+          width={250}
+          height={250}
+          data={this.state.signalData}
+        >
+          <PolarGrid />
+          <PolarAngleAxis dataKey="emotionTag" />
+          <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
+          <Radar
+            name="emotion"
+            dataKey="A"
+            stroke="#8884d8"
+            fill="#8884d8"
+            fillOpacity={0.6}
+          />
+        </RadarChart>
       </div>
     );
   }
-};
+}
 
 export default VideoPlay;
