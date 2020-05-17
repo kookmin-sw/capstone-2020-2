@@ -19,7 +19,7 @@ path = os.path.join(BASE_DIR, 'media')
 encodedImage = []
 
 @api_view(['POST'])
-def signup(request, format=None):
+def signup(request):
     serializer = serializers.UserSerializer(data=request.data)
     if serializer.is_valid():
         # Save new user to db.
@@ -52,7 +52,7 @@ def signup(request, format=None):
         return Response(serializer.errors)
 
 @api_view(['POST'])
-def login(request, format=None):
+def login(request):
     img = Image.open(request.FILES['userFace'])
     imgPath = os.path.join(BASE_DIR, 'temp.jpg')
     img.save(imgPath, 'JPEG')
@@ -90,7 +90,7 @@ def login(request, format=None):
         return JsonResponse(payload)
 
 @api_view(['POST'])
-def logout(request, format=None):
+def logout(request):
     try:
         #del request.session['id']
         request.session.flush()
@@ -127,41 +127,49 @@ class getAnalyzingVideo(APIView):
                         'tag' : video.tag,
                     })
 
-class realTimeAnalyze(APIView):
-    def get(self, request, id):
-        # print(request)
-        image = request.FILES.get('image')
-        # Pass image to face analyze model.
-        payload = predict_emotion(image)
-        return JsonResponse(payload)
-        # Retrieve result and send to FE.
-        # result = []
-        # while True:
-        #   result = methodName()
-        #   if result is not None:
-        #       break
-        # emotionTag = result[0]
-        # emotionValues = result[1]
-        # eegConnections = result[2]
-        # payload = {
-        #       "emotionTag" : emotionTag,
-        #       "emotionValues" : {
-        #           "happy" : emotionValues[0],
-        #           "angry" : ....
-        #       },
-        #       "eegConnections" : {
-        #           "eeg1" : 1,
-        #           "eeg2" : 1,
-        #           "eeg3" : 1,
-        #           "eeg4" : 1,
-        #           "eeg5" : 1,
-        #           "eeg6" : 1,
-        #           "eeg7" : 1,
-        #           "eeg8" : 1,
-        #       },
-        # }
+@api_view(['POST'])
+def realTimeAnalyze(request, id):
+    emotionTag = 'happy'
+    emotionValues = {
+        'happy': 0.9,
+        'sad': 0.0,
+        'disgust': 0.0,
+        'contempt': 0.0,
+        'surprise': 0.0,
+        'fear': 0.0,
+        'neutral': 0.1,
+    }
+    payload = {
+        'emotionTag': emotionTag,
+        'emotionValues': emotionValues
+    }
+    # Retrieve result and send to FE.
+    # result = []
+    # while True:
+    #   result = methodName()
+    #   if result is not None:
+    #       break
+    # emotionTag = result[0]
+    # emotionValues = result[1]
+    # eegConnections = result[2]
+    # payload = {
+    #       "emotionTag" : emotionTag,
+    #       "emotionValues" : {
+    #           "happy" : emotionValues[0],
+    #           "angry" : ....
+    #       },
+    #       "eegConnections" : {
+    #           "eeg1" : 1,
+    #           "eeg2" : 1,
+    #           "eeg3" : 1,
+    #           "eeg4" : 1,
+    #           "eeg5" : 1,
+    #           "eeg6" : 1,
+    #           "eeg7" : 1,
+    #           "eeg8" : 1,
+    #       },
+    # }
 
-        # TODO
-        # Cache retrieved results & Save in DB at once.
-
-        # return JsonResponse(payload)
+    # TODO
+    # Cache retrieved results & Save in DB at once.
+    return JsonResponse(payload)
