@@ -68,7 +68,7 @@ class VideoPlay extends Component {
         name: '',
         loggedIn: false,
       },
-      emotionTag: '',
+      emotionTag:null,
       imageIndex: 1,
     };
   }
@@ -87,39 +87,44 @@ class VideoPlay extends Component {
         // user: {id: user.id, loggedIn: user.loggedIn, }
         emotionTag: selectedEmotionTag,
       });
-      console.log(this.state);
+    
       // console.log(this.state.user);
       console.log('this is signalData', this.state.signalData);
     } catch (error) {
       console.log(error);
       this.props.history.push('/Option');
     }
+
+
   }
   componentWillUnmount() {
     this.getUserImg = null;
     // this.props.isLast = true;
   }
   componentDidMount() {
+    
     const { user } = this.context;
     console.log('user is', user);
     if (user) {
-      this.getVideo(user.id);
-      this.getUserImg(user.id, this.state.emotionTag);
-      this.randomValues();
+      this.getVideo(user.id,this.state.emotionTag);
+      this.getUserImg(user.id, this.state.emotionTag,this.state.video);
+    
     } else {
       this.redirectToLogin();
     }
+ 
   }
 
   setRef = (webcam) => {
     this.webcam = webcam;
   };
 
-  getVideo = (id) => {
-    console.log(id, this.state.emotionTag);
+  getVideo = (id,emotionTag) => {
+    console.log(id, emotionTag);
     return axios
-      .get(`api/v1/user/${id}/analyze/${this.state.emotionTag}/`)
+      .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
       .then((res) => {
+        console.log(res.data)
         const videoData = res.data;
         this.setState({ video: videoData });
         console.log('video is', this.state.video);
@@ -127,12 +132,12 @@ class VideoPlay extends Component {
       .catch((error) => console.log(error));
   };
 
-  getUserImg = (id, emotionTag) => {
+  getUserImg = (id, emotionTag,video) => {
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
         base64Str,
-        `${id}-${this.state.video.id}-${('000' + this.state.imageIndex).slice(
+        `${id}-${video.id}-${('000' + this.state.imageIndex).slice(
           -3,
         )}.jpg`,
       );
