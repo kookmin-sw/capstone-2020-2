@@ -19,6 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import UserContext from '../UserContext';
+import { updateArrayBindingPattern } from 'typescript';
 
 class VideoPlay extends Component {
   constructor(props) {
@@ -39,12 +40,17 @@ class VideoPlay extends Component {
           fullMark: 1.0,
         },
         {
-          emotionTag: 'angry',
+          emotionTag: 'disgust',
           A: 0.0,
           fullMark: 1.0,
         },
         {
-          emotionTag: 'disgust',
+          emotionTag: 'contempt',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'surprise',
           A: 0.0,
           fullMark: 1.0,
         },
@@ -55,11 +61,6 @@ class VideoPlay extends Component {
         },
         {
           emotionTag: 'neutral',
-          A: 0.0,
-          fullMark: 1.0,
-        },
-        {
-          emotionTag: 'surprise',
           A: 0.0,
           fullMark: 1.0,
         },
@@ -174,6 +175,24 @@ class VideoPlay extends Component {
           .then((response) => {
             let values = response.emotionValues;
             console.log(response);
+            // console.log(response.data);
+            console.log(this.state.signalData);
+            let newSignalData = this.state.signalData;
+            console.log(newSignalData);
+            const emotionList = [
+              'happy',
+              'sad',
+              'disgust',
+              'contempt',
+              'surprise',
+              'fear',
+              'neutral',
+            ];
+            for (let emotionIdx = 0; emotionIdx < 7; emotionIdx++) {
+              newSignalData[emotionIdx].A =
+                response.data.emotionValues[emotionList[emotionIdx]];
+            }
+            console.log(newSignalData);
           })
       );
     } catch (error) {
