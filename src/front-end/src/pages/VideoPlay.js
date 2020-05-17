@@ -25,6 +25,7 @@ class VideoPlay extends Component {
     super(props);
     this.state = {
       realtimeUserFace: null,
+      realtimeStart: 0,
       video: {},
       signalData: [
         {
@@ -68,7 +69,7 @@ class VideoPlay extends Component {
         name: '',
         loggedIn: false,
       },
-      emotionTag:null,
+      emotionTag: null,
       imageIndex: 1,
     };
   }
@@ -84,47 +85,39 @@ class VideoPlay extends Component {
       const selectedEmotionTag = this.props.location.state.emotionTag;
       console.log(selectedEmotionTag);
       this.setState({
-        // user: {id: user.id, loggedIn: user.loggedIn, }
         emotionTag: selectedEmotionTag,
       });
-    
-      // console.log(this.state.user);
-      console.log('this is signalData', this.state.signalData);
+      const { user } = this.context;
+      this.setState({
+        user: this.context.user,
+      });
+      console.log('user is', user);
+      if (user) {
+        this.getVideo(user.id, selectedEmotionTag);
+      } else {
+        this.redirectToLogin();
+      }
     } catch (error) {
       console.log(error);
       this.props.history.push('/Option');
     }
-
-
   }
   componentWillUnmount() {
     this.getUserImg = null;
     // this.props.isLast = true;
   }
-  componentDidMount() {
-    
-    const { user } = this.context;
-    console.log('user is', user);
-    if (user) {
-      this.getVideo(user.id,this.state.emotionTag);
-      this.getUserImg(user.id, this.state.emotionTag,this.state.video);
-    
-    } else {
-      this.redirectToLogin();
-    }
- 
-  }
+  componentDidMount() {}
 
   setRef = (webcam) => {
     this.webcam = webcam;
   };
 
-  getVideo = (id,emotionTag) => {
+  getVideo = async (id, emotionTag) => {
     console.log(id, emotionTag);
-    return axios
+    return await axios
       .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         const videoData = res.data;
         this.setState({ video: videoData });
         console.log('video is', this.state.video);
@@ -132,22 +125,22 @@ class VideoPlay extends Component {
       .catch((error) => console.log(error));
   };
 
-  getUserImg = (id, emotionTag,video) => {
+  getUserImg = () => {
+    this.setState({ realtimeStart: this.state.realtimeStart + 1 });
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
         base64Str,
-        `${id}-${video.id}-${('000' + this.state.imageIndex).slice(
-          -3,
-        )}.jpg`,
+        `${this.state.user.id}-${this.state.video.id}-${(
+          '000' + this.state.imageIndex
+        ).slice(-3)}.jpg`,
       );
-      console.log(id, emotionTag);
-      console.log('캡처됨');
+      console.log('getUserImg 실행중');
       this.setState({
         realtimeUserFace: file,
         imageIndex: this.state.imageIndex + 1,
       });
-      this.realtimeUserFace(id);
+      this.realtimeUserFace();
     }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -165,22 +158,24 @@ class VideoPlay extends Component {
     };
   };
 
-  realtimeUserFace = (id) => {
+  realtimeUserFace = () => {
     try {
       //let image = new FormData();
       //image.append('image', this.state.realtimeUserFace);
       console.log('testing....', this.state.realtimeUserFace);
-      return axios
-        //.get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
-        .post(`api/v1/user/${id}/analyze/real-time-result/`, {
-          headers: {
-            'content-type': 'multipart/form-data',
-          },
-        })
-        .then((response) => {
-          let values = response.emotionValues;
-          console.log(response);
-        });
+      return (
+        axios
+          //.get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
+          .post(`api/v1/user/${this.state.user.id}/analyze/real-time-result/`, {
+            headers: {
+              'content-type': 'multipart/form-data',
+            },
+          })
+          .then((response) => {
+            let values = response.emotionValues;
+            console.log(response);
+          })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -212,6 +207,10 @@ class VideoPlay extends Component {
   };
 
   render() {
+    if (this.state.realtimeStart == 0) {
+      this.getUserImg();
+    }
+
     return (
       <div class="full-container">
         <div>
