@@ -1,6 +1,7 @@
 from .models import *
 from django.db.models import Max
-from django.http import HttpResponse, JsonResponse
+from django.urls import reverse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -126,6 +127,8 @@ class getAnalyzingVideo(APIView):
                         'duration' : video.duration,
                         'tag' : video.tag,
                     })
+    def post(self, request, id, emotionTag):
+        return HttpResponseRedirect(reverse('realTimeResult'))
 
 @api_view(['POST'])
 def realTimeAnalyze(request, id):
