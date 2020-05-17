@@ -134,13 +134,13 @@ class getAnalyzingVideo(APIView):
 def realTimeAnalyze(request, id):
     emotionTag = 'happy'
     emotionValues = {
-        'happy': 0.9,
-        'sad': 0.0,
-        'disgust': 0.0,
-        'contempt': 0.0,
-        'surprise': 0.0,
-        'fear': 0.0,
-        'neutral': 0.1,
+        'happy': random.random(),
+        'sad': random.random(),
+        'disgust': random.random(),
+        'contempt': random.random(),
+        'surprise': random.random(),
+        'fear': random.random(),
+        'neutral': random.random(),
     }
     payload = {
         'emotionTag': emotionTag,
