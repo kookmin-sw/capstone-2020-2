@@ -143,7 +143,7 @@ class VideoPlay extends Component {
         imageIndex: this.state.imageIndex + 1,
       });
       this.realtimeUserFace(id);
-    }, 1000);
+    }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
       var arr = dataurl.split(','),
@@ -162,11 +162,12 @@ class VideoPlay extends Component {
 
   realtimeUserFace = (id) => {
     try {
-      let image = new FormData();
-      image.append('image', this.state.realtimeUserFace);
+      //let image = new FormData();
+      //image.append('image', this.state.realtimeUserFace);
       console.log('testing....', this.state.realtimeUserFace);
       return axios
-        .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
+        //.get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
+        .post(`api/v1/user/${id}/analyze/real-time-result/`, {
           headers: {
             'content-type': 'multipart/form-data',
           },
