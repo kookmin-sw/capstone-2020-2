@@ -174,8 +174,8 @@ def realTimeAnalyze(request, id):
     imgName = request.data['image'].name
     imgPath = os.path.join(request.data['imgPath'], imgName)
     img.save(imgPath, "JPEG")
-    # predictResult = predict_emotion(imgPath)
-    # print(predictResult)
+    predictResult = predict_emotion(imgPath)
+    print(predictResult)
     # TODO : Get results from Main Program 2 (analyzing module).
 
     emotionTag = 'happy'
