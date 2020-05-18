@@ -168,7 +168,13 @@ class getAnalyzingVideo(APIView):
 @api_view(['POST'])
 def realTimeAnalyze(request, id):
     img = Image.open(request.FILES['image'])
-    print(img)
+    # Save image to corresponding dir path.
+    imgName = request.data['image'].name
+    imgPath = os.path.join(request.data['imgPath'], imgName)
+    img.save(imgPath, "JPEG")
+
+    # TODO : Get results from Main Program 2 (analyzing module).
+
     emotionTag = 'happy'
     emotionValues = {
         'happy': random.random(),
