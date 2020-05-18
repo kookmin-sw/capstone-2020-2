@@ -99,6 +99,9 @@ def login(request):
         return HttpResponse("Please sign up first", status=status.HTTP_404_NOT_FOUND)
     else:
         request.session['id'] = user[0]
+        # Set user data directory path.
+        global dataDirPath
+        dataDirPath = os.path.join(dirPath, '{}_{}'.format(user[1], user[0]))
         payload = {
             'id': user[0],
             'username': user[1],
@@ -112,6 +115,8 @@ def logout(request):
         request.session.flush()
     except KeyError:
         pass
+    global dataDirPath
+    dataDirPath = ''
     return HttpResponse("You're logged out.")
 
 class getAnalyzingVideo(APIView):
@@ -133,6 +138,21 @@ class getAnalyzingVideo(APIView):
                 viewed_video_list.append(randId)
                 request.session['viewed_videos'] = viewed_video_list
                 request.session.modified = True
+                # Create subdirectory for played videos.
+                videoInfo = '{}_{}'.format(video.title, video.videoId)
+                global dataDirPath
+                dataDirPath = os.path.join(dataDirPath, videoInfo)
+                print("video path :", dataDirPath)
+                if not os.path.isdir(dataDirPath):
+                    os.mkdir(dataDirPath)
+                # Create directories based on the datetime the video was played
+                # since each video might be played multiple times.
+                dataDirPath = os.path.join(dataDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                os.mkdir(dataDirPath)
+                print("date path:", dataDirPath)
+                # Create directories separately for face, eeg data.
+                os.mkdir(os.path.join(dataDirPath, 'face'))
+                os.mkdir(os.path.join(dataDirPath, 'eeg'))
                 return JsonResponse({
                     'user' : id,
                     'link' : video.link,
@@ -140,6 +160,7 @@ class getAnalyzingVideo(APIView):
                     'startTime' : video.startTime,
                     'duration' : video.duration,
                     'tag' : video.tag,
+                    'imgPath': os.path.join(dataDirPath, 'face'),
                 })
     def post(self, request, id, emotionTag):
         return HttpResponseRedirect(reverse('realTimeResult'))
