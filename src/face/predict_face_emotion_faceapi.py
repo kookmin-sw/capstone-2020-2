@@ -12,10 +12,7 @@ def predict_emotion(image_path):
     
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     
-    # 캠에서 이미지를 한 장 캡쳐
-    cap = cv2.VideoCapture(0)
-    _, image = cap.read()
-    # image = cv2.imread(image_path)
+    image = cv2.imread(image_path)
 
     # face detection 을 위해 흑백으로 변환
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
