@@ -176,7 +176,6 @@ class VideoPlay extends Component {
             let values = response.emotionValues;
             console.log(response);
             // console.log(response.data);
-            console.log(this.state.signalData);
             let newSignalData = this.state.signalData;
             console.log(newSignalData);
             const emotionList = [
@@ -192,7 +191,6 @@ class VideoPlay extends Component {
               newSignalData[emotionIdx].A =
                 response.data.emotionValues[emotionList[emotionIdx]];
             }
-            console.log(newSignalData);
           })
       );
     } catch (error) {

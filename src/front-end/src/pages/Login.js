@@ -66,7 +66,7 @@ class Login extends Component {
         userFace: file,
       });
       this.userFace();
-    }, 1000);
+    }, 2000);
     const dataURLtoFile = (dataurl, filename) => {
       var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -129,7 +129,7 @@ class Login extends Component {
               facingmode="user"
               mirrored={true}
               screenshotQuality={1}
-              ref={this.setRef}
+              ref={this.setRef.bind(this)}
               screenshotFormat="image/jpeg"
             />
           </Grid>
