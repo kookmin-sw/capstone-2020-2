@@ -198,23 +198,6 @@ class VideoPlay extends Component {
     }
   };
 
-  randomValues = () => {
-    var emotionFunction = function () {
-      const randVal = Math.random();
-      const { signalData } = this.state;
-      this.setState({
-        signalData: signalData.map((A) => randVal),
-      });
-      // for (let emotions in this.state.signalData) {
-      // this.state.signalData.map((emotions) => )
-      // console.log(emotions);
-      // console.log(emotions['A']);
-      // emotions.A = Math.random();
-      // }
-    };
-    const values = setInterval(emotionFunction.bind(this), 1000);
-  };
-
   getEmotions = async (id, emotionTag) => {
     const response = await axios
       .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
