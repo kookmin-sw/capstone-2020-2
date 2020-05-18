@@ -94,7 +94,10 @@ class VideoPlay extends Component {
       });
       console.log('user is', user);
       if (user) {
+        console.log('user id', user.id);
+        console.log('selectedEmotion', selectedEmotionTag);
         this.getVideo(user.id, selectedEmotionTag);
+        this.setState({ realtimeStart: this.state.realtimeStart + 1 });
       } else {
         this.redirectToLogin();
       }
@@ -115,19 +118,18 @@ class VideoPlay extends Component {
 
   getVideo = async (id, emotionTag) => {
     console.log(id, emotionTag);
-    return await axios
-      .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
-      .then((res) => {
-        console.log(res.data);
-        const videoData = res.data;
-        this.setState({ video: videoData });
-        console.log('video is', this.state.video);
-      })
-      .catch((error) => console.log(error));
+    try {
+      const res = await axios.get(`api/v1/user/${id}/analyze/${emotionTag}/`);
+      console.log(res.data);
+      const videoData = res.data;
+      this.setState({ video: videoData });
+      console.log('video is', this.state.video);
+    } catch (error) {
+      console.log(error.response.message);
+    }
   };
 
   getUserImg = () => {
-    this.setState({ realtimeStart: this.state.realtimeStart + 1 });
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
@@ -140,6 +142,7 @@ class VideoPlay extends Component {
       this.setState({
         realtimeUserFace: file,
         imageIndex: this.state.imageIndex + 1,
+        realtimeStart: this.state.realtimeStart + 1,
       });
       this.realtimeUserFace(file);
     }, 2000);
@@ -161,16 +164,18 @@ class VideoPlay extends Component {
 
   realtimeUserFace = (file) => {
     try {
-      let image = new FormData();
-      image.append('image', file);
+      let realtimeData = new FormData();
+      realtimeData.append('image', file);
+      realtimeData.append('imgPath', this.state.video.imgPath);
       console.log('realtimeUserFace image file', file);
+      console.log(this.state.video.imgPath);
       // console.log('testing....', this.state.realtimeUserFace);
       return (
         axios
           // .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
           .post(
             `api/v1/user/${this.state.user.id}/analyze/real-time-result/`,
-            image,
+            realtimeData,
             {
               headers: {
                 'content-type': 'multipart/form-data',
@@ -212,7 +217,7 @@ class VideoPlay extends Component {
   };
 
   render() {
-    if (this.state.realtimeStart == 0) {
+    if (this.state.realtimeStart == 1) {
       this.getUserImg();
     }
 

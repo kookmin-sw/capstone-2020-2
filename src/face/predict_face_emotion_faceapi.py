@@ -2,6 +2,7 @@ import cv2
 import base64
 import requests
 import json
+import numpy as np
 
 def predict_emotion(image_path):
     # Key
@@ -15,7 +16,7 @@ def predict_emotion(image_path):
     image = cv2.imread(image_path)
 
     # face detection 을 위해 흑백으로 변환
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
     
     # face detection
     faces = face_cascade.detectMultiScale(gray, 1.1, 4)

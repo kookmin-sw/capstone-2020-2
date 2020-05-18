@@ -145,7 +145,7 @@ class getAnalyzingVideo(APIView):
                 global dataDirPath
                 videoDirPath = os.path.join(dataDirPath, videoInfo)
                 if not os.path.isdir(videoDirPath):
-                    os.mkdir(videoDirPath)
+                    os.makedirs(videoDirPath)
                 # Create directories based on the datetime the video was played
                 # since each video might be played multiple times.
                 dateDirPath = os.path.join(videoDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
@@ -174,7 +174,8 @@ def realTimeAnalyze(request, id):
     imgName = request.data['image'].name
     imgPath = os.path.join(request.data['imgPath'], imgName)
     img.save(imgPath, "JPEG")
-
+    predictResult = predict_emotion(imgPath)
+    print(predictResult)
     # TODO : Get results from Main Program 2 (analyzing module).
 
     emotionTag = 'happy'

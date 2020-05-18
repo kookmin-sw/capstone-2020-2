@@ -19,113 +19,133 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import UserContext from '../UserContext';
+import { updateArrayBindingPattern } from 'typescript';
 
 class VideoPlay extends Component {
-  state = {
-    realtimeUserFace: null,
-    link: '',
-    data: [
-      {
-        emotionTag: 'happy',
-        A: 120,
-        B: 110,
-        fullMark: 150,
+  constructor(props) {
+    super(props);
+    this.state = {
+      realtimeUserFace: null,
+      realtimeStart: 0,
+      video: {},
+      signalData: [
+        {
+          emotionTag: 'happy',
+          A: 1.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'sad',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'disgust',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'contempt',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'surprise',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'fear',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+        {
+          emotionTag: 'neutral',
+          A: 0.0,
+          fullMark: 1.0,
+        },
+      ],
+      user: {
+        id: 0,
+        name: '',
+        loggedIn: false,
       },
-      {
-        emotionTag: 'sad',
-        A: 98,
-        B: 130,
-        fullMark: 150,
-      },
-      {
-        emotionTag: 'angry',
-        A: 86,
-        B: 130,
-        fullMark: 150,
-      },
-      {
-        emotionTag: 'disgust',
-        A: 99,
-        B: 100,
-        fullMark: 150,
-      },
-      {
-        emotionTag: 'fear',
-        A: 85,
-        B: 90,
-        fullMark: 150,
-      },
-      {
-        emotionTag: 'neutral',
-        A: 65,
-        B: 85,
-        fullMark: 150,
-      },
-    ],
-  };
+      emotionTag: null,
+      imageIndex: 1,
+    };
+  }
+
+  redirectToLogin() {
+    return this.props.history.push(`/Login`);
+  }
 
   static contextType = UserContext;
 
   componentWillMount() {
-    const emotionTag = this.props.location.state.emotionTag;
-    console.log(emotionTag);
-    const { user } = this.context;
-    console.log(user);
-    const id = user.id;
-    console.log(id);
-    this.getVideo(id, emotionTag);
-    this.getUserImg(id, emotionTag);
+    try {
+      const selectedEmotionTag = this.props.location.state.emotionTag;
+      console.log(selectedEmotionTag);
+      this.setState({
+        emotionTag: selectedEmotionTag,
+      });
+      const { user } = this.context;
+      this.setState({
+        user: this.context.user,
+      });
+      console.log('user is', user);
+      if (user) {
+        console.log('user id', user.id);
+        console.log('selectedEmotion', selectedEmotionTag);
+        this.getVideo(user.id, selectedEmotionTag);
+        this.setState({ realtimeStart: this.state.realtimeStart + 1 });
+      } else {
+        this.redirectToLogin();
+      }
+    } catch (error) {
+      console.log(error);
+      this.props.history.push('/Option');
+    }
   }
   componentWillUnmount() {
     this.getUserImg = null;
-    this.props.isLast = true;
+    // this.props.isLast = true;
   }
   componentDidMount() {}
+
   setRef = (webcam) => {
     this.webcam = webcam;
   };
-  // getUser =async () => {
-  //   try{
-  //     let form_data = new FormData();
-  //  const response = axios.post('api/v1/login/', form_data, {
-  //   headers: {
-  //     'content-type': 'multipart/form-data',
-  //   },
-  // }) ;
-  //   console.log(response);
-  //     this.setState({
-  //      id: response.data.id,
-  //     });
 
-  //   }catch(error){
-  //     console.error(error);
-  //   }
-  // };
-
-  getVideo = (id, emotionTag) => {
-    return axios
-      .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
-      .then((res) => {
-        const video = res.data;
-        this.setState({ link: video.link });
-        console.log(this.state.link);
-      })
-      .catch((error) => console.log(error));
+  getVideo = async (id, emotionTag) => {
+    console.log(id, emotionTag);
+    try {
+      const res = await axios.get(`api/v1/user/${id}/analyze/${emotionTag}/`);
+      console.log(res.data);
+      const videoData = res.data;
+      this.setState({ video: videoData });
+      console.log('video is', this.state.video);
+    } catch (error) {
+      console.log(error.response.message);
+    }
   };
 
-  getUserImg = (id, emotionTag) => {
-    //console.log("캡처되고있음");
-
+  getUserImg = () => {
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
-      var file = dataURLtoFile(base64Str, `${this.props.id}-001`);
-      console.log(file);
-      console.log('캡처됨');
+      var file = dataURLtoFile(
+        base64Str,
+        `${this.state.user.id}-${this.state.video.id}-${(
+          '000' + this.state.imageIndex
+        ).slice(-3)}.jpg`,
+      );
+      console.log('getUserImg 실행중');
       this.setState({
         realtimeUserFace: file,
+        imageIndex: this.state.imageIndex + 1,
+        realtimeStart: this.state.realtimeStart + 1,
       });
-      this.realtimeUserFace(id, emotionTag);
-    }, 1000);
+      this.realtimeUserFace(file);
+    }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
       var arr = dataurl.split(','),
@@ -142,20 +162,46 @@ class VideoPlay extends Component {
     };
   };
 
-  realtimeUserFace = (id, emotionTag) => {
+  realtimeUserFace = (file) => {
     try {
-      const form_data = new FormData();
-
-      form_data.append('image', this.state.realtimeUserFace);
-      console.log(image);
-      return axios.get(
-        `api/v1/user/${id}/analyze/real-time-result/`,
-        form_data,
-        {
-          headers: {
-            'content-type': 'multipart/form-data',
-          },
-        },
+      let realtimeData = new FormData();
+      realtimeData.append('image', file);
+      realtimeData.append('imgPath', this.state.video.imgPath);
+      console.log('realtimeUserFace image file', file);
+      console.log(this.state.video.imgPath);
+      // console.log('testing....', this.state.realtimeUserFace);
+      return (
+        axios
+          // .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
+          .post(
+            `api/v1/user/${this.state.user.id}/analyze/real-time-result/`,
+            realtimeData,
+            {
+              headers: {
+                'content-type': 'multipart/form-data',
+              },
+            },
+          )
+          .then((response) => {
+            let values = response.emotionValues;
+            console.log(response);
+            // console.log(response.data);
+            let newSignalData = this.state.signalData;
+            console.log(newSignalData);
+            const emotionList = [
+              'happy',
+              'sad',
+              'disgust',
+              'contempt',
+              'surprise',
+              'fear',
+              'neutral',
+            ];
+            for (let emotionIdx = 0; emotionIdx < 7; emotionIdx++) {
+              newSignalData[emotionIdx].A =
+                response.data.emotionValues[emotionList[emotionIdx]];
+            }
+          })
       );
     } catch (error) {
       console.log(error);
@@ -171,6 +217,10 @@ class VideoPlay extends Component {
   };
 
   render() {
+    if (this.state.realtimeStart == 1) {
+      this.getUserImg();
+    }
+
     return (
       <div class="full-container">
         <div>
@@ -196,7 +246,7 @@ class VideoPlay extends Component {
         </div>
         <ReactPlayer
           className="videoPlayer"
-          url={this.state.link}
+          url={this.state.video.link}
           playing
           width="80%"
           height="94%"
@@ -216,11 +266,11 @@ class VideoPlay extends Component {
           outerRadius={90}
           width={250}
           height={250}
-          data={this.state.data}
+          data={this.state.signalData}
         >
           <PolarGrid />
           <PolarAngleAxis dataKey="emotionTag" />
-          <PolarRadiusAxis angle={30} domain={[0, 150]} />
+          <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
           <Radar
             name="emotion"
             dataKey="A"
