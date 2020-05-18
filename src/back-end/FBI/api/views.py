@@ -137,19 +137,15 @@ class getAnalyzingVideo(APIView):
                 continue
             video = Video.objects.filter(pk=randId).first()
             if video:
-                print("hohohohoho")
                 viewed_video_list.append(randId)
                 request.session['viewed_videos'] = viewed_video_list
                 request.session.modified = True
                 # Create subdirectory for played videos.
                 videoInfo = '{}_{}'.format(video.title, video.videoId)
                 global dataDirPath
-                print("error33333333333333333")
                 videoDirPath = os.path.join(dataDirPath, videoInfo)
                 if not os.path.isdir(videoDirPath):
-                    print("error....")
                     os.makedirs(videoDirPath)
-                    print("no..............")
                 # Create directories based on the datetime the video was played
                 # since each video might be played multiple times.
                 dateDirPath = os.path.join(videoDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
