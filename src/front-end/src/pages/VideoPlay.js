@@ -118,16 +118,15 @@ class VideoPlay extends Component {
 
   getVideo = async (id, emotionTag) => {
     console.log(id, emotionTag);
-
-    return await axios
-      .get(`api/v1/user/${id}/analyze/${emotionTag}/`)
-      .then((res) => {
-        console.log(res.data);
-        const videoData = res.data;
-        this.setState({ video: videoData });
-        console.log('video is', this.state.video);
-      })
-      .catch((error) => console.log(error.response.message));
+    try {
+      const res = await axios.get(`api/v1/user/${id}/analyze/${emotionTag}/`);
+      console.log(res.data);
+      const videoData = res.data;
+      this.setState({ video: videoData });
+      console.log('video is', this.state.video);
+    } catch (error) {
+      console.log(error.response.message);
+    }
   };
 
   getUserImg = () => {
