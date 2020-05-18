@@ -141,18 +141,16 @@ class getAnalyzingVideo(APIView):
                 # Create subdirectory for played videos.
                 videoInfo = '{}_{}'.format(video.title, video.videoId)
                 global dataDirPath
-                dataDirPath = os.path.join(dataDirPath, videoInfo)
-                print("video path :", dataDirPath)
-                if not os.path.isdir(dataDirPath):
-                    os.mkdir(dataDirPath)
+                videoDirPath = os.path.join(dataDirPath, videoInfo)
+                if not os.path.isdir(videoDirPath):
+                    os.mkdir(videoDirPath)
                 # Create directories based on the datetime the video was played
                 # since each video might be played multiple times.
-                dataDirPath = os.path.join(dataDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                os.mkdir(dataDirPath)
-                print("date path:", dataDirPath)
+                dateDirPath = os.path.join(videoDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                os.mkdir(dateDirPath)
                 # Create directories separately for face, eeg data.
-                os.mkdir(os.path.join(dataDirPath, 'face'))
-                os.mkdir(os.path.join(dataDirPath, 'eeg'))
+                os.mkdir(os.path.join(dateDirPath, 'face'))
+                os.mkdir(os.path.join(dateDirPath, 'eeg'))
                 return JsonResponse({
                     'user' : id,
                     'link' : video.link,
@@ -160,8 +158,9 @@ class getAnalyzingVideo(APIView):
                     'startTime' : video.startTime,
                     'duration' : video.duration,
                     'tag' : video.tag,
-                    'imgPath': os.path.join(dataDirPath, 'face'),
+                    'imgPath': os.path.join(dateDirPath, 'face'),
                 })
+            return HttpResponse("Seen every video.", status=status.HTTP_404_NOT_FOUND)
     def post(self, request, id, emotionTag):
         return HttpResponseRedirect(reverse('realTimeResult'))
 
