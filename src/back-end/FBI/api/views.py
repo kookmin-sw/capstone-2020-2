@@ -143,7 +143,7 @@ class getAnalyzingVideo(APIView):
                 global dataDirPath
                 videoDirPath = os.path.join(dataDirPath, videoInfo)
                 if not os.path.isdir(videoDirPath):
-                    os.mkdir(videoDirPath)
+                    os.makedirs(videoDirPath)
                 # Create directories based on the datetime the video was played
                 # since each video might be played multiple times.
                 dateDirPath = os.path.join(videoDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
