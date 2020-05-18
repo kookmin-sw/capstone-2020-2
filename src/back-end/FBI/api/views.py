@@ -9,12 +9,20 @@ from rest_framework.views import APIView
 from . import serializers
 from .customLogin import *
 import random, os, pickle, sys
+from datetime import datetime
 from PIL import Image
 
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))))))
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
+    os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))))))
 from src.face.predict_face_emotion_faceapi import predict_emotion
 
+ROOT_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
+    os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))))))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Directory path for saving real-time data.
+dirPath = os.path.join(ROOT_DIR, 'FBI-data')
+dataDirPath = ''
+# Path for saving userFace images.
 path = os.path.join(BASE_DIR, 'media')
 # Temporarily save encoded image of new user for signup.
 encodedImage = []
@@ -34,7 +42,6 @@ def signup(request):
             'id': newUser.id,
             'username': newUser.username,
         }
-
         # Save encoded image of user.
         current_dir = os.getcwd()
         userInfo = [(newUser.id, newUser.username), encodedImage[0]]
@@ -48,6 +55,14 @@ def signup(request):
                 pickle.dump(userInfo, fi)
                 fi.close()
         request.session['id'] = newUser.id
+        # Create data directory for saving real-time data.
+        # Path : capstone-2020-2/FBI-data
+        if not os.path.isdir(dirPath):
+            os.mkdir(dirPath)
+        # Create subdirectory for user.
+        dataDirPath = os.path.join(dirPath, newUser.userFace.name.split("/")[1].split(".")[0])
+        if not os.path.isdir(dataDirPath):
+            os.mkdir(dataDirPath)
         return JsonResponse(payload)
     else:
         return Response(serializer.errors)
@@ -113,20 +128,19 @@ class getAnalyzingVideo(APIView):
             # Check if the video is in viewed video session list.
             if randId in viewed_video_list:
                 continue
-            else:
-                video = Video.objects.filter(pk=randId).first()
-                if video:
-                    viewed_video_list.append(randId)
-                    request.session['viewed_videos'] = viewed_video_list
-                    request.session.modified = True
-                    return JsonResponse({
-                        'user' : id,
-                        'link' : video.link,
-                        'id' : video.videoId,
-                        'startTime' : video.startTime,
-                        'duration' : video.duration,
-                        'tag' : video.tag,
-                    })
+            video = Video.objects.filter(pk=randId).first()
+            if video:
+                viewed_video_list.append(randId)
+                request.session['viewed_videos'] = viewed_video_list
+                request.session.modified = True
+                return JsonResponse({
+                    'user' : id,
+                    'link' : video.link,
+                    'id' : video.videoId,
+                    'startTime' : video.startTime,
+                    'duration' : video.duration,
+                    'tag' : video.tag,
+                })
     def post(self, request, id, emotionTag):
         return HttpResponseRedirect(reverse('realTimeResult'))
 
