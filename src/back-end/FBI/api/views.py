@@ -122,8 +122,10 @@ def logout(request):
 class getAnalyzingVideo(APIView):
     def get(self, request, id, emotionTag):
         viewed_video_list = request.session.get('viewed_videos', [])
+        # Todo: Get random videoId which is in filtered emotion
         max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId')).get('max_id')
         print(max_id)
+        print(request)
         if max_id is None:
             return HttpResponse("No videos.")
         if request.session.get('viewed_videos') and Video.objects.count() == len(request.session.get('viewed_videos')):
@@ -135,15 +137,19 @@ class getAnalyzingVideo(APIView):
                 continue
             video = Video.objects.filter(pk=randId).first()
             if video:
+                print("hohohohoho")
                 viewed_video_list.append(randId)
                 request.session['viewed_videos'] = viewed_video_list
                 request.session.modified = True
                 # Create subdirectory for played videos.
                 videoInfo = '{}_{}'.format(video.title, video.videoId)
                 global dataDirPath
+                print("error33333333333333333")
                 videoDirPath = os.path.join(dataDirPath, videoInfo)
                 if not os.path.isdir(videoDirPath):
+                    print("error....")
                     os.makedirs(videoDirPath)
+                    print("no..............")
                 # Create directories based on the datetime the video was played
                 # since each video might be played multiple times.
                 dateDirPath = os.path.join(videoDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
@@ -160,7 +166,8 @@ class getAnalyzingVideo(APIView):
                     'tag' : video.tag,
                     'imgPath': os.path.join(dateDirPath, 'face'),
                 })
-            return HttpResponse("Seen every video.", status=status.HTTP_404_NOT_FOUND)
+            else:
+                continue
     def post(self, request, id, emotionTag):
         return HttpResponseRedirect(reverse('realTimeResult'))
 
@@ -171,7 +178,8 @@ def realTimeAnalyze(request, id):
     imgName = request.data['image'].name
     imgPath = os.path.join(request.data['imgPath'], imgName)
     img.save(imgPath, "JPEG")
-
+    # predictResult = predict_emotion(imgPath)
+    # print(predictResult)
     # TODO : Get results from Main Program 2 (analyzing module).
 
     emotionTag = 'happy'
