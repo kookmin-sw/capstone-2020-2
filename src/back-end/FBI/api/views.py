@@ -1,5 +1,5 @@
 from .models import *
-from django.db.models import Max
+from django.db.models import Count
 from django.urls import reverse
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from rest_framework import status
@@ -121,22 +121,24 @@ def logout(request):
 
 class getAnalyzingVideo(APIView):
     def get(self, request, id, emotionTag):
-        viewed_video_list = request.session.get('viewed_videos', [])
-        max_id = Video.objects.filter(tag=emotionTag).aggregate(max_id=Max('videoId')).get('max_id')
-        print(max_id)
-        if max_id is None:
+        viewedVideos = request.session.get('viewedVideos', {})
+        if emotionTag not in viewedVideos:
+            viewedVideos[emotionTag] = []
+        videoObjects = Video.objects.filter(tag=emotionTag)
+        numOfVideos = videoObjects.aggregate(count=Count('videoId')).get('count')
+        videos = videoObjects.values_list('videoId', flat=True)
+        if numOfVideos == 0:
             return HttpResponse("No videos.")
-        if request.session.get('viewed_videos') and Video.objects.count() == len(request.session.get('viewed_videos')):
-            return HttpResponse("Seen every videos.", status=status.HTTP_404_NOT_FOUND)
+        if len(viewedVideos[emotionTag]) == numOfVideos:
+            return HttpResponse("You've seen every video.", status=status.HTTP_404_NOT_FOUND)
         while True:
-            randId = random.randint(1, max_id)
-            # Check if the video is in viewed video session list.
-            if randId in viewed_video_list:
+            randId = random.sample(list(videos), 1)[0]
+            if randId in viewedVideos[emotionTag]:
                 continue
             video = Video.objects.filter(pk=randId).first()
             if video:
-                viewed_video_list.append(randId)
-                request.session['viewed_videos'] = viewed_video_list
+                viewedVideos[emotionTag].append(randId)
+                request.session['viewedVideos'] = viewedVideos
                 request.session.modified = True
                 # Create subdirectory for played videos.
                 videoInfo = '{}_{}'.format(video.title, video.videoId)
@@ -160,7 +162,8 @@ class getAnalyzingVideo(APIView):
                     'tag' : video.tag,
                     'imgPath': os.path.join(dateDirPath, 'face'),
                 })
-            return HttpResponse("Seen every video.", status=status.HTTP_404_NOT_FOUND)
+            else:
+                continue
     def post(self, request, id, emotionTag):
         return HttpResponseRedirect(reverse('realTimeResult'))
 
