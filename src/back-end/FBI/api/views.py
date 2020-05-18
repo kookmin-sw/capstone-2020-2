@@ -132,6 +132,8 @@ class getAnalyzingVideo(APIView):
 
 @api_view(['POST'])
 def realTimeAnalyze(request, id):
+    img = Image.open(request.FILES['image'])
+    print(img)
     emotionTag = 'happy'
     emotionValues = {
         'happy': random.random(),

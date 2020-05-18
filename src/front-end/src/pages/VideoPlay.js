@@ -141,7 +141,7 @@ class VideoPlay extends Component {
         realtimeUserFace: file,
         imageIndex: this.state.imageIndex + 1,
       });
-      this.realtimeUserFace();
+      this.realtimeUserFace(file);
     }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -159,19 +159,24 @@ class VideoPlay extends Component {
     };
   };
 
-  realtimeUserFace = () => {
+  realtimeUserFace = (file) => {
     try {
-      //let image = new FormData();
-      //image.append('image', this.state.realtimeUserFace);
-      console.log('testing....', this.state.realtimeUserFace);
+      let image = new FormData();
+      image.append('image', file);
+      console.log('realtimeUserFace image file', file);
+      // console.log('testing....', this.state.realtimeUserFace);
       return (
         axios
-          //.get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
-          .post(`api/v1/user/${this.state.user.id}/analyze/real-time-result/`, {
-            headers: {
-              'content-type': 'multipart/form-data',
+          // .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
+          .post(
+            `api/v1/user/${this.state.user.id}/analyze/real-time-result/`,
+            image,
+            {
+              headers: {
+                'content-type': 'multipart/form-data',
+              },
             },
-          })
+          )
           .then((response) => {
             let values = response.emotionValues;
             console.log(response);
