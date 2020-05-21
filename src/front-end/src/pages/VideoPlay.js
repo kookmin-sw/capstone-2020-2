@@ -173,15 +173,11 @@ class VideoPlay extends Component {
       return (
         axios
           // .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
-          .post(
-            `api/v1/user/analyze/real-time-result/`,
-            realtimeData,
-            {
-              headers: {
-                'content-type': 'multipart/form-data',
-              },
+          .post(`api/v1/user/analyze/real-time-result/`, realtimeData, {
+            headers: {
+              'content-type': 'multipart/form-data',
             },
-          )
+          })
           .then((response) => {
             let values = response.emotionValues;
             console.log(response);
@@ -201,6 +197,7 @@ class VideoPlay extends Component {
               newSignalData[emotionIdx].A =
                 response.data.emotionValues[emotionList[emotionIdx]];
             }
+            this.setState({ signalData: newSignalData });
           })
       );
     } catch (error) {
