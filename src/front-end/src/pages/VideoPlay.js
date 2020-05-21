@@ -174,7 +174,7 @@ class VideoPlay extends Component {
         axios
           // .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
           .post(
-            `api/v1/user/${this.state.user.id}/analyze/real-time-result/`,
+            `api/v1/user/analyze/real-time-result/`,
             realtimeData,
             {
               headers: {

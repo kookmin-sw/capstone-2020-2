@@ -22,6 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Directory path for saving real-time data.
 dirPath = os.path.join(ROOT_DIR, 'FBI-data')
 dataDirPath = ''
+faceDirPath = ''
 # Path for saving userFace images.
 path = os.path.join(BASE_DIR, 'media')
 # Temporarily save encoded image of new user for signup.
@@ -152,7 +153,10 @@ class getAnalyzingVideo(APIView):
                 dateDirPath = os.path.join(videoDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 os.mkdir(dateDirPath)
                 # Create directories separately for face, eeg data.
-                os.mkdir(os.path.join(dateDirPath, 'face'))
+                global faceDirPath
+                faceDirPath = os.path.join(dateDirPath, 'face')
+                os.mkdir(faceDirPath)
+                #os.mkdir(os.path.join(dateDirPath, 'face'))
                 os.mkdir(os.path.join(dateDirPath, 'eeg'))
                 return JsonResponse({
                     'user' : id,
@@ -169,11 +173,16 @@ class getAnalyzingVideo(APIView):
         return HttpResponseRedirect(reverse('realTimeResult'))
 
 @api_view(['POST'])
-def realTimeAnalyze(request, id):
+def realTimeAnalyze(request):
     img = Image.open(request.FILES['image'])
     # Save image to corresponding dir path.
     imgName = request.data['image'].name
+    print('imgName:', imgName)
     imgPath = os.path.join(request.data['imgPath'], imgName)
+    global faceDirPath
+    print("faceDirPath:", faceDirPath)
+    #imgPath = os.path.join(faceDirPath, imgName)
+    print("imgPath: " , imgPath)
     img.save(imgPath, "JPEG")
     hasFace, faceResult = predict_emotion(imgPath)
     # Emotions(face) : anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
