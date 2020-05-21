@@ -60,6 +60,7 @@ def signup(request):
         if not os.path.isdir(dirPath):
             os.mkdir(dirPath)
         # Create subdirectory for user.
+        global dataDirPath
         dataDirPath = os.path.join(dirPath, newUser.userFace.name.split("/")[1].split(".")[0])
         if not os.path.isdir(dataDirPath):
             os.mkdir(dataDirPath)
