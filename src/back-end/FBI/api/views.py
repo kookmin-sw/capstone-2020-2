@@ -174,50 +174,27 @@ def realTimeAnalyze(request, id):
     imgName = request.data['image'].name
     imgPath = os.path.join(request.data['imgPath'], imgName)
     img.save(imgPath, "JPEG")
-    predictResult = predict_emotion(imgPath)
-    print(predictResult)
+    hasFace, faceResult = predict_emotion(imgPath)
+    # Emotions(face) : anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
+
     # TODO : Get results from Main Program 2 (analyzing module).
 
     emotionTag = 'happy'
-    emotionValues = {
-        'happy': random.random(),
-        'sad': random.random(),
-        'disgust': random.random(),
-        'contempt': random.random(),
-        'surprise': random.random(),
-        'fear': random.random(),
-        'neutral': random.random(),
-    }
+    #emotionValues = {}
     payload = {
         'emotionTag': emotionTag,
-        'emotionValues': emotionValues
+        'emotionValues': faceResult,
+        'eegConnections' : {
+            "eeg1": 1,
+            "eeg2" : 1,
+            "eeg3" : 1,
+            "eeg4" : 1,
+            "eeg5" : 1,
+            "eeg6" : 1,
+            "eeg7" : 1,
+            "eeg8" : 1,
+        }
     }
-    # Retrieve result and send to FE.
-    # result = []
-    # while True:
-    #   result = methodName()
-    #   if result is not None:
-    #       break
-    # emotionTag = result[0]
-    # emotionValues = result[1]
-    # eegConnections = result[2]
-    # payload = {
-    #       "emotionTag" : emotionTag,
-    #       "emotionValues" : {
-    #           "happy" : emotionValues[0],
-    #           "angry" : ....
-    #       },
-    #       "eegConnections" : {
-    #           "eeg1" : 1,
-    #           "eeg2" : 1,
-    #           "eeg3" : 1,
-    #           "eeg4" : 1,
-    #           "eeg5" : 1,
-    #           "eeg6" : 1,
-    #           "eeg7" : 1,
-    #           "eeg8" : 1,
-    #       },
-    # }
 
     # TODO
     # Cache retrieved results & Save in DB at once.

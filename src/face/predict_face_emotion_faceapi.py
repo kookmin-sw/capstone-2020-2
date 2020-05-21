@@ -3,6 +3,10 @@ import base64
 import requests
 import json
 import numpy as np
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))
+xmlPath = os.path.join(BASE_DIR, 'src/face/haarcascade_frontalface_default.xml')
 
 def predict_emotion(image_path):
     # Key
@@ -10,14 +14,14 @@ def predict_emotion(image_path):
     # Endpoint
     endpoint = "https://capstone-faceapi.cognitiveservices.azure.com/"
     base_uri = "https://koreacentral.api.cognitive.microsoft.com"
-    
-    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+
+    face_cascade = cv2.CascadeClassifier(xmlPath)
     
     image = cv2.imread(image_path)
 
     # face detection 을 위해 흑백으로 변환
     gray = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
-    
+
     # face detection
     faces = face_cascade.detectMultiScale(gray, 1.1, 4)
     
