@@ -86,7 +86,16 @@ class Result(models.Model):
         on_delete=models.CASCADE
     )
     viewedDate = models.DateTimeField()
+    dataPath = models.CharField(max_length=100)
     emotion = models.CharField(max_length=10)
+    happiness = models.FloatField()
+    sadness = models.FloatField()
+    anger = models.FloatField()
+    contempt = models.FloatField()
+    disgust = models.FloatField()
+    fear = models.FloatField()
+    neutral = models.FloatField()
+    surprise = models.FloatField()
 
     class Meta:
         db_table = 'Result'
