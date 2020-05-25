@@ -69,10 +69,11 @@ height: 100%;
 }
 .webcam {
   width: 55%;
-  height: 350px;
-  margin: 5%;
+  height: 80%;
+  left: -12%;
   position: relative;
   object-fit: cover;
+
   
 }
 
@@ -107,12 +108,30 @@ height: 100%;
     opacity: 0;
   }
 }
+#faceLogin{
+  position: absolute;
+  top: 15%;
+  left: 62%;
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+}
+#faceLogin2{
+  position: absolute;
+  top: 26%;
+  left: 67%;
+  color: white;
+  font-size: 20px;
+}
 #root {
   width: 100%;
   height: 100%;
 }
 #userInput {
-  position:relative;
+  position: absolute;;
+  color: white;
+  top: 28%;
+  left: 67%;
   width: 350px;
   justify-content: center;
 }
@@ -121,7 +140,7 @@ height: 100%;
 } */
 
 #loginBox {
-  background-color: #F2F2F2;
+  background-color:black;
   align-items: center;
   text-align: center;
   height: 100%;

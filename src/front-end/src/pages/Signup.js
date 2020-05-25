@@ -71,7 +71,7 @@ class Signup extends Component {
     return (
       <div class="full-container">
         <Grid container id="loginBox" direction="column" justify="center">
-          <Grid item>
+        
             <Webcam
               class="webcam"
               audio={false}
@@ -81,12 +81,12 @@ class Signup extends Component {
               ref={this.loginRef}
               screenshotFormat="image/jpeg"
             />
-          </Grid>{' '}
+          <p id="faceLogin">Sign Up</p>
+    
           <Grid item>
             <div class="input-group" id="userInput">
               <TextField
-                id="input-with-icon-textfield"
-                label="UserName"
+                 id="standard-basic" label="UserName"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -98,7 +98,8 @@ class Signup extends Component {
                 onChange={this.userNameChange.bind(this)}
               />{' '}
               <Button
-                variant="contained"
+                variant="outlined"
+                color="primary"
                 label="Sign in"
                 style={{
                   margin: '5%',

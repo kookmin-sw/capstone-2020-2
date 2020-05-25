@@ -18,6 +18,7 @@
     "bootstrap": "^4.4.1",
     "browserslist": "^4.11.1",
     "eslint-config-airbnb": "^18.1.0",
+    "face-api.js": "file:face-api.js",
     "kill-port": "^1.6.0",
     "lodash": "^4.17.15",
     "ract": "0.0.1",
@@ -37,7 +38,7 @@
     "video-react": "^0.14.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --max_old_space_size=4096 start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -122,7 +122,7 @@ class Login extends Component {
           justify="center"
           alignItems="center"
         >
-          <Grid item>
+         
             <Webcam
               class="webcam"
               audio={false}
@@ -132,20 +132,22 @@ class Login extends Component {
               ref={this.setRef.bind(this)}
               screenshotFormat="image/jpeg"
             />
-          </Grid>
-          <Grid item>
-            {/* //<Spinner onLoad={this.capture} color="secondary" id="spinner" /> */}
-          </Grid>
-          <Grid item>
+     <p id="faceLogin">Face Login</p>
+     <p id="faceLogin2">가만히 화면을 응시해주세요.</p>
+     {/* <img src="https://i.ytimg.com/vi/1KGZtWbZtq8/maxresdefault.jpg" height="250px" width="200px"></img> */}
+          {/* <Grid item>
+            {/* //<Spinner onLoad={this.capture} color="secondary" id="spinner" /
+          </Grid> */}
+          {/* <Grid item>
             <div
               class="alert alert-secondary border-0"
               // style={{marginTop: "5%"}}
               id="text"
               role="alert"
             >
-              <strong>[안내]</strong> 잠시동안 가만히 화면을 응시해주세요.
-            </div>
-          </Grid>
+              {/* <strong>[안내]</strong> 잠시동안 가만히 화면을 응시해주세요. */}
+            {/* </div>
+          </Grid> */} 
         </Grid>
 
         {/* <Grid item xs={12} sm={8} id="explain">
