@@ -12,6 +12,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+
 
 class Trial extends Component {
   state = {
@@ -28,7 +33,7 @@ class Trial extends Component {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" color="inherit">
-                Trial_Select Emotion
+                Select Emotion
               </Typography>
 
               <Breadcrumbs aria-label="breadcrumb" id="menu">
@@ -41,68 +46,103 @@ class Trial extends Component {
               </Breadcrumbs>
             </Toolbar>
           </AppBar>
+          <Grid
+          container
+          id="loginBox"
+         
+        >
+          <Typography variant="h3" id="trialText">Choose an Emotion what you want!</Typography>
 
-          <Grid container spacing={2} id="trialOption">
-            <Grid item xs={4}>
+          <FormControl variant="filled" id="emotionSelect" >
+        <InputLabel id="demo-simple-select-filled-label">Emotion</InputLabel>
+        <Select
+          labelId="demo-simple-select-filled-label"
+          id="demo-simple-select-filled"
+        >
+          <MenuItem value="">
+            <em>Emotion</em>
+          </MenuItem>
+          <MenuItem > <Link
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+              >Happy</Link></MenuItem>
+          <MenuItem > <Link
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+              >Sad</Link></MenuItem>
+          <MenuItem > <Link
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+              >Angry</Link></MenuItem>
+          <MenuItem > <Link
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+              >Disgust</Link></MenuItem>
+          <MenuItem > <Link
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+              >Fear</Link></MenuItem>
+          <MenuItem > <Link
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+              >Neutral</Link></MenuItem>
+        </Select>
+      
+      </FormControl>
+
+          {/* <Grid container spacing={2} id="trialOption">
+            
+          <Paper class="emotion">
               <Link
                 to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
               >
-                <Button value="happy" color="primary" variant="contained">
+             
                   <Typography variant="h5">Happy</Typography>
-                </Button>
+               
               </Link>
-            </Grid>
-            <Grid item xs={4}>
+              </Paper>
+           
               <Link
                 to={{ pathname: '/VideoPlay', state: { emotionTag: 'sad' } }}
               >
-                <Button value="sad" color="primary" variant="contained">
+                  <Paper class="emotion">
                   <Typography variant="h5">Sad</Typography>
-                </Button>
+                  </Paper>
               </Link>
-            </Grid>
-            <Grid item xs={4}>
+          
+          
               <Link
                 to={{ pathname: '/VideoPlay', state: { emotionTag: 'angry' } }}
               >
-                <Button value="angry" color="primary" variant="contained">
+              <Paper class="emotion">
                   <Typography variant="h5">Angry</Typography>
-                </Button>
+                  </Paper>
               </Link>
-            </Grid>
-            <Grid item xs={4}>
+           
               <Link
                 to={{
                   pathname: '/VideoPlay',
                   state: { emotionTag: 'disgust' },
                 }}
               >
-                <Button value="disgust" color="primary" variant="contained">
+          <Paper class="emotion">
                   <Typography variant="h5">Disgust</Typography>
-                </Button>
+                  </Paper>
               </Link>
-            </Grid>
-            <Grid item xs={4}>
+ 
               <Link
                 to={{ pathname: '/VideoPlay', state: { emotionTag: 'fear' } }}
               >
-                <Button value="fear" color="primary" variant="contained">
+               <Paper class="emotion">
                   <Typography variant="h5">Fear</Typography>
-                </Button>
+                  </Paper>
               </Link>
-            </Grid>
-            <Grid item xs={4}>
+        
+        
               <Link
                 to={{
                   pathname: '/VideoPlay',
                   state: { emotionTag: 'neutral' },
                 }}
-              >
-                <Button value="neutral" color="primary" variant="contained">
+              >   <Paper class="emotion">
                   <Typography variant="h5">Neutral</Typography>
-                </Button>
+               </Paper>
               </Link>
-            </Grid>
+         </Grid>  */}
           </Grid>
         </div>
       </>

@@ -154,10 +154,23 @@ height: 100%;
   width: 60%;
   height: 50%;
 }
-
+#trialText{
+  position: absolute;
+  top:40%;
+  left: 22%;
+  color: white;
+}
 #trialOption{
   position: relative;
-  top:30%;
+
   left:12%;
  
+}
+#emotionSelect{
+  position: relative;
+  left: 35%;
+
+  width: 25%;
+  z-index: 1;
+  background-color: white;
 }
