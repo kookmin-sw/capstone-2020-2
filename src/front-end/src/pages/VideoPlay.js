@@ -30,12 +30,12 @@ class VideoPlay extends Component {
       video: {},
       signalData: [
         {
-          emotionTag: 'happy',
-          A: 1.0,
+          emotionTag: 'happiness',
+          A: 0.0,
           fullMark: 1.0,
         },
         {
-          emotionTag: 'sad',
+          emotionTag: 'sadness',
           A: 0.0,
           fullMark: 1.0,
         },
@@ -179,25 +179,27 @@ class VideoPlay extends Component {
             },
           })
           .then((response) => {
-            let values = response.emotionValues;
-            console.log(response);
-            // console.log(response.data);
-            let newSignalData = this.state.signalData;
-            console.log(newSignalData);
-            const emotionList = [
-              'happy',
-              'sad',
-              'disgust',
-              'contempt',
-              'surprise',
-              'fear',
-              'neutral',
-            ];
-            for (let emotionIdx = 0; emotionIdx < 7; emotionIdx++) {
-              newSignalData[emotionIdx].A =
-                response.data.emotionValues[emotionList[emotionIdx]];
+            if (response.data.emotionValues) {
+              let values = response.emotionValues;
+              console.log(response);
+              // console.log(response.data);
+              let newSignalData = this.state.signalData;
+              console.log(newSignalData);
+              const emotionList = [
+                'happiness',
+                'sadness',
+                'disgust',
+                'contempt',
+                'surprise',
+                'fear',
+                'neutral',
+              ];
+              for (let emotionIdx = 0; emotionIdx < 7; emotionIdx++) {
+                newSignalData[emotionIdx].A =
+                  response.data.emotionValues[emotionList[emotionIdx]];
+              }
+              this.setState({ signalData: newSignalData });
             }
-            this.setState({ signalData: newSignalData });
           })
       );
     } catch (error) {
