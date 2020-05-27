@@ -39,10 +39,11 @@ class Trial extends Component {
     console.log(user);
     return (
       <>
+       {user.loggedIn ? (
         <div class="full-container">
        
-        {user.loggedIn ? (
-             <div>
+       
+          <div>
           <AppBar position="static" color="default">
             <Toolbar variant="dense">
               <IconButton edge="start" color="inherit" aria-label="menu">
@@ -53,7 +54,7 @@ class Trial extends Component {
               </Typography>
 
               <Breadcrumbs aria-label="breadcrumb" id="menu">
-                <Link to="/Option" class="menuLink">
+                <Link to="/Trial" class="menuLink">
                   Home
                 </Link>
                 <Link to="/" class="menuLink">
@@ -103,10 +104,13 @@ class Trial extends Component {
        
           </Grid>
           </div>
+              
+        </div>
             ) : (
               this.redirectToLogin()
             )}
-        </div>
+       
+      
       </>
     );
   }

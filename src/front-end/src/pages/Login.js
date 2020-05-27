@@ -42,7 +42,7 @@ class Login extends Component {
       loggedIn: true,
     };
     setUser(newUser);
-    this.props.history.push('/Option');
+    this.props.history.push('/Trial');
   }
 
   faceNotDetected() {
