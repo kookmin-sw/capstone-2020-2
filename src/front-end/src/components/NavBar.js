@@ -14,7 +14,7 @@ class NavBar extends Component {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit">
-            Select Emotion
+        FBI Emotion
           </Typography>
 
           <Breadcrumbs aria-label="breadcrumb" id="menu">

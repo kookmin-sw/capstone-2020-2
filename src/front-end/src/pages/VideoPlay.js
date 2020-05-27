@@ -15,7 +15,7 @@ import {
 
 import UserContext from '../UserContext';
 import { updateArrayBindingPattern } from 'typescript';
-
+import NavBar from '../components/NavBar';
 
 class VideoPlay extends Component {
   constructor(props) {
@@ -218,7 +218,7 @@ class VideoPlay extends Component {
 
     return (
       <div class="full-container">
-
+<NavBar />
         <ReactPlayer
           className="videoPlayer"
           url={this.state.video.link}

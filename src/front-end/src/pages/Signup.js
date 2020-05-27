@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import UserContext from '../UserContext';
+import NavBar from '../components/NavBar';
 
 class Signup extends Component {
   constructor(props) {
@@ -70,6 +71,7 @@ class Signup extends Component {
   render() {
     return (
       <div class="full-container">
+        <NavBar></NavBar>
         <Grid container id="loginBox" direction="column" justify="center">
         
             <Webcam

@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import IntroCarousel from '../components/IntroCarousel';
 import '../App.css';
+import NavBar from '../components/NavBar';
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -23,7 +24,7 @@ class Main extends Component {
 
       <ThemeProvider theme={theme}>
         <div className="full-container">
-
+    <NavBar/>
           <Grid
             container
             style={{

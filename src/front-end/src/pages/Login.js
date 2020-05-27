@@ -13,6 +13,7 @@ import {
 import 'base64-to-image';
 import { Grid } from '@material-ui/core';
 import UserContext from '../UserContext';
+import NavBar from '../components/NavBar';
 
 class Login extends Component {
   constructor(props) {
@@ -114,7 +115,7 @@ class Login extends Component {
   render() {
     return (
       <div class="full-container">
-
+<NavBar/>
         <Grid
           container
           id="loginBox"

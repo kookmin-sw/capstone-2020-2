@@ -15,7 +15,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import LoginAlert from '../components/loginSuccessAlert';
 import UserContext from '../UserContext';
-
+import NavBar from '../components/NavBar';
 
 
 class Analyze extends Component {
@@ -38,8 +38,7 @@ class Analyze extends Component {
  <>
        {user.loggedIn ? (
         <div class="full-container">
-       
-
+       <NavBar />
           <LoginAlert userName={user.name}></LoginAlert>
           <Grid
           container

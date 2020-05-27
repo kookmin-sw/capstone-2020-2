@@ -9,7 +9,7 @@ import './App.css';
 import axios from 'axios';
 import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { UserProvider } from './UserContext';
-import NavBar from '../src/components/NavBar';
+
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -45,12 +45,12 @@ class App extends Component {
     
         <Router>
           <Switch>
-            <Route exact path="/"><NavBar/><Main/></Route>
-            <Route path="/Login" ><NavBar/><Login/></Route>
-            <Route path="/Signup"><NavBar/><Signup/></Route>
-            <Route path="/Option"  ><NavBar /><Option/></Route>
-            <Route path="/Analyze" ><NavBar /><Analyze/></Route>
-            <Route path="/VideoPlay"  ><NavBar /><VideoPlay/></Route>
+            <Route exact path="/" component ={Main} />
+            <Route path="/Login" component ={Login}/>
+            <Route path="/Signup" component ={Signup}/>
+            <Route path="/Option"  component ={Option}/>
+            <Route path="/Analyze" component ={Analyze}/>
+            <Route path="/VideoPlay" component ={VideoPlay} />
             
           </Switch>
         </Router>
