@@ -163,6 +163,7 @@ class VideoPlay extends Component {
       let realtimeData = new FormData();
       realtimeData.append('image', file);
       realtimeData.append('dateDirPath', this.state.video.dateDirPath);
+      realtimeData.append('videoTag', this.state.video.tag);
       console.log('realtimeUserFace image file', file);
       console.log(this.state.video.dateDirPath);
       // console.log('testing....', this.state.realtimeUserFace);

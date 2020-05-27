@@ -1,6 +1,6 @@
  #-*- coding: utf-8 -*- 
-from preprocessModule import * # Signal Preprocessing Methods
-from transformModule import * # Signal => Input form 
+from .preprocessModule import * # Signal Preprocessing Methods
+from .transformModule import * # Signal => Input form
 import numpy as np
 import torch
 import pickle
@@ -13,11 +13,11 @@ emo_map = {0 : "neutral", 1 : "sadness", 2 : "happiness",
            3 : "disgust", 4 : "fear"}#, 5 : "anger", 6:"surprise"}
 
 # load trained model 
-from Models import * # CNN 
+from .Models import * # CNN
 
 model = CNN(n_channel=1, lin_len=592, out_len=5,
             n_electrodes=8, model_type='cla')
-model.load_state_dict(torch.load("eeg_classifier.pth"))
+model.load_state_dict(torch.load('/home/myounghee/Documents/Django/test_fbi/capstone-2020-2/src/analyze/eeg/eeg_classifier.pth'))
 model.eval()
 
 
@@ -61,7 +61,7 @@ def predict_emotion_EEG(model, signal_path, chosen_channels, freqs, sf=256):
     
     emo_dict = {}
     for idx, emo_class in emo_map.items():
-        emo_dict[emo_class] = outputs[0][idx] 
+        emo_dict[emo_class] = outputs[0][idx].item()
         
     return emo_dict, n_railed, is_railed
 
