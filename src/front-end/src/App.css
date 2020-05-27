@@ -111,15 +111,15 @@ height: 100%;
 #faceLogin{
   position: absolute;
   top: 15%;
-  left: 62%;
+  left: 70%;
   color: white;
   font-size: 60px;
   font-weight: bold;
 }
 #faceLogin2{
   position: absolute;
-  top: 26%;
-  left: 67%;
+  top: 28%;
+  left: 70%;
   color: white;
   font-size: 20px;
 }
@@ -129,9 +129,9 @@ height: 100%;
 }
 #userInput {
   position: absolute;;
-  color: white;
+  /* background-color: white; */
   top: 28%;
-  left: 67%;
+  left: 70%;
   width: 350px;
   justify-content: center;
 }
@@ -141,6 +141,12 @@ height: 100%;
 
 #loginBox {
   background-color:black;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+#loginBox1{
+  background-color:white;
   align-items: center;
   text-align: center;
   height: 100%;

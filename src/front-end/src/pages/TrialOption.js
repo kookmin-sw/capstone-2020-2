@@ -16,17 +16,33 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import LoginAlert from '../components/loginSuccessAlert';
+import UserContext from '../UserContext';
+
 
 
 class Trial extends Component {
   state = {
     emotionTag: '',
+    close:true
   };
 
+
+  redirectToLogin() {
+    return this.props.history.push(`/Login`);
+  }
+
+  static contextType = UserContext;
   render() {
+    const { classes } = this.props;
+    const { user } = this.context;
+    console.log(user);
     return (
       <>
         <div class="full-container">
+       
+        {user.loggedIn ? (
+             <div>
           <AppBar position="static" color="default">
             <Toolbar variant="dense">
               <IconButton edge="start" color="inherit" aria-label="menu">
@@ -86,6 +102,10 @@ class Trial extends Component {
 
        
           </Grid>
+          </div>
+            ) : (
+              this.redirectToLogin()
+            )}
         </div>
       </>
     );

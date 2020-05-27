@@ -33,7 +33,7 @@ class Main extends Component {
               container
               xs={12}
               sm={4}
-              id="loginBox"
+              id="loginBox1"
               direction="column"
               justify="center"
               alignItems="center"
