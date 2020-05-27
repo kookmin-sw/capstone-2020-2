@@ -66,83 +66,25 @@ class Trial extends Component {
                 to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
               >Happy</Link></MenuItem>
           <MenuItem > <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'sad' } }}
               >Sad</Link></MenuItem>
           <MenuItem > <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'angry' } }}
               >Angry</Link></MenuItem>
           <MenuItem > <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'disgust' } }}
               >Disgust</Link></MenuItem>
           <MenuItem > <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'fear' } }}
               >Fear</Link></MenuItem>
           <MenuItem > <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
+                to={{ pathname: '/VideoPlay', state: { emotionTag: 'neutral' } }}
               >Neutral</Link></MenuItem>
         </Select>
       
       </FormControl>
 
-          {/* <Grid container spacing={2} id="trialOption">
-            
-          <Paper class="emotion">
-              <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'happy' } }}
-              >
-             
-                  <Typography variant="h5">Happy</Typography>
-               
-              </Link>
-              </Paper>
-           
-              <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'sad' } }}
-              >
-                  <Paper class="emotion">
-                  <Typography variant="h5">Sad</Typography>
-                  </Paper>
-              </Link>
-          
-          
-              <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'angry' } }}
-              >
-              <Paper class="emotion">
-                  <Typography variant="h5">Angry</Typography>
-                  </Paper>
-              </Link>
-           
-              <Link
-                to={{
-                  pathname: '/VideoPlay',
-                  state: { emotionTag: 'disgust' },
-                }}
-              >
-          <Paper class="emotion">
-                  <Typography variant="h5">Disgust</Typography>
-                  </Paper>
-              </Link>
- 
-              <Link
-                to={{ pathname: '/VideoPlay', state: { emotionTag: 'fear' } }}
-              >
-               <Paper class="emotion">
-                  <Typography variant="h5">Fear</Typography>
-                  </Paper>
-              </Link>
-        
-        
-              <Link
-                to={{
-                  pathname: '/VideoPlay',
-                  state: { emotionTag: 'neutral' },
-                }}
-              >   <Paper class="emotion">
-                  <Typography variant="h5">Neutral</Typography>
-               </Paper>
-              </Link>
-         </Grid>  */}
+       
           </Grid>
         </div>
       </>
