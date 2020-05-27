@@ -97,3 +97,6 @@ def head_plot(values, color = 'rainbow'):
 
     fig.canvas.draw()
     plt.show() 
+    
+if __name__ == "__main__":
+    print("환경설정 완료")
