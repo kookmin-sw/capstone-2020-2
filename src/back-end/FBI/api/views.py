@@ -15,6 +15,7 @@ from PIL import Image
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
     os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))))))
 from src.analyze.face.predict_face_emotion_faceapi import predict_emotion
+# from src.analyzeModule import detectEmotion
 
 ROOT_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
     os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))))))
@@ -23,6 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 dirPath = os.path.join(ROOT_DIR, 'FBI-data')
 dataDirPath = ''
 faceDirPath = ''
+eegDirPath = ''
 # Path for saving userFace images.
 path = os.path.join(BASE_DIR, 'media')
 # Temporarily save encoded image of new user for signup.
@@ -157,7 +159,9 @@ class getAnalyzingVideo(APIView):
                 faceDirPath = os.path.join(dateDirPath, 'face')
                 os.mkdir(faceDirPath)
                 #os.mkdir(os.path.join(dateDirPath, 'face'))
-                os.mkdir(os.path.join(dateDirPath, 'eeg'))
+                global eegDirPath
+                eegDirPath = os.path.join(dateDirPath, 'eeg')
+                os.mkdir(eegDirPath)
                 return JsonResponse({
                     'user' : id,
                     'link' : video.link,
@@ -165,7 +169,7 @@ class getAnalyzingVideo(APIView):
                     'startTime' : video.startTime,
                     'duration' : video.duration,
                     'tag' : video.tag,
-                    'imgPath': os.path.join(dateDirPath, 'face'),
+                    'dateDirPath': dateDirPath,
                 })
             else:
                 continue
@@ -177,14 +181,17 @@ def realTimeAnalyze(request):
     img = Image.open(request.FILES['image'])
     # Save image to corresponding dir path.
     imgName = request.data['image'].name
+    eegName = 'test_signal.txt'
     print('imgName:', imgName)
-    imgPath = os.path.join(request.data['imgPath'], imgName)
-    global faceDirPath
-    print("faceDirPath:", faceDirPath)
+    imgPath = os.path.join(request.data['dateDirPath'], 'face', imgName)
+    eegPath = os.path.join(request.data['dateDirPath'], 'eeg', eegName)
     #imgPath = os.path.join(faceDirPath, imgName)
     print("imgPath: " , imgPath)
+    print("eegPath:", eegPath)
     img.save(imgPath, "JPEG")
+
     hasFace, faceResult = predict_emotion(imgPath)
+    # highestEmotion, faceResult = detectEmotion(imgPath, ,"anger")
     # Emotions(face) : anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
 
     # TODO : Get results from Main Program 2 (analyzing module).
