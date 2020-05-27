@@ -38,12 +38,12 @@ class Trial extends Component {
     const { user } = this.context;
     console.log(user);
     return (
-      <>
+ <>
        {user.loggedIn ? (
         <div class="full-container">
        
-       
-          <div>
+      
+         
           <AppBar position="static" color="default">
             <Toolbar variant="dense">
               <IconButton edge="start" color="inherit" aria-label="menu">
@@ -63,6 +63,7 @@ class Trial extends Component {
               </Breadcrumbs>
             </Toolbar>
           </AppBar>
+          <LoginAlert userName={user.name}></LoginAlert>
           <Grid
           container
           id="loginBox"
@@ -105,15 +106,15 @@ class Trial extends Component {
           </Grid>
           </div>
               
-        </div>
-            ) : (
-              this.redirectToLogin()
+            
+           ) : (
+             this.redirectToLogin()
             )}
        
-      
       </>
-    );
-  }
+     
+  
+     ) }
 }
 
 export default Trial;
