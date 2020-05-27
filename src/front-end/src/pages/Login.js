@@ -25,7 +25,7 @@ class Login extends Component {
 
   static contextType = UserContext;
 
-  componentDidMount(Webcam) {
+  componentWillMount(Webcam) {
     this.getLogin();
   }
 

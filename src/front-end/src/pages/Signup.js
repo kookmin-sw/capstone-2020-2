@@ -71,7 +71,7 @@ class Signup extends Component {
   render() {
     return (
       <div class="full-container">
-        <NavBar></NavBar>
+        <NavBar/>
         <Grid container id="loginBox" direction="column" justify="center">
         
             <Webcam

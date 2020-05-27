@@ -88,10 +88,10 @@ height: 100%;
 }
 .recharts-wrapper{
     position: absolute !important;
-    bottom: 0px;
-    right: 0px;
-    width: 20% !important;
-    height: 45% !important;
+    bottom: -30px;
+    right: 20px;
+    width: 18% !important;
+    height:45% !important;
     text-align: center;
   }
 
@@ -179,4 +179,21 @@ height: 100%;
   width: 25%;
   z-index: 1;
   background-color: white;
+}
+#railed{
+  position: absolute;
+  top:47%;
+  right:13%;
+  width: 8%;
+  height: 15%;
+}
+#connection{
+  position:absolute;
+  top :50%;
+  left:87%;
+}
+#connections{
+  position:absolute;
+  top :55%;
+  left:87%;
 }

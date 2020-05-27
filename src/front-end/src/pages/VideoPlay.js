@@ -16,6 +16,8 @@ import {
 import UserContext from '../UserContext';
 import { updateArrayBindingPattern } from 'typescript';
 import NavBar from '../components/NavBar';
+import railed from '../railed.png';
+import { Typography } from '@material-ui/core';
 
 class VideoPlay extends Component {
   constructor(props) {
@@ -141,6 +143,7 @@ class VideoPlay extends Component {
         realtimeStart: this.state.realtimeStart + 1,
       });
       this.realtimeUserFace(file);
+      // this.eegConnection();
     }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -202,7 +205,22 @@ class VideoPlay extends Component {
       console.log(error);
     }
   };
-
+  eegConnection = async () => {
+    const response = await axios
+      .get(`api/v1/user/analyze/real-time-result/`)
+      .then((response) => {
+          let badConnection =[];
+        for(let i=1;i<=8;i++){
+          if(response.data.eegConnections[i] === 1){
+            badConnection.push(i);
+          }else{
+            badConnection.push('None');
+          } }
+          badConnection =badConnection.join(',')
+        })
+      .catch((error) => console.log(error));
+    
+  };
   getEmotions = async (id, emotionTag) => {
     const response = await axios
       .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
@@ -236,7 +254,9 @@ class VideoPlay extends Component {
           ref={this.setRef}
           screenshotFormat="image/jpeg"
         />
-
+<img src ={railed} id ="railed"></img>
+<Typography variant ="subtitle2" id ="connection">BadConnection Railed : </Typography>
+<Typography variant ="subtitle2" id ="connections">{this.props.badConnection} </Typography>
         <RadarChart
           outerRadius={90}
           width={250}
