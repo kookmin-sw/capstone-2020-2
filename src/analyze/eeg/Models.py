@@ -9,10 +9,10 @@ class CNN(nn.Module):
         super(CNN, self).__init__()
         self.pool = nn.MaxPool2d(2) 
         
-        self.conv1 = nn.Conv2d(n_channel, 8, 3)  # 8 => 4*
-        self.batch1 = nn.BatchNorm2d(8) # 8=>4*
+        self.conv1 = nn.Conv2d(n_channel, 4, 3)  # 8 => 4*
+        self.batch1 = nn.BatchNorm2d(4) # 8=>4*
 
-        self.conv2 = nn.Conv2d(8, 4, 3)
+        self.conv2 = nn.Conv2d(4, 4, 3)
         self.batch2 = nn.BatchNorm2d(4)
         
         self.fc1 = nn.Linear(lin_len, 8) # 죽어라 이연지** 64=>8*
@@ -38,3 +38,6 @@ class CNN(nn.Module):
             return x
         else:
             return F.softmax(x, dim=1)
+        
+if __name__ == "__main__":
+    print("환경설정 완료")

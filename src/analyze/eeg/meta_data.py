@@ -1,6 +1,3 @@
-from scipy import io # load .mat file
-from openpyxl import load_workbook
-
 # Channel 
 SEED_channels = {'FP1': 0, 'FPZ': 1, 'FP2': 2, 'AF3': 3, 
                  'AF4': 4, 'F7': 5, 'F5': 6, 'F3': 7, 

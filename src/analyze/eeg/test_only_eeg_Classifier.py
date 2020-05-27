@@ -1,3 +1,4 @@
+from eegAnalyzeModule import * # ** 
 from sensorModule import *
 import pickle
 import numpy as np
@@ -33,23 +34,29 @@ if __name__ == '__main__':
         
         temp_signal = temp_signal[eeg_channels, :]
         print(temp_signal.shape)
-
-        railed_channels, n_railed  = rail_test(temp_signal)
-        if n_railed != 0:
-            print("Railed Channels = ", railed_channels)
-            continue # do not saved railed signals?
+            
         splitted_signal.append(temp_signal)
 
         # save 
-        with open("test_signal.txt", 'wb') as f:
+        with open("test_signal.pickle", 'wb') as f:
             pickle.dump(temp_signal, f)
             
+        # 여기다 넣어본다.. =============================== ***
+        eeg_emotion, n_railed, is_railed = predict_emotion_EEG(model, "test_signal.pickle", chosen_channels, freqs, sf=256)
+        max_idx = np.argmax(eeg_emotion[0,:].detach().numpy())
+        result_emo = emo_map[max_idx]
+        
+        if n_railed != 0:
+            print("Railed Channels = ", railed_channels)
+        print("결과 감정은 .. 이것 입니다 => ", result_emo)
+        # =============================================== ***
+        
     # whole signal (Warn : could contain railed signals)
     if has_sensor:
         total_signal = board.get_board_data() # get all data and remove it from internal buffer
         total_signal = total_signal[eeg_channels, :]
         print("Total signal length = ", total_signal.shape[1] // sf)
-
+        
         stop_record(board)
     print("Connection closed")
     sys.exit(0)
