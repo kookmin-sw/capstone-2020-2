@@ -1,5 +1,4 @@
  #-*- coding: utf-8 -*- 
-
 from preprocessModule import * # Signal Preprocessing Methods
 from transformModule import * # Signal => Input form 
 import numpy as np
@@ -58,11 +57,13 @@ def predict_emotion_EEG(model, signal_path, chosen_channels, freqs, sf=256):
     fftMap_tensor = torch.from_numpy(fftMap)
     
     outputs = model(fftMap_tensor.float()) 
+    #max_idx = np.argmax(outputs[0,:].detach().numpy())
     
-    max_idx = np.argmax(outputs[0,:].detach().numpy())
-    
-    return outputs, n_railed, is_railed
-    # return emo_map[max_idx], n_railed, is_railed
+    emo_dict = {}
+    for idx, emo_class in emo_map.items():
+        emo_dict[emo_class] = outputs[0][idx] 
+        
+    return emo_dict, n_railed, is_railed
 
 if __name__ == "__main__":
     print("환경설정 완료")
