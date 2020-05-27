@@ -14,7 +14,7 @@ from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
     os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))))))
-from src.face.predict_face_emotion_faceapi import predict_emotion
+from src.analyze.face.predict_face_emotion_faceapi import predict_emotion
 
 ROOT_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
     os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))))))

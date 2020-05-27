@@ -5,8 +5,8 @@ import json
 import numpy as np
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))
-xmlPath = os.path.join(BASE_DIR, 'src/face/haarcascade_frontalface_default.xml')
+BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))))
+xmlPath = os.path.join(BASE_DIR, 'src/analyze/face/haarcascade_frontalface_default.xml')
 
 def predict_emotion(image_path):
     # Key
