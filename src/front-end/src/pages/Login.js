@@ -12,7 +12,6 @@ import {
 } from 'react-router-dom';
 import 'base64-to-image';
 import { Grid } from '@material-ui/core';
-import IntroCarousel from '../components/IntroCarousel';
 import UserContext from '../UserContext';
 
 class Login extends Component {
@@ -42,7 +41,7 @@ class Login extends Component {
       loggedIn: true,
     };
     setUser(newUser);
-    this.props.history.push('/Trial');
+    this.props.history.push('/Analyze');
   }
 
   faceNotDetected() {
@@ -115,14 +114,15 @@ class Login extends Component {
   render() {
     return (
       <div class="full-container">
+
         <Grid
           container
           id="loginBox"
           direction="column"
           justify="center"
           alignItems="center"
-        >
-         
+        > 
+          
             <Webcam
               class="webcam"
               audio={false}

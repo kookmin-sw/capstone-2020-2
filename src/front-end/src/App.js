@@ -3,13 +3,13 @@ import Login from './pages/Login';
 import Main from './pages/Main';
 import Signup from './pages/Signup';
 import Option from './pages/Option';
-import Trial from './pages/TrialOption';
+import Analyze from './pages/AnalyzeOption';
 import VideoPlay from './pages/VideoPlay';
-import Analyze from './pages/Analyze';
 import './App.css';
 import axios from 'axios';
 import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { UserProvider } from './UserContext';
+import NavBar from '../src/components/NavBar';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -40,16 +40,18 @@ class App extends Component {
 
   render() {
     return (
+
       <UserProvider user={this.state.user}>
+    
         <Router>
           <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/Login" component={Login} />
-            <Route path="/Signup" component={Signup} />
-            <Route path="/Option" component={Option} />
-            <Route path="/Trial" component={Trial} />
-            <Route path="/VideoPlay" component={VideoPlay} />
-            <Router path="/Analyze" component={Analyze} />
+            <Route exact path="/"><NavBar/><Main/></Route>
+            <Route path="/Login" ><NavBar/><Login/></Route>
+            <Route path="/Signup"><NavBar/><Signup/></Route>
+            <Route path="/Option"  ><NavBar /><Option/></Route>
+            <Route path="/Analyze" ><NavBar /><Analyze/></Route>
+            <Route path="/VideoPlay"  ><NavBar /><VideoPlay/></Route>
+            
           </Switch>
         </Router>
       </UserProvider>

@@ -12,14 +12,10 @@ import {
   PolarRadiusAxis,
   Legend,
 } from 'recharts';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+
 import UserContext from '../UserContext';
 import { updateArrayBindingPattern } from 'typescript';
+
 
 class VideoPlay extends Component {
   constructor(props) {
@@ -222,27 +218,7 @@ class VideoPlay extends Component {
 
     return (
       <div class="full-container">
-        <div>
-          <AppBar position="static" color="default">
-            <Toolbar variant="dense">
-              <IconButton edge="start" color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit">
-                RealTime Emotion
-              </Typography>
 
-              <Breadcrumbs aria-label="breadcrumb" id="menu">
-                <Link to="/Option" class="menuLink">
-                  Home
-                </Link>
-                <Link to="/" class="menuLink">
-                  Logout
-                </Link>
-              </Breadcrumbs>
-            </Toolbar>
-          </AppBar>
-        </div>
         <ReactPlayer
           className="videoPlayer"
           url={this.state.video.link}

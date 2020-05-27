@@ -51,7 +51,7 @@ class Option extends Component {
               }}
             >
               <Grid item>
-                <Link to="/Trial">
+                <Link to="/Analyze">
                   <Button
                     className={classes.btnStyle}
                     color="primary"

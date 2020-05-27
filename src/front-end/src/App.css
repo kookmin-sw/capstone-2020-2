@@ -160,13 +160,13 @@ height: 100%;
   width: 60%;
   height: 50%;
 }
-#trialText{
+#AnalyzeText{
   position: absolute;
   top:40%;
   left: 22%;
   color: white;
 }
-#trialOption{
+#AnalyzeOption{
   position: relative;
 
   left:12%;

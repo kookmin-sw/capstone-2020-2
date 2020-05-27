@@ -59,7 +59,7 @@ class Signup extends Component {
       };
       console.log(newUser);
       setUser(newUser);
-      this.props.history.push('/Trial');
+      this.props.history.push('/Analyze');
     } catch (error) {
       console.error(error.content);
       console.log('Sign up 실패 -  사진 다시찍어야함');
