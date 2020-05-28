@@ -79,31 +79,31 @@ class VideoPlay extends Component {
 
   static contextType = UserContext;
 
-  // componentWillMount() {
-  //   try {
-  //     const selectedEmotionTag = this.props.location.state.emotionTag;
-  //     console.log(selectedEmotionTag);
-  //     this.setState({
-  //       emotionTag: selectedEmotionTag,
-  //     });
-  //     const { user } = this.context;
-  //     this.setState({
-  //       user: this.context.user,
-  //     });
-  //     console.log('user is', user);
-  //     if (user) {
-  //       console.log('user id', user.id);
-  //       console.log('selectedEmotion', selectedEmotionTag);
-  //       this.getVideo(user.id, selectedEmotionTag);
-  //       this.setState({ realtimeStart: this.state.realtimeStart + 1 });
-  //     } else {
-  //       this.redirectToLogin();
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     this.props.history.push('/Analyze');
-  //   }
-  // }
+  componentWillMount() {
+    try {
+      const selectedEmotionTag = this.props.location.state.emotionTag;
+      console.log(selectedEmotionTag);
+      this.setState({
+        emotionTag: selectedEmotionTag,
+      });
+      const { user } = this.context;
+      this.setState({
+        user: this.context.user,
+      });
+      console.log('user is', user);
+      if (user) {
+        console.log('user id', user.id);
+        console.log('selectedEmotion', selectedEmotionTag);
+        this.getVideo(user.id, selectedEmotionTag);
+        this.setState({ realtimeStart: this.state.realtimeStart + 1 });
+      } else {
+        this.redirectToLogin();
+      }
+    } catch (error) {
+      console.log(error);
+      this.props.history.push('/Analyze');
+    }
+  }
   componentWillUnmount() {
     this.getUserImg = null;
     // this.props.isLast = true;
@@ -143,7 +143,7 @@ class VideoPlay extends Component {
         realtimeStart: this.state.realtimeStart + 1,
       });
       this.realtimeUserFace(file);
-      // this.eegConnection();
+      this.eegConnection();
     }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
