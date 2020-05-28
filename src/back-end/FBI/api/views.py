@@ -14,7 +14,8 @@ from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
     os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))))))
-from src.analyze.face.predict_face_emotion_faceapi import predict_emotion
+# from src.analyze.face.predict_face_emotion_faceapi import predict_emotion
+from src.analyzeModule import detectEmotion
 
 ROOT_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
     os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))))))
@@ -23,6 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 dirPath = os.path.join(ROOT_DIR, 'FBI-data')
 dataDirPath = ''
 faceDirPath = ''
+eegDirPath = ''
 # Path for saving userFace images.
 path = os.path.join(BASE_DIR, 'media')
 # Temporarily save encoded image of new user for signup.
@@ -157,7 +159,9 @@ class getAnalyzingVideo(APIView):
                 faceDirPath = os.path.join(dateDirPath, 'face')
                 os.mkdir(faceDirPath)
                 #os.mkdir(os.path.join(dateDirPath, 'face'))
-                os.mkdir(os.path.join(dateDirPath, 'eeg'))
+                global eegDirPath
+                eegDirPath = os.path.join(dateDirPath, 'eeg')
+                os.mkdir(eegDirPath)
                 return JsonResponse({
                     'user' : id,
                     'link' : video.link,
@@ -165,7 +169,7 @@ class getAnalyzingVideo(APIView):
                     'startTime' : video.startTime,
                     'duration' : video.duration,
                     'tag' : video.tag,
-                    'imgPath': os.path.join(dateDirPath, 'face'),
+                    'dateDirPath': dateDirPath,
                 })
             else:
                 continue
@@ -175,34 +179,51 @@ class getAnalyzingVideo(APIView):
 @api_view(['POST'])
 def realTimeAnalyze(request):
     img = Image.open(request.FILES['image'])
-    # Save image to corresponding dir path.
+    # Set image path and eeg path.
     imgName = request.data['image'].name
+    eegName = 'test_signal.txt'
     print('imgName:', imgName)
-    imgPath = os.path.join(request.data['imgPath'], imgName)
-    global faceDirPath
-    print("faceDirPath:", faceDirPath)
-    #imgPath = os.path.join(faceDirPath, imgName)
+    print('dirPath!!!!!!!!!!!!!!!!!!!!!', dirPath)
+    imgPath = os.path.join(request.data['dateDirPath'], 'face', imgName)
+    eegTempPath = os.path.join(dirPath, eegName)
     print("imgPath: " , imgPath)
+    # print("eegPath:", eegPath)
+    # Save image to corresponding dir path.
     img.save(imgPath, "JPEG")
-    hasFace, faceResult = predict_emotion(imgPath)
+
+    videoTag = request.data['videoTag']
+    if(videoTag =="happy"):
+        videoTag="happiness"
+    elif(videoTag =="sad"):
+        videoTag="sadness"
+    # hasFace, faceResult = predict_emotion(imgPath)
+    highestEmotion, faceResult, sensorStatus = detectEmotion(imgPath, eegTempPath, videoTag)
     # Emotions(face) : anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
-
+    print("faceResult!!!!",faceResult)
     # TODO : Get results from Main Program 2 (analyzing module).
-
+    print(sensorStatus)
     emotionTag = 'happy'
     #emotionValues = {}
     payload = {
         'emotionTag': emotionTag,
         'emotionValues': faceResult,
         'eegConnections' : {
-            "eeg1": 1,
-            "eeg2" : 1,
-            "eeg3" : 1,
-            "eeg4" : 1,
-            "eeg5" : 1,
-            "eeg6" : 1,
-            "eeg7" : 1,
-            "eeg8" : 1,
+            # "eeg1": 1,
+            # "eeg2": 1,
+            # "eeg3": 1,
+            # "eeg4": 1,
+            # "eeg5": 1,
+            # "eeg6": 1,
+            # "eeg7": 1,
+            # "eeg8": 1,
+            "eeg1": int(sensorStatus[0]),
+            "eeg2" : int(sensorStatus[1]),
+            "eeg3" : int(sensorStatus[2]),
+            "eeg4" : int(sensorStatus[3]),
+            "eeg5" : int(sensorStatus[4]),
+            "eeg6" : int(sensorStatus[5]),
+            "eeg7" : int(sensorStatus[6]),
+            "eeg8" : int(sensorStatus[7]),
         }
     }
 

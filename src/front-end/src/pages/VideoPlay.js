@@ -165,9 +165,10 @@ class VideoPlay extends Component {
     try {
       let realtimeData = new FormData();
       realtimeData.append('image', file);
-      realtimeData.append('imgPath', this.state.video.imgPath);
+      realtimeData.append('dateDirPath', this.state.video.dateDirPath);
+      realtimeData.append('videoTag', this.state.video.tag);
       console.log('realtimeUserFace image file', file);
-      console.log(this.state.video.imgPath);
+      console.log(this.state.video.dateDirPath);
       // console.log('testing....', this.state.realtimeUserFace);
       return (
         axios
@@ -236,7 +237,7 @@ class VideoPlay extends Component {
 
     return (
       <div class="full-container">
-<NavBar />
+        <NavBar />
         <ReactPlayer
           className="videoPlayer"
           url={this.state.video.link}

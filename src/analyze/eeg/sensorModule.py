@@ -6,7 +6,7 @@ from brainflow.data_filter import DataFilter, FilterTypes, AggOperations
 
 def set_board():
     params = BrainFlowInputParams()
-    params.serial_port = 'COM8'
+    params.serial_port = '/dev/ttyUSB0'
     BoardShim.enable_dev_board_logger()
     return BoardShim(0, params)
 
@@ -18,6 +18,8 @@ def start_record(board):
 def stop_record(board):
     board.stop_stream()
     board.release_session()
+
+def rail_test(signal):
     n_railed = 0
     is_railed = [{x:0} for x in range(0, signal.shape[0])]
     # print("Railed_channels : ", end = '')
@@ -27,10 +29,10 @@ def stop_record(board):
         if val1 == val2 and val2 == val3:
             n_railed += 1
             is_railed[ch] = True
-            print(ch+1, ", ", end = '')
+            # print(ch+1, ", ", end = '')
         else: is_railed[ch] = False;
     return is_railed, n_railed
 
 if __name__ == "__main__":
-    print("환경설정 완료")
+    print("Complete setting")
     

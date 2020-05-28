@@ -1,7 +1,7 @@
 from sensorModule import *
 import pickle
 import numpy as np
-import keyboard
+# import keyboard
 import sys
 
 n_sec = 6
@@ -23,8 +23,8 @@ if __name__ == '__main__':
             sys.exit(1)
         
     while True:
-        if keyboard.is_pressed('q') :
-            break
+        # if keyboard.is_pressed('q') :
+        #     break
         time.sleep(1) # save recent n_seconds signal for every 1 second.
         if has_sensor:
             temp_signal = board.get_current_board_data(n_sec * sf) # latest data from a board **
@@ -41,7 +41,7 @@ if __name__ == '__main__':
         splitted_signal.append(temp_signal)
 
         # save 
-        with open("test_signal.txt", 'wb') as f:
+        with open("../../../FBI-data/test_signal.txt", 'wb') as f:
             pickle.dump(temp_signal, f)
             
     # whole signal (Warn : could contain railed signals)
