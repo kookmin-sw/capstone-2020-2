@@ -1,48 +1,61 @@
-import React, {Component} from "react";
-import Analyze from "./components/Analyze";
-import Main from "./components/Main";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Option from "./components/Option";
-import VideoPlay from "./components/VideoPlay";
-import "./App.css";
-import axios from "axios";
-import {Link, BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import React, { Component } from 'react';
+import Login from './pages/Login';
+import Main from './pages/Main';
+import Signup from './pages/Signup';
+import Analyze from './pages/AnalyzeOption';
+import VideoPlay from './pages/VideoPlay';
+import './App.css';
+import axios from 'axios';
+import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { UserProvider } from './UserContext';
 
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class App extends Component {
-	//     state = {
-	//       posts:[]
-	//     };
+  constructor() {
+    super();
+    this.state = {
+      user: { id: 0, name: 'appUser', loggedIn: false },
+    };
+  }
 
-	//     async componentDidMount(){
-	//       try {
-	//         const res = await fetch('http//127.0.0.1:8000/posts');
-	//         const posts = await res.json();
-	//         this.setState({
-	//           posts
-	//         });
-	//       } catch (e) {
-	//         console.log(e);
-	//       }
-	//     }
+  //     state = {
+  //       posts:[]
+  //     };
 
-	render() {
-		return (
-			<Router>
-				<Switch>
-					<Route exact path="/" component={Main} />
-					<Route path="/Login" component={Login} />
-					<Route path="/Signup" component={Signup} />
-          			<Route path="/Option" component={Option} />
-					<Route path="/VideoPlay" component={VideoPlay} />
-					<Router path="/Analyze" component={Analyze} />
-				</Switch>
-			</Router>
-		);
-	}
+  //     async componentDidMount(){
+  //       try {
+  //         const res = await fetch('http//127.0.0.1:8000/posts');
+  //         const posts = await res.json();
+  //         this.setState({
+  //           posts
+  //         });
+  //       } catch (e) {
+  //         console.log(e);
+  //       }
+  //     }
+
+  render() {
+    return (
+
+      <UserProvider user={this.state.user}>
+    
+        <Router>
+          <Switch>
+            <Route exact path="/" component ={Main} />
+            <Route path="/Login" component ={Login}/>
+            <Route path="/Signup" component ={Signup}/>
+    
+            <Route path="/Analyze" component ={Analyze}/>
+            <Route path="/VideoPlay" component ={VideoPlay} />
+            
+          </Switch>
+        </Router>
+      </UserProvider>
+    );
+  }
 }
 
 export default App;

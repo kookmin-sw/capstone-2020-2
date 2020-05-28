@@ -1,3 +1,6 @@
+# Real-time data
+/FBI-data
+
 # back-end
 # Ignore settings
 /src/back-end/FBI/mysql.cnf
