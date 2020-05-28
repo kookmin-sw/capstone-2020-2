@@ -10,7 +10,7 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
-  Legend,
+  Legend,Text
 } from 'recharts';
 
 import UserContext from '../UserContext';
@@ -79,31 +79,31 @@ class VideoPlay extends Component {
 
   static contextType = UserContext;
 
-  componentWillMount() {
-    try {
-      const selectedEmotionTag = this.props.location.state.emotionTag;
-      console.log(selectedEmotionTag);
-      this.setState({
-        emotionTag: selectedEmotionTag,
-      });
-      const { user } = this.context;
-      this.setState({
-        user: this.context.user,
-      });
-      console.log('user is', user);
-      if (user) {
-        console.log('user id', user.id);
-        console.log('selectedEmotion', selectedEmotionTag);
-        this.getVideo(user.id, selectedEmotionTag);
-        this.setState({ realtimeStart: this.state.realtimeStart + 1 });
-      } else {
-        this.redirectToLogin();
-      }
-    } catch (error) {
-      console.log(error);
-      this.props.history.push('/Option');
-    }
-  }
+  // componentWillMount() {
+  //   try {
+  //     const selectedEmotionTag = this.props.location.state.emotionTag;
+  //     console.log(selectedEmotionTag);
+  //     this.setState({
+  //       emotionTag: selectedEmotionTag,
+  //     });
+  //     const { user } = this.context;
+  //     this.setState({
+  //       user: this.context.user,
+  //     });
+  //     console.log('user is', user);
+  //     if (user) {
+  //       console.log('user id', user.id);
+  //       console.log('selectedEmotion', selectedEmotionTag);
+  //       this.getVideo(user.id, selectedEmotionTag);
+  //       this.setState({ realtimeStart: this.state.realtimeStart + 1 });
+  //     } else {
+  //       this.redirectToLogin();
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     this.props.history.push('/Analyze');
+  //   }
+  // }
   componentWillUnmount() {
     this.getUserImg = null;
     // this.props.isLast = true;
@@ -257,13 +257,14 @@ class VideoPlay extends Component {
 <img src ={railed} id ="railed"></img>
 <Typography variant ="subtitle2" id ="connection">BadConnection Railed : </Typography>
 <Typography variant ="subtitle2" id ="connections">{this.props.badConnection} </Typography>
-        <RadarChart
-          outerRadius={90}
+        <RadarChart 
+          outerRadius={68}
           width={250}
           height={250}
           data={this.state.signalData}
         >
           <PolarGrid />
+         
           <PolarAngleAxis dataKey="emotionTag" />
           <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
           <Radar

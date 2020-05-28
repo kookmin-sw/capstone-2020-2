@@ -16,6 +16,7 @@ html {
 .full-container {
 width: 100%;
 height: 100%;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -90,8 +91,8 @@ height: 100%;
     position: absolute !important;
     bottom: -30px;
     right: 20px;
-    width: 18% !important;
-    height:45% !important;
+    width: 20% !important;
+    height:50% !important;
     text-align: center;
   }
 
@@ -168,9 +169,7 @@ height: 100%;
 }
 #AnalyzeOption{
   position: relative;
-
-  left:12%;
- 
+text-align: center;
 }
 #emotionSelect{
   position: relative;
