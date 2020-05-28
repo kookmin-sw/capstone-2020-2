@@ -22,14 +22,12 @@ def stop_record(board):
 def rail_test(signal):
     n_railed = 0
     is_railed = [{x:0} for x in range(0, signal.shape[0])]
-    # print("Railed_channels : ", end = '')
     for ch in range(0, signal.shape[0]):
         val1,val2,val3 = signal[ch][1:4]
 
         if val1 == val2 and val2 == val3:
             n_railed += 1
             is_railed[ch] = True
-            # print(ch+1, ", ", end = '')
         else: is_railed[ch] = False;
     return is_railed, n_railed
 

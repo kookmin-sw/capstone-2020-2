@@ -33,12 +33,11 @@ if __name__ == '__main__':
             temp_signal = np.random.rand(8, n_sec * sf)
         
         temp_signal = temp_signal[eeg_channels, :]
-        print(temp_signal.shape)
-            
         splitted_signal.append(temp_signal)
 
         # save 
-        with open("test_signal.pickle", 'wb') as f:
+        eeg_save_path = "test_signal.pickle"
+        with open(eeg_save_path, 'wb') as f:
             pickle.dump(temp_signal, f)
             
         # 여기다 넣어본다.. =============================== ***
@@ -48,7 +47,7 @@ if __name__ == '__main__':
         
         if n_railed != 0:
             print("Railed Channels = ", railed_channels)
-        print("결과 감정은 .. 이것 입니다 => ", result_emo)
+        print("Result Emotion = ", result_emo)
         # =============================================== ***
         
     # whole signal (Warn : could contain railed signals)
