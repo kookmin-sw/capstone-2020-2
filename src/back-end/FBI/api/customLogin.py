@@ -21,7 +21,7 @@ def isUser(login_face_encoding, encodedUsers):
     face_distances = face_recognition.face_distance(user_images_encoding, login_face_encoding)
 
     if not True in matches:
-        return None
+        return None 
     else:
         best_match_index = np.argmin(face_distances)
         if matches[best_match_index]:
