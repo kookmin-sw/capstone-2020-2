@@ -28,16 +28,23 @@ FBI's emotion recognition and analysis service can be a solution in places where
 ---
 **수행 계획 소개 영상**
 <br/>
-[![youtube_img](https://img.youtube.com/vi/4n9E5AUYYvU/0.jpg)](https://www.youtube.com/watch?v=4n9E5AUYYvU?t=0s)
+Link: https://www.youtube.com/watch?v=4n9E5AUYYvU?t=0s
 <br/><br/>
 **1차 중간평가 발표 영상**
 <br/>
-[![youtube_img](https://img.youtube.com/vi/10gp0o0CV0o/0.jpg)](https://www.youtube.com/watch?v=10gp0o0CV0o?t=0s)
-
+Link: https://www.youtube.com/watch?v=10gp0o0CV0o?t=0s
 <br/><br/>
 **1차 중간평가 시연 영상**
 <br/>
-[![youtube_img](https://img.youtube.com/vi/JV1dCH-8sd8/0.jpg)](https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s)
+Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
+<br/><br/>
+**2차 중간평가 발표 영상**
+<br/>
+[![youtube_img](https://img.youtube.com/vi/9Aiapp7FzLo/0.jpg)](https://www.youtube.com/watch?v=9Aiapp7FzLo&feature=youtu.be&t=0s)
+<br/><br/>
+**2차 중간평가 시연 영상**
+<br/>
+[![youtube_img](https://img.youtube.com/vi/CUAWhUwhbk0/0.jpg)](https://www.youtube.com/watch?v=CUAWhUwhbk0&t=0s)
 <br/><br/>
 
 ### **3. 팀 소개**
