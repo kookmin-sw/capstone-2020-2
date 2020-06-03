@@ -16,6 +16,7 @@ html {
 .full-container {
 width: 100%;
 height: 100%;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -69,10 +70,11 @@ height: 100%;
 }
 .webcam {
   width: 55%;
-  height: 350px;
-  margin: 5%;
+  height: 80%;
+  left: -12%;
   position: relative;
   object-fit: cover;
+
   
 }
 
@@ -87,10 +89,10 @@ height: 100%;
 }
 .recharts-wrapper{
     position: absolute !important;
-    bottom: 0px;
-    right: 0px;
+    bottom: -30px;
+    right: 20px;
     width: 20% !important;
-    height: 45% !important;
+    height:50% !important;
     text-align: center;
   }
 
@@ -107,12 +109,30 @@ height: 100%;
     opacity: 0;
   }
 }
+#faceLogin{
+  position: absolute;
+  top: 15%;
+  left: 70%;
+  color: white;
+  font-size: 60px;
+  font-weight: bold;
+}
+#faceLogin2{
+  position: absolute;
+  top: 28%;
+  left: 70%;
+  color: white;
+  font-size: 20px;
+}
 #root {
   width: 100%;
   height: 100%;
 }
 #userInput {
-  position:relative;
+  position: absolute;;
+  /* background-color: white; */
+  top: 28%;
+  left: 70%;
   width: 350px;
   justify-content: center;
 }
@@ -121,7 +141,13 @@ height: 100%;
 } */
 
 #loginBox {
-  background-color: #F2F2F2;
+  background-color:black;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+#loginBox1{
+  background-color:white;
   align-items: center;
   text-align: center;
   height: 100%;
@@ -135,10 +161,38 @@ height: 100%;
   width: 60%;
   height: 50%;
 }
-
-#trialOption{
+#AnalyzeText{
+  position: absolute;
+  top:40%;
+  left: 22%;
+  color: white;
+}
+#AnalyzeOption{
   position: relative;
-  top:30%;
-  left:12%;
- 
+text-align: center;
+}
+#emotionSelect{
+  position: relative;
+  left: 35%;
+
+  width: 25%;
+  z-index: 1;
+  background-color: white;
+}
+#railed{
+  position: absolute;
+  top:47%;
+  right:13%;
+  width: 8%;
+  height: 15%;
+}
+#connection{
+  position:absolute;
+  top :50%;
+  left:87%;
+}
+#connections{
+  position:absolute;
+  top :55%;
+  left:87%;
 }

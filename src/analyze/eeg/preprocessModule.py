@@ -43,3 +43,6 @@ def standardize(signal):
     signal = (signal - M) / S
     
     return signal
+
+if __name__ == "__main__":
+    print("환경설정 완료")

@@ -10,16 +10,14 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
-  Legend,
+  Legend,Text
 } from 'recharts';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+
 import UserContext from '../UserContext';
 import { updateArrayBindingPattern } from 'typescript';
+import NavBar from '../components/NavBar';
+import railed from '../railed.png';
+import { Typography } from '@material-ui/core';
 
 class VideoPlay extends Component {
   constructor(props) {
@@ -30,12 +28,12 @@ class VideoPlay extends Component {
       video: {},
       signalData: [
         {
-          emotionTag: 'happy',
-          A: 1.0,
+          emotionTag: 'happiness',
+          A: 0.0,
           fullMark: 1.0,
         },
         {
-          emotionTag: 'sad',
+          emotionTag: 'sadness',
           A: 0.0,
           fullMark: 1.0,
         },
@@ -103,7 +101,7 @@ class VideoPlay extends Component {
       }
     } catch (error) {
       console.log(error);
-      this.props.history.push('/Option');
+      this.props.history.push('/Analyze');
     }
   }
   componentWillUnmount() {
@@ -145,6 +143,7 @@ class VideoPlay extends Component {
         realtimeStart: this.state.realtimeStart + 1,
       });
       this.realtimeUserFace(file);
+      this.eegConnection();
     }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -166,40 +165,40 @@ class VideoPlay extends Component {
     try {
       let realtimeData = new FormData();
       realtimeData.append('image', file);
-      realtimeData.append('imgPath', this.state.video.imgPath);
+      realtimeData.append('dateDirPath', this.state.video.dateDirPath);
+      realtimeData.append('videoTag', this.state.video.tag);
       console.log('realtimeUserFace image file', file);
-      console.log(this.state.video.imgPath);
+      console.log(this.state.video.dateDirPath);
       // console.log('testing....', this.state.realtimeUserFace);
       return (
         axios
           // .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
-          .post(
-            `api/v1/user/${this.state.user.id}/analyze/real-time-result/`,
-            realtimeData,
-            {
-              headers: {
-                'content-type': 'multipart/form-data',
-              },
+          .post(`api/v1/user/analyze/real-time-result/`, realtimeData, {
+            headers: {
+              'content-type': 'multipart/form-data',
             },
-          )
+          })
           .then((response) => {
-            let values = response.emotionValues;
-            console.log(response);
-            // console.log(response.data);
-            let newSignalData = this.state.signalData;
-            console.log(newSignalData);
-            const emotionList = [
-              'happy',
-              'sad',
-              'disgust',
-              'contempt',
-              'surprise',
-              'fear',
-              'neutral',
-            ];
-            for (let emotionIdx = 0; emotionIdx < 7; emotionIdx++) {
-              newSignalData[emotionIdx].A =
-                response.data.emotionValues[emotionList[emotionIdx]];
+            if (response.data.emotionValues) {
+              let values = response.emotionValues;
+              console.log(response);
+              // console.log(response.data);
+              let newSignalData = this.state.signalData;
+              console.log(newSignalData);
+              const emotionList = [
+                'happiness',
+                'sadness',
+                'disgust',
+                'contempt',
+                'surprise',
+                'fear',
+                'neutral',
+              ];
+              for (let emotionIdx = 0; emotionIdx < 7; emotionIdx++) {
+                newSignalData[emotionIdx].A =
+                  response.data.emotionValues[emotionList[emotionIdx]];
+              }
+              this.setState({ signalData: newSignalData });
             }
           })
       );
@@ -207,7 +206,22 @@ class VideoPlay extends Component {
       console.log(error);
     }
   };
-
+  eegConnection = async () => {
+    const response = await axios
+      .get(`api/v1/user/analyze/real-time-result/`)
+      .then((response) => {
+          let badConnection =[];
+        for(let i=1;i<=8;i++){
+          if(response.data.eegConnections[i] === 1){
+            badConnection.push(i);
+          }else{
+            badConnection.push('None');
+          } }
+          badConnection =badConnection.join(',')
+        })
+      .catch((error) => console.log(error));
+    
+  };
   getEmotions = async (id, emotionTag) => {
     const response = await axios
       .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
@@ -223,27 +237,7 @@ class VideoPlay extends Component {
 
     return (
       <div class="full-container">
-        <div>
-          <AppBar position="static" color="default">
-            <Toolbar variant="dense">
-              <IconButton edge="start" color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit">
-                RealTime Emotion
-              </Typography>
-
-              <Breadcrumbs aria-label="breadcrumb" id="menu">
-                <Link to="/Option" class="menuLink">
-                  Home
-                </Link>
-                <Link to="/" class="menuLink">
-                  Logout
-                </Link>
-              </Breadcrumbs>
-            </Toolbar>
-          </AppBar>
-        </div>
+        <NavBar />
         <ReactPlayer
           className="videoPlayer"
           url={this.state.video.link}
@@ -261,14 +255,17 @@ class VideoPlay extends Component {
           ref={this.setRef}
           screenshotFormat="image/jpeg"
         />
-
-        <RadarChart
-          outerRadius={90}
+<img src ={railed} id ="railed"></img>
+<Typography variant ="subtitle2" id ="connection">BadConnection Railed : </Typography>
+<Typography variant ="subtitle2" id ="connections">{this.props.badConnection} </Typography>
+        <RadarChart 
+          outerRadius={68}
           width={250}
           height={250}
           data={this.state.signalData}
         >
           <PolarGrid />
+         
           <PolarAngleAxis dataKey="emotionTag" />
           <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
           <Radar

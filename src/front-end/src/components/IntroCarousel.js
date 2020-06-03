@@ -8,7 +8,7 @@ import carouselImage3 from './Image/carouselImage3';
 class IntroCarousel extends Component {
   render() {
     return (
-      <Carousel>
+<Carousel>
         <Carousel.Item style={{ height: '100%' }}>
           <img
             className="d-block w-100 h-100"

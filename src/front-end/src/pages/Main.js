@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import IntroCarousel from '../components/IntroCarousel';
 import '../App.css';
+import NavBar from '../components/NavBar';
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -20,8 +21,10 @@ theme = responsiveFontSizes(theme);
 class Main extends Component {
   render() {
     return (
+
       <ThemeProvider theme={theme}>
         <div className="full-container">
+    <NavBar/>
           <Grid
             container
             style={{
@@ -33,11 +36,12 @@ class Main extends Component {
               container
               xs={12}
               sm={4}
-              id="loginBox"
+              id="loginBox1"
               direction="column"
               justify="center"
               alignItems="center"
             >
+             
               <Card id="startCard">
                 <CardContent
                   style={{

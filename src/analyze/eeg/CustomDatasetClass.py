@@ -54,3 +54,6 @@ def get_train_test_set(train, test, bs, dataset):
     testloader = torch.utils.data.DataLoader(testset, batch_size=bs,
                                              shuffle=False, num_workers=2)
     return trainset, trainloader, testset, testloader
+
+if __name__ == "__main__":
+    print("환경설정 완료")

@@ -37,3 +37,6 @@ def computefftMap(total_signal, chosen_channels, freqs, sf=128):
         else:
             fftMap = np.vstack((fftMap, fft)) 
     return fftMap
+
+if __name__ == "__main__":
+    print("환경설정 완료")

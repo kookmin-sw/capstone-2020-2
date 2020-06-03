@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import UserContext from '../UserContext';
+import NavBar from '../components/NavBar';
 
 class Signup extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class Signup extends Component {
       };
       console.log(newUser);
       setUser(newUser);
-      this.props.history.push('/Option');
+      this.props.history.push('/Analyze');
     } catch (error) {
       console.error(error.content);
       console.log('Sign up 실패 -  사진 다시찍어야함');
@@ -70,8 +71,9 @@ class Signup extends Component {
   render() {
     return (
       <div class="full-container">
+        <NavBar/>
         <Grid container id="loginBox" direction="column" justify="center">
-          <Grid item>
+        
             <Webcam
               class="webcam"
               audio={false}
@@ -81,12 +83,12 @@ class Signup extends Component {
               ref={this.loginRef}
               screenshotFormat="image/jpeg"
             />
-          </Grid>{' '}
+          <p id="faceLogin">Sign Up</p>
+    
           <Grid item>
             <div class="input-group" id="userInput">
               <TextField
-                id="input-with-icon-textfield"
-                label="UserName"
+                 id="standard-basic" label="UserName"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -98,7 +100,8 @@ class Signup extends Component {
                 onChange={this.userNameChange.bind(this)}
               />{' '}
               <Button
-                variant="contained"
+                variant="outlined"
+                color="primary"
                 label="Sign in"
                 style={{
                   margin: '5%',

@@ -5,8 +5,8 @@ import json
 import numpy as np
 import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))
-xmlPath = os.path.join(BASE_DIR, 'src/face/haarcascade_frontalface_default.xml')
+BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))))
+xmlPath = os.path.join(BASE_DIR, 'src/analyze/face/haarcascade_frontalface_default.xml')
 
 def predict_emotion(image_path):
     # Key
@@ -49,7 +49,7 @@ def predict_emotion(image_path):
         # 리퀘스트 요청
         response = requests.request('POST', base_uri + '/face/v1.0/detect', json=None, data=buffer, headers=headers, params=params)
         emotion_dicts = response.json()[0]['faceAttributes']['emotion']
-        print(emotion_dicts)
+        #print(emotion_dicts)
 
         emotions = list(emotion_dicts.items())
         emotions = [e[1] for e in emotions]
