@@ -182,12 +182,8 @@ def realTimeAnalyze(request):
     # Set image path and eeg path.
     imgName = request.data['image'].name
     eegName = 'test_signal.txt'
-    print('imgName:', imgName)
-    print('dirPath!!!!!!!!!!!!!!!!!!!!!', dirPath)
     imgPath = os.path.join(request.data['dateDirPath'], 'face', imgName)
     eegTempPath = os.path.join(dirPath, eegName)
-    print("imgPath: " , imgPath)
-    # print("eegPath:", eegPath)
     # Save image to corresponding dir path.
     img.save(imgPath, "JPEG")
 
@@ -199,23 +195,13 @@ def realTimeAnalyze(request):
     # hasFace, faceResult = predict_emotion(imgPath)
     highestEmotion, faceResult, sensorStatus = detectEmotion(imgPath, eegTempPath, videoTag)
     # Emotions(face) : anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
-    print("faceResult!!!!",faceResult)
     # TODO : Get results from Main Program 2 (analyzing module).
-    print(sensorStatus)
     emotionTag = 'happy'
     #emotionValues = {}
     payload = {
         'emotionTag': emotionTag,
         'emotionValues': faceResult,
         'eegConnections' : {
-            # "eeg1": 1,
-            # "eeg2": 1,
-            # "eeg3": 1,
-            # "eeg4": 1,
-            # "eeg5": 1,
-            # "eeg6": 1,
-            # "eeg7": 1,
-            # "eeg8": 1,
             "eeg1": int(sensorStatus[0]),
             "eeg2" : int(sensorStatus[1]),
             "eeg3" : int(sensorStatus[2]),
@@ -226,7 +212,4 @@ def realTimeAnalyze(request):
             "eeg8" : int(sensorStatus[7]),
         }
     }
-
-    # TODO
-    # Cache retrieved results & Save in DB at once.
     return JsonResponse(payload)
