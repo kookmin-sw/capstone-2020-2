@@ -86,7 +86,7 @@ class Result(models.Model):
         on_delete=models.CASCADE
     )
     viewedDate = models.DateTimeField()
-    dataPath = models.CharField(max_length=100)
+    dataPath = models.CharField(max_length=1000)
     emotion = models.CharField(max_length=10)
     happiness = models.FloatField(null=True)
     sadness = models.FloatField(null=True)
