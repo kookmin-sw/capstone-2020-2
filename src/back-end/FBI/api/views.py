@@ -23,8 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Directory path for saving real-time data.
 dirPath = os.path.join(ROOT_DIR, 'FBI-data')
 dataDirPath = ''
-faceDirPath = ''
-eegDirPath = ''
+#faceDirPath = ''
+#eegDirPath = ''
+dateDirPath = ''
 # Path for saving userFace images.
 path = os.path.join(BASE_DIR, 'media')
 # Temporarily save encoded image of new user for signup.
@@ -152,16 +153,18 @@ class getAnalyzingVideo(APIView):
                     os.makedirs(videoDirPath)
                 # Create directories based on the datetime the video was played
                 # since each video might be played multiple times.
+                global dateDirPath
                 dateDirPath = os.path.join(videoDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 os.mkdir(dateDirPath)
                 # Create directories separately for face, eeg data.
-                global faceDirPath
-                faceDirPath = os.path.join(dateDirPath, 'face')
-                os.mkdir(faceDirPath)
-                #os.mkdir(os.path.join(dateDirPath, 'face'))
-                global eegDirPath
-                eegDirPath = os.path.join(dateDirPath, 'eeg')
-                os.mkdir(eegDirPath)
+                #global faceDirPath
+                #faceDirPath = os.path.join(dateDirPath, 'face')
+                #os.mkdir(faceDirPath)
+                os.mkdir(os.path.join(dateDirPath, 'face'))
+                #global eegDirPath
+                #eegDirPath = os.path.join(dateDirPath, 'eeg')
+                #os.mkdir(eegDirPath)
+                os.mkdir(os.path.join(dateDirPath, 'eeg'))
                 return JsonResponse({
                     'user' : id,
                     'link' : video.link,

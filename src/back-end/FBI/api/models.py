@@ -88,14 +88,14 @@ class Result(models.Model):
     viewedDate = models.DateTimeField()
     dataPath = models.CharField(max_length=100)
     emotion = models.CharField(max_length=10)
-    happiness = models.IntegerField()
-    sadness = models.IntegerField()
-    anger = models.IntegerField()
-    contempt = models.IntegerField()
-    disgust = models.IntegerField()
-    fear = models.IntegerField()
-    neutral = models.IntegerField()
-    surprise = models.IntegerField()
+    happiness = models.FloatField(null=True)
+    sadness = models.FloatField(null=True)
+    anger = models.FloatField(null=True)
+    contempt = models.FloatField(null=True)
+    disgust = models.FloatField(null=True)
+    fear = models.FloatField(null=True)
+    neutral = models.FloatField(null=True)
+    surprise = models.FloatField(null=True)
 
     class Meta:
         db_table = 'Result'
