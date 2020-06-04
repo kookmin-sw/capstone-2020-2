@@ -7,6 +7,21 @@ def rename_and_upload(instance, filename):
     filebase, extension = filename.split('.')
     return 'user/{}_{}.{}'.format(instance.username, instance.id, extension)
 
+class Video(models.Model):
+    videoId = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50)
+    artist = models.CharField(max_length=50)
+    link = models.CharField(max_length=100)
+    tag = models.CharField(max_length=50)
+    startTime = models.TimeField(default=':00:00')
+    duration = models.IntegerField(default=60)
+
+    class Meta:
+        db_table = 'Video'
+
+    def __str__(self):
+        return self.title
+
 class UserManager(BaseUserManager):
     def create_user(self, username, userFace):
         if not username:
@@ -34,6 +49,8 @@ class User(AbstractBaseUser):
         unique=False,
     )
     userFace = models.ImageField(unique=True, upload_to=rename_and_upload)
+    # ManyToMany
+    videosSeen = models.ManyToManyField(Video, through='Result')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -58,17 +75,30 @@ class User(AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
-class Video(models.Model):
-    videoId = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=50)
-    artist = models.CharField(max_length=50)
-    link = models.CharField(max_length=100)
-    tag = models.CharField(max_length=50)
-    startTime = models.TimeField(default=':00:00')
-    duration = models.IntegerField(default=60)
+class Result(models.Model):
+    resultId = models.AutoField(primary_key=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+    video = models.ForeignKey(
+        Video,
+        on_delete=models.CASCADE
+    )
+    viewedDate = models.DateTimeField()
+    dataPath = models.CharField(max_length=100)
+    emotion = models.CharField(max_length=10)
+    happiness = models.FloatField(null=True)
+    sadness = models.FloatField(null=True)
+    anger = models.FloatField(null=True)
+    contempt = models.FloatField(null=True)
+    disgust = models.FloatField(null=True)
+    fear = models.FloatField(null=True)
+    neutral = models.FloatField(null=True)
+    surprise = models.FloatField(null=True)
 
     class Meta:
-        db_table = 'Video'
+        db_table = 'Result'
 
     def __str__(self):
-        return self.title
+        return self.emotion

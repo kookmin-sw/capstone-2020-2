@@ -1,5 +1,6 @@
 from .models import *
 from django.db.models import Count
+from django.utils import timezone
 from django.urls import reverse
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from rest_framework import status
@@ -9,7 +10,6 @@ from rest_framework.views import APIView
 from . import serializers
 from .customLogin import *
 import random, os, pickle, sys
-from datetime import datetime
 from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
@@ -23,8 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Directory path for saving real-time data.
 dirPath = os.path.join(ROOT_DIR, 'FBI-data')
 dataDirPath = ''
-faceDirPath = ''
-eegDirPath = ''
+#faceDirPath = ''
+#eegDirPath = ''
+dateDirPath = ''
 # Path for saving userFace images.
 path = os.path.join(BASE_DIR, 'media')
 # Temporarily save encoded image of new user for signup.
@@ -152,16 +153,25 @@ class getAnalyzingVideo(APIView):
                     os.makedirs(videoDirPath)
                 # Create directories based on the datetime the video was played
                 # since each video might be played multiple times.
-                dateDirPath = os.path.join(videoDirPath, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                global dateDirPath
+                now = timezone.localtime()
+                dateDirPath = os.path.join(videoDirPath, now.strftime('%Y-%m-%d %H:%M:%S'))
                 os.mkdir(dateDirPath)
                 # Create directories separately for face, eeg data.
-                global faceDirPath
-                faceDirPath = os.path.join(dateDirPath, 'face')
-                os.mkdir(faceDirPath)
-                #os.mkdir(os.path.join(dateDirPath, 'face'))
-                global eegDirPath
-                eegDirPath = os.path.join(dateDirPath, 'eeg')
-                os.mkdir(eegDirPath)
+                #global faceDirPath
+                #faceDirPath = os.path.join(dateDirPath, 'face')
+                #os.mkdir(faceDirPath)
+                os.mkdir(os.path.join(dateDirPath, 'face'))
+                #global eegDirPath
+                #eegDirPath = os.path.join(dateDirPath, 'eeg')
+                #os.mkdir(eegDirPath)
+                os.mkdir(os.path.join(dateDirPath, 'eeg'))
+                # Save result
+                result = Result.objects.create(user=User.objects.filter(pk=id).first(),
+                                               video=Video.objects.filter(pk=randId).first(),
+                                               viewedDate=now,
+                                               dataPath=dateDirPath)
+                request.session['resultId'] = result.id
                 return JsonResponse({
                     'user' : id,
                     'link' : video.link,
@@ -182,12 +192,10 @@ def realTimeAnalyze(request):
     # Set image path and eeg path.
     imgName = request.data['image'].name
     eegName = 'test_signal.txt'
-    print('imgName:', imgName)
-    print('dirPath!!!!!!!!!!!!!!!!!!!!!', dirPath)
-    imgPath = os.path.join(request.data['dateDirPath'], 'face', imgName)
+    #imgPath = os.path.join(request.data['dateDirPath'], 'face', imgName)
+    global dateDirPath
+    imgPath = os.path.join(os.path.join(dateDirPath, 'face'), imgName)
     eegTempPath = os.path.join(dirPath, eegName)
-    print("imgPath: " , imgPath)
-    # print("eegPath:", eegPath)
     # Save image to corresponding dir path.
     img.save(imgPath, "JPEG")
 
@@ -199,23 +207,13 @@ def realTimeAnalyze(request):
     # hasFace, faceResult = predict_emotion(imgPath)
     highestEmotion, faceResult, sensorStatus = detectEmotion(imgPath, eegTempPath, videoTag)
     # Emotions(face) : anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
-    print("faceResult!!!!",faceResult)
     # TODO : Get results from Main Program 2 (analyzing module).
-    print(sensorStatus)
     emotionTag = 'happy'
     #emotionValues = {}
     payload = {
         'emotionTag': emotionTag,
         'emotionValues': faceResult,
         'eegConnections' : {
-            # "eeg1": 1,
-            # "eeg2": 1,
-            # "eeg3": 1,
-            # "eeg4": 1,
-            # "eeg5": 1,
-            # "eeg6": 1,
-            # "eeg7": 1,
-            # "eeg8": 1,
             "eeg1": int(sensorStatus[0]),
             "eeg2" : int(sensorStatus[1]),
             "eeg3" : int(sensorStatus[2]),
@@ -226,7 +224,19 @@ def realTimeAnalyze(request):
             "eeg8" : int(sensorStatus[7]),
         }
     }
-
-    # TODO
-    # Cache retrieved results & Save in DB at once.
+    # TODO : Save emotion values on last request
+    '''
+    if request.data['isLat']:
+        resultId = request.session.get('resultId')
+        result = Result.objects.filter(pk=resultId).first()
+        result.happiness = 
+        result.sadness = 
+        result.anger = 
+        result.contempt =
+        result.disgust =
+        result.fear =
+        result.neutral =
+        result.surprise =
+        result.save()
+    '''
     return JsonResponse(payload)
