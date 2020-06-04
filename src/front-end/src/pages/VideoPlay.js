@@ -10,7 +10,8 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
-  Legend,Text
+  Legend,
+  Text,
 } from 'recharts';
 
 import UserContext from '../UserContext';
@@ -129,21 +130,25 @@ class VideoPlay extends Component {
 
   getUserImg = () => {
     const captureImg = setInterval(() => {
-      var base64Str = this.webcam.getScreenshot();
-      var file = dataURLtoFile(
-        base64Str,
-        `${this.state.user.id}-${this.state.video.id}-${(
-          '000' + this.state.imageIndex
-        ).slice(-3)}.jpg`,
-      );
-      console.log('getUserImg 실행중');
-      this.setState({
-        realtimeUserFace: file,
-        imageIndex: this.state.imageIndex + 1,
-        realtimeStart: this.state.realtimeStart + 1,
-      });
-      this.realtimeUserFace(file);
-      this.eegConnection();
+      try {
+        var base64Str = this.webcam.getScreenshot();
+        var file = dataURLtoFile(
+          base64Str,
+          `${this.state.user.id}-${this.state.video.id}-${(
+            '000' + this.state.imageIndex
+          ).slice(-3)}.jpg`,
+        );
+        console.log('getUserImg 실행중');
+        this.setState({
+          realtimeUserFace: file,
+          imageIndex: this.state.imageIndex + 1,
+          realtimeStart: this.state.realtimeStart + 1,
+        });
+        this.realtimeUserFace(file);
+        this.eegConnection();
+      } catch (error) {
+        console.log(error);
+      }
     }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -198,7 +203,19 @@ class VideoPlay extends Component {
                 newSignalData[emotionIdx].A =
                   response.data.emotionValues[emotionList[emotionIdx]];
               }
-              this.setState({ signalData: newSignalData });
+              let _badConnection = [];
+              for (let i = 1; i <= 8; i++) {
+                if (response.data.eegConnections[i] === 1) {
+                  _badConnection.push(i);
+                } else {
+                  _badConnection.push('None');
+                }
+              }
+              _badConnection = _badConnection.join(',');
+              this.setState({
+                signalData: newSignalData,
+                badConnection: _badConnection,
+              });
             }
           })
       );
@@ -210,17 +227,17 @@ class VideoPlay extends Component {
     const response = await axios
       .get(`api/v1/user/analyze/real-time-result/`)
       .then((response) => {
-          let badConnection =[];
-        for(let i=1;i<=8;i++){
-          if(response.data.eegConnections[i] === 1){
+        let badConnection = [];
+        for (let i = 1; i <= 8; i++) {
+          if (response.data.eegConnections[i] === 1) {
             badConnection.push(i);
-          }else{
+          } else {
             badConnection.push('None');
-          } }
-          badConnection =badConnection.join(',')
-        })
+          }
+        }
+        badConnection = badConnection.join(',');
+      })
       .catch((error) => console.log(error));
-    
   };
   getEmotions = async (id, emotionTag) => {
     const response = await axios
@@ -255,17 +272,21 @@ class VideoPlay extends Component {
           ref={this.setRef}
           screenshotFormat="image/jpeg"
         />
-<img src ={railed} id ="railed"></img>
-<Typography variant ="subtitle2" id ="connection">BadConnection Railed : </Typography>
-<Typography variant ="subtitle2" id ="connections">{this.props.badConnection} </Typography>
-        <RadarChart 
+        <img src={railed} id="railed"></img>
+        <Typography variant="subtitle2" id="connection">
+          BadConnection Railed :{' '}
+        </Typography>
+        <Typography variant="subtitle2" id="connections">
+          {this.state.badConnection}{' '}
+        </Typography>
+        <RadarChart
           outerRadius={68}
           width={250}
           height={250}
           data={this.state.signalData}
         >
           <PolarGrid />
-         
+
           <PolarAngleAxis dataKey="emotionTag" />
           <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
           <Radar
