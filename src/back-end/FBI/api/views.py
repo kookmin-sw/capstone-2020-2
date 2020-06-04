@@ -171,7 +171,7 @@ class getAnalyzingVideo(APIView):
                                                video=Video.objects.filter(pk=randId).first(),
                                                viewedDate=now,
                                                dataPath=dateDirPath)
-                request.session['resultId'] = result.id
+                request.session['resultId'] = result.resultId
                 return JsonResponse({
                     'user' : id,
                     'link' : video.link,
