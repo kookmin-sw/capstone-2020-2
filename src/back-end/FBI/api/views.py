@@ -23,8 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Directory path for saving real-time data.
 dirPath = os.path.join(ROOT_DIR, 'FBI-data')
 dataDirPath = ''
-#faceDirPath = ''
-#eegDirPath = ''
 dateDirPath = ''
 # Path for saving userFace images.
 path = os.path.join(BASE_DIR, 'media')
@@ -116,7 +114,6 @@ def login(request):
 @api_view(['POST'])
 def logout(request):
     try:
-        #del request.session['id']
         request.session.flush()
     except KeyError:
         pass
@@ -158,13 +155,7 @@ class getAnalyzingVideo(APIView):
                 dateDirPath = os.path.join(videoDirPath, now.strftime('%Y-%m-%d %H:%M:%S'))
                 os.mkdir(dateDirPath)
                 # Create directories separately for face, eeg data.
-                #global faceDirPath
-                #faceDirPath = os.path.join(dateDirPath, 'face')
-                #os.mkdir(faceDirPath)
                 os.mkdir(os.path.join(dateDirPath, 'face'))
-                #global eegDirPath
-                #eegDirPath = os.path.join(dateDirPath, 'eeg')
-                #os.mkdir(eegDirPath)
                 os.mkdir(os.path.join(dateDirPath, 'eeg'))
                 # Save result
                 result = Result.objects.create(user=User.objects.filter(pk=id).first(),
@@ -204,14 +195,10 @@ def realTimeAnalyze(request):
         emotionTag="happiness"
     elif(emotionTag =="sad"):
         emotionTag="sadness"
-    # hasFace, faceResult = predict_emotion(imgPath)
-    highestEmotion, faceResult, sensorStatus = detectEmotion(imgPath, eegTempPath, emotionTag)
-    # Emotions(face) : anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
-    # TODO : Get results from Main Program 2 (analyzing module).
-    #emotionValues = {}
+    highestEmotion, emotionValues, sensorStatus = detectEmotion(imgPath, eegTempPath, emotionTag)
     payload = {
         'emotionTag': emotionTag,
-        'emotionValues': faceResult,
+        'emotionValues': emotionValues,
         'eegConnections' : {
             "eeg1": int(sensorStatus[0]),
             "eeg2" : int(sensorStatus[1]),
@@ -223,46 +210,22 @@ def realTimeAnalyze(request):
             "eeg8" : int(sensorStatus[7]),
         }
     }
-
-    # TODO : Save emotion values on last request
-    '''
-    if request.data['isLat']:
-        resultId = request.session.get('resultId')
-        result = Result.objects.filter(pk=resultId).first()
-        result.happiness = 
-        result.sadness = 
-        result.anger = 
-        result.contempt =
-        result.disgust =
-        result.fear =
-        result.neutral =
-        result.surprise =
-        result.save()
-    '''
     return JsonResponse(payload)
 
-# fake def for testing
-# def realTimeAnalyze(request):
-#     payload = {
-#         'emotionTag': 'happy',
-#         'emotionValues': {
-#             "happiness": 0.8,
-#             "sadness": 0.1,
-#             "disgust": 0.2,
-#             "contempt": 0.3,
-#             "surprise": 0.4,
-#             "fear": 0.5,
-#             "neutral": 0.2
-#         },
-#         'eegConnections' : {
-#             "eeg1": 1,
-#             "eeg2" : 1,
-#             "eeg3" : 0,
-#             "eeg4" : 1,
-#             "eeg5" : 1,
-#             "eeg6" : 0,
-#             "eeg7" : 1,
-#             "eeg8" : 1,
-#         }
-#     }
-#     return JsonResponse(payload)
+@api_view(['GET'])
+def finalResult(request):
+    # TODO : Save emotion values on last request
+    '''
+    resultId = request.session.get('resultId')
+    result = Result.objects.filter(pk=resultId).first()
+    result.happiness =
+    result.sadness =
+    result.anger =
+    result.contempt =
+    result.disgust =
+    result.fear =
+    result.neutral =
+    result.surprise =
+    result.save()
+    '''
+    return JsonResponse('Final result')
