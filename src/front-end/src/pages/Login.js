@@ -66,7 +66,7 @@ class Login extends Component {
         userFace: file,
       });
       this.userFace();
-    }, 2000);
+    }, 2300);
     const dataURLtoFile = (dataurl, filename) => {
       var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -115,27 +115,26 @@ class Login extends Component {
   render() {
     return (
       <div class="full-container">
-<NavBar/>
+        <NavBar />
         <Grid
           container
           id="loginBox"
           direction="column"
           justify="center"
           alignItems="center"
-        > 
-          
-            <Webcam
-              class="webcam"
-              audio={false}
-              facingmode="user"
-              mirrored={true}
-              screenshotQuality={1}
-              ref={this.setRef.bind(this)}
-              screenshotFormat="image/jpeg"
-            />
-     <p id="faceLogin">Face Login</p>
-     <p id="faceLogin2">가만히 화면을 응시해주세요.</p>
-     {/* <img src="https://i.ytimg.com/vi/1KGZtWbZtq8/maxresdefault.jpg" height="250px" width="200px"></img> */}
+        >
+          <Webcam
+            class="webcam"
+            audio={false}
+            facingmode="user"
+            mirrored={true}
+            screenshotQuality={1}
+            ref={this.setRef.bind(this)}
+            screenshotFormat="image/jpeg"
+          />
+          <p id="faceLogin">Face Login</p>
+          <p id="faceLogin2">가만히 화면을 응시해주세요.</p>
+          {/* <img src="https://i.ytimg.com/vi/1KGZtWbZtq8/maxresdefault.jpg" height="250px" width="200px"></img> */}
           {/* <Grid item>
             {/* //<Spinner onLoad={this.capture} color="secondary" id="spinner" /
           </Grid> */}
@@ -147,8 +146,8 @@ class Login extends Component {
               role="alert"
             >
               {/* <strong>[안내]</strong> 잠시동안 가만히 화면을 응시해주세요. */}
-            {/* </div>
-          </Grid> */} 
+          {/* </div>
+          </Grid> */}
         </Grid>
 
         {/* <Grid item xs={12} sm={8} id="explain">
