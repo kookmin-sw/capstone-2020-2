@@ -130,11 +130,24 @@ height: 100%;
 }
 #userInput {
   position: absolute;;
-  /* background-color: white; */
-  top: 28%;
-  left: 70%;
+color: white !important;
+  top: 29%;
+  left: 69%;
   width: 350px;
   justify-content: center;
+}
+.MuiInputBase-root,.MuiInput-root,label{
+  color: white !important;
+  border: white  !important;
+
+}
+.MuiButton-outlinedPrimary{
+  border: 1px solid white !important;
+  color: white !important;
+}
+.MuiInput-underline::before,.MuiInput-underline::after{
+  
+  border-bottom: 1px solid white !important;
 }
 /* #explain {
   background-color: #5882FA;
@@ -166,6 +179,7 @@ height: 100%;
   top:40%;
   left: 22%;
   color: white;
+  text-align: center;
 }
 #AnalyzeOption{
   position: relative;
