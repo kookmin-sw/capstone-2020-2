@@ -205,13 +205,16 @@ def realTimeAnalyze(request):
     elif(emotionTag =="sad"):
         emotionTag="sadness"
     # hasFace, faceResult = predict_emotion(imgPath)
-    highestEmotion, faceResult, sensorStatus = detectEmotion(imgPath, eegTempPath, emotionTag)
+    highestEmotion, multiResult, faceResult, eegResult, sensorStatus = detectEmotion(imgPath, eegTempPath, emotionTag)
     # Emotions(face) : anger, contempt, disgust, fear, happiness, neutral, sadness, surprise
     # TODO : Get results from Main Program 2 (analyzing module).
     #emotionValues = {}
+    print(multiResult)
     payload = {
         'emotionTag': emotionTag,
-        'emotionValues': faceResult,
+        'emotionValues': multiResult,
+        'faceValues': faceResult,
+        'eegValues': eegResult,
         'eegConnections' : {
             "eeg1": int(sensorStatus[0]),
             "eeg2" : int(sensorStatus[1]),
@@ -240,29 +243,3 @@ def realTimeAnalyze(request):
         result.save()
     '''
     return JsonResponse(payload)
-
-# fake def for testing
-# def realTimeAnalyze(request):
-#     payload = {
-#         'emotionTag': 'happy',
-#         'emotionValues': {
-#             "happiness": 0.8,
-#             "sadness": 0.1,
-#             "disgust": 0.2,
-#             "contempt": 0.3,
-#             "surprise": 0.4,
-#             "fear": 0.5,
-#             "neutral": 0.2
-#         },
-#         'eegConnections' : {
-#             "eeg1": 1,
-#             "eeg2" : 1,
-#             "eeg3" : 0,
-#             "eeg4" : 1,
-#             "eeg5" : 1,
-#             "eeg6" : 0,
-#             "eeg7" : 1,
-#             "eeg8" : 1,
-#         }
-#     }
-#     return JsonResponse(payload)
