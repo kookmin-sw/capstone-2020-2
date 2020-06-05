@@ -195,10 +195,12 @@ def realTimeAnalyze(request):
         emotionTag="happiness"
     elif(emotionTag =="sad"):
         emotionTag="sadness"
-    highestEmotion, emotionValues, sensorStatus = detectEmotion(imgPath, eegTempPath, emotionTag)
+    highestEmotion, multiResult, faceResult, eegResult, sensorStatus = detectEmotion(imgPath, eegTempPath, emotionTag)
     payload = {
         'emotionTag': emotionTag,
-        'emotionValues': emotionValues,
+        'emotionValues': multiResult,
+        'faceValues': faceResult,
+        'eegValues': eegResult,
         'eegConnections' : {
             "eeg1": int(sensorStatus[0]),
             "eeg2" : int(sensorStatus[1]),
