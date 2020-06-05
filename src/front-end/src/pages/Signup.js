@@ -7,6 +7,7 @@ import {
   Grid,
   Button,
   Input,
+  Typography,
   TextField,
   InputAdornment,
 } from '@material-ui/core';
@@ -100,6 +101,7 @@ class Signup extends Component {
                 onChange={this.userNameChange.bind(this)}
               />{' '}
               <Button
+              id="signUp"
                 variant="outlined"
                 color="primary"
                 label="Sign in"

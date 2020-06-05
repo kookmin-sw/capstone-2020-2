@@ -145,6 +145,13 @@ color: white !important;
   border: 1px solid white !important;
   color: white !important;
 }
+.MuiButton-outlinedPrimary#startCardBtn {
+  width: 60%;
+  height: 50%;
+  color:blue !important;
+  border: 1px solid blue !important;
+}
+
 .MuiInput-underline::before,.MuiInput-underline::after{
   
   border-bottom: 1px solid white !important;
