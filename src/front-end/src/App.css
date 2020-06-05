@@ -6,6 +6,7 @@
 body {
         width: 100%;
         height: 100%;
+       
       }
 html {
         width: 100%;
@@ -87,21 +88,23 @@ height: 100%;
 .menuLink{
   color: black;
 }
-.recharts-wrapper{
+.recharts-wrapper#realtimeChart{
     position: absolute !important;
     bottom: -30px;
     right: 20px;
     width: 20% !important;
     height:50% !important;
     text-align: center;
+ 
   }
 
-  .recharts-surface{
-    position: absolute !important;
+  .recharts-surface#realtimeChart{
+    position: absolute !important ;
     bottom: 0px;
     right: 0px;
     width: 100% !important;
     height: 100% !important;
+ 
   }
 
 @keyframes blinker {
@@ -184,9 +187,12 @@ color: white !important;
 #AnalyzeText{
   position: absolute;
   top:40%;
-  left: 22%;
   color: white;
-  text-align: center;
+}
+#resultText{
+  position: absolute;
+  top:18%;
+  color: white;
 }
 #AnalyzeOption{
   position: relative;
@@ -217,3 +223,15 @@ text-align: center;
   top :55%;
   left:87%;
 }
+.recharts-layer.recharts-pie{
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;
+
+  }
+
+  .recharts-wrapper#PieEEG{
+    
+    margin-top: 200px;
+ 
+  }

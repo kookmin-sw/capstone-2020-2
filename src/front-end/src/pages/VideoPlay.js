@@ -301,7 +301,7 @@ class VideoPlay extends Component {
             </Typography>
           </div>
         )}
-        <RadarChart
+        <RadarChart id="realtimeChart"
           outerRadius={68}
           width={250}
           height={250}

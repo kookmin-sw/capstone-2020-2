@@ -124,9 +124,9 @@ class Analyze extends Component {
               </FormControl>
             </Grid>
           </div>
-        ) : (
-          this.redirectToLogin()
-        )}
+         ) : (
+           this.redirectToLogin()
+         )}
       </>
     );
   }
