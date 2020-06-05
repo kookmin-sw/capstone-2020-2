@@ -52,4 +52,4 @@ def detectEmotion(facePath, eegPath, RM):
     eeg_emotion, n_railed, sensor_status = predict_emotion_EEG(model, eegPath, chosen_channels, freqs, sf=256)
     # RM =========================================================
     emotion, prob_distribution = multimodal_emotion(face_emotion, face_detected, eeg_emotion, n_railed)
-    return emotion, prob_distribution, sensor_status
+    return emotion, prob_distribution, face_emotion, eeg_emotion, sensor_status

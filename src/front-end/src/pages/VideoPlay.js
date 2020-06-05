@@ -31,26 +31,36 @@ class VideoPlay extends Component {
         {
           emotionTag: 'happiness',
           multi: 0.0,
+          face: 0.0,
+          eeg: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'sadness',
           multi: 0.0,
+          face: 0.0,
+          eeg: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'disgust',
           multi: 0.0,
+          face: 0.0,
+          eeg: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'fear',
           multi: 0.0,
+          face: 0.0,
+          eeg: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'neutral',
           multi: 0.0,
+          face: 0.0,
+          eeg: 0.0,
           fullMark: 1.0,
         },
       ],
@@ -197,6 +207,10 @@ class VideoPlay extends Component {
               for (let emotionIdx = 0; emotionIdx < 5; emotionIdx++) {
                 newSignalData[emotionIdx].multi =
                   response.data.emotionValues[emotionList[emotionIdx]];
+                newSignalData[emotionIdx].face =
+                  response.data.faceValues[emotionList[emotionIdx]];
+                newSignalData[emotionIdx].eeg =
+                  response.data.eegValues[emotionList[emotionIdx]];
               }
               let _badConnection = response.data.eegConnections;
               console.log(this.state.badConnection);
@@ -281,20 +295,20 @@ class VideoPlay extends Component {
             fill="#ff6f69"
             fillOpacity={0.6}
           />
-          {/* <Radar
+          <Radar
             name="EEG"
-            dataKey="multi"
+            dataKey="eeg"
             stroke="#ffdd77"
             fill="#ffdd77"
             fillOpacity={0.6}
-          /> */}
-          {/* <Radar
+          />
+          <Radar
             name="Face"
-            dataKey="multi"
+            dataKey="face"
             stroke="#96ceb4"
             fill="#96ceb4"
             fillOpacity={0.6}
-          /> */}
+          />
         </RadarChart>
       </div>
     );
