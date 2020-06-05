@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout/', views.logout, name="logout"),
     path('user/<int:id>/analyze/<str:emotionTag>/', views.getAnalyzingVideo.as_view(), name='analyze'),
     path('user/analyze/real-time-result/', views.realTimeAnalyze, name='realTimeResult'),
+    path('analyze/final-result/', views.finalResult, name='finalResult'),
 ]
 
 #urlpatterns = format_suffix_patterns(urlpatterns)
