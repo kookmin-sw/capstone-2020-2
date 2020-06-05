@@ -15,7 +15,7 @@ import {
 } from 'recharts';
 
 import UserContext from '../UserContext';
-import { updateArrayBindingPattern } from 'typescript';
+import { updateArrayBindingPattern, setTokenSourceMapRange } from 'typescript';
 import NavBar from '../components/NavBar';
 import railed from '../railed.png';
 import { Typography } from '@material-ui/core';
@@ -30,37 +30,27 @@ class VideoPlay extends Component {
       signalData: [
         {
           emotionTag: 'happiness',
-          A: 0.0,
+          multi: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'sadness',
-          A: 0.0,
+          multi: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'disgust',
-          A: 0.0,
-          fullMark: 1.0,
-        },
-        {
-          emotionTag: 'contempt',
-          A: 0.0,
-          fullMark: 1.0,
-        },
-        {
-          emotionTag: 'surprise',
-          A: 0.0,
+          multi: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'fear',
-          A: 0.0,
+          multi: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'neutral',
-          A: 0.0,
+          multi: 0.0,
           fullMark: 1.0,
         },
       ],
@@ -71,6 +61,16 @@ class VideoPlay extends Component {
       },
       emotionTag: null,
       imageIndex: 1,
+      badConnection: {
+        eeg1: 1,
+        eeg2: 1,
+        eeg3: 1,
+        eeg4: 1,
+        eeg5: 1,
+        eeg6: 1,
+        eeg7: 1,
+        eeg8: 1,
+      },
     };
   }
 
@@ -130,25 +130,21 @@ class VideoPlay extends Component {
 
   getUserImg = () => {
     const captureImg = setInterval(() => {
-      try {
-        var base64Str = this.webcam.getScreenshot();
-        var file = dataURLtoFile(
-          base64Str,
-          `${this.state.user.id}-${this.state.video.id}-${(
-            '000' + this.state.imageIndex
-          ).slice(-3)}.jpg`,
-        );
-        console.log('getUserImg 실행중');
-        this.setState({
-          realtimeUserFace: file,
-          imageIndex: this.state.imageIndex + 1,
-          realtimeStart: this.state.realtimeStart + 1,
-        });
-        this.realtimeUserFace(file);
-        this.eegConnection();
-      } catch (error) {
-        console.log(error);
-      }
+      var base64Str = this.webcam.getScreenshot();
+      var file = dataURLtoFile(
+        base64Str,
+        `${this.state.user.id}-${this.state.video.id}-${(
+          '000' + this.state.imageIndex
+        ).slice(-3)}.jpg`,
+      );
+      console.log('getUserImg 실행중');
+      this.setState({
+        realtimeUserFace: file,
+        imageIndex: this.state.imageIndex + 1,
+        realtimeStart: this.state.realtimeStart + 1,
+      });
+      this.realtimeUserFace(file);
+      // this.eegConnection();
     }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
@@ -174,6 +170,7 @@ class VideoPlay extends Component {
       realtimeData.append('videoTag', this.state.video.tag);
       console.log('realtimeUserFace image file', file);
       console.log(this.state.video.dateDirPath);
+      console.log(this.state.badConnection);
       // console.log('testing....', this.state.realtimeUserFace);
       return (
         axios
@@ -194,24 +191,15 @@ class VideoPlay extends Component {
                 'happiness',
                 'sadness',
                 'disgust',
-                'contempt',
-                'surprise',
                 'fear',
                 'neutral',
               ];
-              for (let emotionIdx = 0; emotionIdx < 7; emotionIdx++) {
-                newSignalData[emotionIdx].A =
+              for (let emotionIdx = 0; emotionIdx < 5; emotionIdx++) {
+                newSignalData[emotionIdx].multi =
                   response.data.emotionValues[emotionList[emotionIdx]];
               }
-              let _badConnection = [];
-              for (let i = 1; i <= 8; i++) {
-                if (response.data.eegConnections[i] === 1) {
-                  _badConnection.push(i);
-                } else {
-                  _badConnection.push('None');
-                }
-              }
-              _badConnection = _badConnection.join(',');
+              let _badConnection = response.data.eegConnections;
+              console.log(this.state.badConnection);
               this.setState({
                 signalData: newSignalData,
                 badConnection: _badConnection,
@@ -223,34 +211,30 @@ class VideoPlay extends Component {
       console.log(error);
     }
   };
-  eegConnection = async () => {
-    const response = await axios
-      .get(`api/v1/user/analyze/real-time-result/`)
-      .then((response) => {
-        let badConnection = [];
-        for (let i = 1; i <= 8; i++) {
-          if (response.data.eegConnections[i] === 1) {
-            badConnection.push(i);
-          } else {
-            badConnection.push('None');
-          }
-        }
-        badConnection = badConnection.join(',');
-      })
-      .catch((error) => console.log(error));
-  };
-  getEmotions = async (id, emotionTag) => {
-    const response = await axios
-      .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
-    this.append(response);
-  };
+  // eegConnection = async () => {
+  //   let badConnection = [];
+  //   for (let i = 1; i <= 8; i++) {
+  //     if (response.data.eegConnections[i] === 1) {
+  //       badConnection.push(i);
+  //     } else {
+  //       badConnection.push('None');
+  //     }
+  //   }
+  //   badConnection = badConnection.join(',');
+  // };
+  // getEmotions = async (id, emotionTag) => {
+  //   const response = await axios
+  //     .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
+  //     .then((response) => console.log(response))
+  //     .catch((error) => console.log(error));
+  //   this.append(response);
+  // };
 
   render() {
     if (this.state.realtimeStart == 1) {
       this.getUserImg();
     }
+    let connection = this.state.badConnection;
 
     return (
       <div class="full-container">
@@ -277,7 +261,8 @@ class VideoPlay extends Component {
           BadConnection Railed :{' '}
         </Typography>
         <Typography variant="subtitle2" id="connections">
-          {this.state.badConnection}{' '}
+          {connection.eeg1}
+          {/* {this.state.badConnection} */}
         </Typography>
         <RadarChart
           outerRadius={68}
@@ -288,14 +273,28 @@ class VideoPlay extends Component {
           <PolarGrid />
 
           <PolarAngleAxis dataKey="emotionTag" />
-          <PolarRadiusAxis angle={30} domain={[0, 1.0]} />
+          <PolarRadiusAxis angle={18} domain={[0, 1.0]} />
           <Radar
             name="emotion"
-            dataKey="A"
-            stroke="#8884d8"
-            fill="#8884d8"
+            dataKey="multi"
+            stroke="#ff6f69"
+            fill="#ff6f69"
             fillOpacity={0.6}
           />
+          {/* <Radar
+            name="EEG"
+            dataKey="multi"
+            stroke="#ffdd77"
+            fill="#ffdd77"
+            fillOpacity={0.6}
+          /> */}
+          {/* <Radar
+            name="Face"
+            dataKey="multi"
+            stroke="#96ceb4"
+            fill="#96ceb4"
+            fillOpacity={0.6}
+          /> */}
         </RadarChart>
       </div>
     );

@@ -40,7 +40,7 @@ class Analyze extends Component {
             <LoginAlert userName={user.name}></LoginAlert>
             <Grid container id="loginBox">
               <Typography variant="h3" id="AnalyzeText">
-                Choose an Emotion what you want!
+                Choose an emotion you want!
               </Typography>
 
               <FormControl variant="filled" id="emotionSelect">
