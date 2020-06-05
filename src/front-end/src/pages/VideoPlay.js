@@ -71,6 +71,7 @@ class VideoPlay extends Component {
       },
       emotionTag: null,
       imageIndex: 1,
+      fullConnected: false,
       badConnection: {
         eeg1: 1,
         eeg2: 1,
@@ -213,10 +214,17 @@ class VideoPlay extends Component {
                   response.data.eegValues[emotionList[emotionIdx]];
               }
               let _badConnection = response.data.eegConnections;
+              let eegCheck = true;
+              for (let eegIdx = 1; eegIdx < 8; eegIdx++) {
+                if (response.data.eegConnections['eeg' + eegIdx] == 1) {
+                  eegCheck = false;
+                }
+              }
               console.log(this.state.badConnection);
               this.setState({
                 signalData: newSignalData,
                 badConnection: _badConnection,
+                fullConnected: eegCheck,
               });
             }
           })
@@ -271,13 +279,28 @@ class VideoPlay extends Component {
           screenshotFormat="image/jpeg"
         />
         <img src={railed} id="railed"></img>
-        <Typography variant="subtitle2" id="connection">
-          BadConnection Railed :{' '}
-        </Typography>
-        <Typography variant="subtitle2" id="connections">
-          {connection.eeg1}
-          {/* {this.state.badConnection} */}
-        </Typography>
+        {this.state.fullConnected ? (
+          <Typography variant="subtitle2" id="connection">
+            All sensors are connected!
+          </Typography>
+        ) : (
+          <div>
+            <Typography variant="subtitle2" id="connection">
+              BadConnection Railed :{' '}
+            </Typography>
+            <Typography variant="subtitle2" id="connections">
+              {connection.eeg1 ? '1 ' : ''}
+              {connection.eeg2 ? '2 ' : ''}
+              {connection.eeg3 ? '3 ' : ''}
+              {connection.eeg4 ? '4 ' : ''}
+              {connection.eeg5 ? '5 ' : ''}
+              {connection.eeg6 ? '6 ' : ''}
+              {connection.eeg7 ? '7 ' : ''}
+              {connection.eeg8 ? '8 ' : ''}
+              {/* {this.state.badConnection} */}
+            </Typography>
+          </div>
+        )}
         <RadarChart
           outerRadius={68}
           width={250}
