@@ -57,12 +57,13 @@ html {
 .carousel-inner {
   height: 100%;
 }
+
 .videoWebcam {
-  position: absolute;
-  top: 48px;
-  right: 0px;
-  width: 20%;
-  height: 40%;
+  /* position: absolute; */
+  /* top: 48px; */
+  /* right: 0px; */
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 .webcam {
@@ -84,20 +85,20 @@ html {
 }
 
 .recharts-wrapper#realtimeChart {
-  position: absolute !important;
+  /* position: absolute !important;
   bottom: -30px;
   right: 20px;
   width: 20% !important;
-  height: 50% !important;
+  height: 50% !important; */
   text-align: center;
 }
 
 .recharts-surface#realtimeChart {
-  position: absolute !important ;
+  /* position: absolute !important ;
   bottom: 0px;
   right: 0px;
   width: 100% !important;
-  height: 100% !important;
+  height: 100% !important; */
 }
 
 @keyframes blinker {
@@ -208,32 +209,14 @@ label {
   background-color: white;
 }
 #railed {
-  position: absolute;
-  top: 47%;
-  right: 13%;
-  width: 8%;
-  height: 15%;
+  margin-left: 4%;
+  width: 80%;
+  height: 100%;
 }
 #connection {
-  position: absolute;
-  top: 50%;
-  left: 87%;
-}
-#connections {
-  position: absolute;
-  top: 55%;
-  left: 87%;
+  margin-top: 10%;
 }
 
-#real-time-box {
-  height: ;
-}
-
-#connections {
-  position: absolute;
-  top: 55%;
-  left: 87%;
-}
 .recharts-layer.recharts-pie {
   position: absolute;
   width: 100% !important;

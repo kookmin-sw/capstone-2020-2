@@ -26,7 +26,7 @@ import UserContext from '../UserContext';
 import { updateArrayBindingPattern, setTokenSourceMapRange } from 'typescript';
 import NavBar from '../components/NavBar';
 import railed from '../railed.png';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 
 class VideoPlay extends Component {
   constructor(props) {
@@ -264,9 +264,9 @@ class VideoPlay extends Component {
   // };
 
   render() {
-    if (this.state.realtimeStart == 1) {
-      this.getUserImg();
-    }
+    // if (this.state.realtimeStart == 1) {
+    //   this.getUserImg();
+    // }
     console.log(this.state.signalData);
     let connection = this.state.badConnection;
     const varFromState = this.state.signalChange;
@@ -274,47 +274,59 @@ class VideoPlay extends Component {
       <div class="full-container">
         <NavBar />
         {/* <div id="real-time-box"> */}
-        <ReactPlayer
-          className="videoPlayer"
-          url={this.state.video.link}
-          playing
-          width="80%"
-          height="94%"
-        />
-        <div>
-          <Webcam
-            class="videoWebcam"
-            audio={false}
-            facingmode="user"
-            mirrored={true}
-            screenshotQuality={1}
-            ref={this.setRef}
-            screenshotFormat="image/jpeg"
-          />
-          <img src={railed} id="railed"></img>
-          {this.state.fullConnected ? (
-            <Typography variant="subtitle2" id="connection">
-              All sensors are connected!
-            </Typography>
-          ) : (
-            <div>
-              <Typography variant="subtitle2" id="connection">
-                BadConnection Railed :{' '}
-              </Typography>
-              <Typography variant="subtitle2" id="connections">
-                {connection.eeg1 ? '1 ' : ''}
-                {connection.eeg2 ? '2 ' : ''}
-                {connection.eeg3 ? '3 ' : ''}
-                {connection.eeg4 ? '4 ' : ''}
-                {connection.eeg5 ? '5 ' : ''}
-                {connection.eeg6 ? '6 ' : ''}
-                {connection.eeg7 ? '7 ' : ''}
-                {connection.eeg8 ? '8 ' : ''}
-                {/* {this.state.badConnection} */}
-              </Typography>
-            </div>
-          )}
-          {/* <RadarChart
+
+        <Grid container>
+          <Grid item xs={9}>
+            <ReactPlayer
+              width="1390px"
+              height="925px"
+              className="videoPlayer"
+              url={this.state.video.link}
+              playing
+            />
+          </Grid>
+          <Grid item xs={3} container direction="column">
+            <Grid item xs>
+              <Webcam
+                class="videoWebcam"
+                audio={false}
+                facingmode="user"
+                mirrored={true}
+                screenshotQuality={1}
+                ref={this.setRef}
+                screenshotFormat="image/jpeg"
+              />
+            </Grid>
+            <Grid item container xs>
+              <Grid item xs={6}>
+                <img src={railed} id="railed"></img>
+              </Grid>
+              {this.state.fullConnected ? (
+                <Grid item xs={6}>
+                  <Typography variant="subtitle2" id="connection">
+                    All sensors are connected!
+                  </Typography>
+                </Grid>
+              ) : (
+                <Grid item xs={6}>
+                  <Typography variant="subtitle2" id="connection">
+                    BadConnection Railed :
+                  </Typography>
+                  <Typography variant="subtitle2" id="connections">
+                    {connection.eeg1 ? '1 ' : ''}
+                    {connection.eeg2 ? '2 ' : ''}
+                    {connection.eeg3 ? '3 ' : ''}
+                    {connection.eeg4 ? '4 ' : ''}
+                    {connection.eeg5 ? '5 ' : ''}
+                    {connection.eeg6 ? '6 ' : ''}
+                    {connection.eeg7 ? '7 ' : ''}
+                    {connection.eeg8 ? '8 ' : ''}
+                    {/* {this.state.badConnection} */}
+                  </Typography>
+                </Grid>
+              )}
+            </Grid>
+            {/* <RadarChart
             id="realtimeChart"
             outerRadius={68}
             width={250}
@@ -346,34 +358,39 @@ class VideoPlay extends Component {
               fillOpacity={0.6}
             />
           </RadarChart>{' '} */}
-          <ComposedChart
-            width={300}
-            height={250}
-            data={this.state.signalData}
-            style={{ position: 'absolute' }}
-          >
-            <XAxis dataKey="emotionTag" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <CartesianGrid stroke="#f5f5f5" />
-            <Area
-              type="monotone"
-              name="Face"
-              dataKey="face"
-              fill="white"
-              stroke="#ffc2c2"
-            />
-            <Area
-              type="monotone"
-              name="EEG"
-              dataKey="eeg"
-              fill="white"
-              stroke="#86c1e0"
-            />
-            <Bar name="Multi" dataKey="multi" barSize={20} fill="#554475" />
-          </ComposedChart>
-          {/* <ComposedChart width={300} height={250} data={this.state.signalData}>
+            <Grid>
+              <ComposedChart
+                // id="realtimeChart"
+                width={430}
+                height={330}
+                data={this.state.signalData}
+                style={{ marginTop: '5%' }}
+              >
+                <XAxis dataKey="emotionTag" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <CartesianGrid stroke="#f5f5f5" />
+                <Area
+                  type="monotone"
+                  name="Face"
+                  dataKey="face"
+                  fill="#F5F7FA"
+                  stroke="#ffc2c2"
+                />
+                <Area
+                  type="monotone"
+                  name="EEG"
+                  dataKey="eeg"
+                  fill="#F5F7FA"
+                  stroke="#86c1e0"
+                />
+                <Bar name="Multi" dataKey="multi" barSize={20} fill="#554475" />
+              </ComposedChart>
+            </Grid>
+          </Grid>
+        </Grid>
+        {/* <ComposedChart width={300} height={250} data={this.state.signalData}>
             <CartesianGrid stroke="#f5f5f5" />
             <XAxis dataKey="emotionTag" />
             <YAxis key={varFromState} />
@@ -388,7 +405,6 @@ class VideoPlay extends Component {
             <Bar dataKey="face" barSize={20} fill="#413ea0" />
             <Line type="monotone" dataKey="eeg" stroke="#ff7300" />
           </ComposedChart> */}
-        </div>
       </div>
     );
   }
