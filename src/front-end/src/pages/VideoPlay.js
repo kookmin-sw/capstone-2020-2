@@ -305,14 +305,14 @@ class VideoPlay extends Component {
               </Typography>
             </div>
           )}
-          {/* <RadarChart
+          <RadarChart
+            id="realtimeChart"
             outerRadius={68}
             width={250}
             height={250}
             data={this.state.signalData}
           >
             <PolarGrid />
-
             <PolarAngleAxis dataKey="emotionTag" />
             <PolarRadiusAxis angle={18} domain={[0, 1.0]} />
             <Radar
@@ -336,7 +336,8 @@ class VideoPlay extends Component {
               fill="#96ceb4"
               fillOpacity={0.6}
             />
-          </RadarChart> */}
+          </RadarChart>{' '}
+          */}
           <ComposedChart
             width={300}
             height={250}

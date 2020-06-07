@@ -28,6 +28,8 @@ dateDirPath = ''
 path = os.path.join(BASE_DIR, 'media')
 # Temporarily save encoded image of new user for signup.
 encodedImage = []
+# Dict for saving accumulated real time data.
+resultsDic = {}
 
 @api_view(['POST'])
 def signup(request):
@@ -196,8 +198,15 @@ def realTimeAnalyze(request):
     elif(emotionTag =="sad"):
         emotionTag="sadness"
     highestEmotion, multiResult, faceResult, eegResult, sensorStatus = detectEmotion(imgPath, eegTempPath, emotionTag)
+    # Accumulate results.
+    global resultsDic
+    if highestEmotion not in resultsDic:
+        resultsDic[highestEmotion] = [0,0,0]
+    resultsDic[highestEmotion][0] += faceResult[highestEmotion]
+    resultsDic[highestEmotion][1] += eegResult[highestEmotion]
+    resultsDic[highestEmotion][2] += multiResult[highestEmotion]
     payload = {
-        'emotionTag': emotionTag,
+        'emotionTag': highestEmotion,
         'emotionValues': multiResult,
         'faceValues': faceResult,
         'eegValues': eegResult,
@@ -216,18 +225,38 @@ def realTimeAnalyze(request):
 
 @api_view(['GET'])
 def finalResult(request):
-    # TODO : Save emotion values on last request
-    '''
+    # Save final result to DB.
+    global resultsDic
     resultId = request.session.get('resultId')
     result = Result.objects.filter(pk=resultId).first()
-    result.happiness =
-    result.sadness =
-    result.anger =
-    result.contempt =
-    result.disgust =
-    result.fear =
-    result.neutral =
-    result.surprise =
+    result.happiness = resultsDic['happiness'][2]
+    result.sadness = resultsDic['sadness'][2]
+    result.disgust = resultsDic['disgust'][2]
+    result.fear = resultsDic['fear'][2]
+    result.neutral = resultsDic['neutral'][2]
     result.save()
-    '''
-    return JsonResponse('Final result')
+    payload = {
+         "faceResult" : {
+            'happiness' : resultsDic['happiness'][0],
+            'sadness' : resultsDic['sadness'][0],
+            'disgust' : resultsDic['disgust'][0],
+            'fear' : resultsDic['fear'][0],
+            'neutral' : resultsDic['neutral'][0],
+        },
+        "eegResult" : {
+            'happiness' : resultsDic['happiness'][1],
+            'sadness' : resultsDic['sadness'][1],
+            'disgust' : resultsDic['disgust'][1],
+            'fear' : resultsDic['fear'][1],
+            'neutral' : resultsDic['neutral'][1],
+        },
+        "multiResult" : {
+            'happiness' : resultsDic['happiness'][2],
+            'sadness' : resultsDic['sadness'][2],
+            'disgust' : resultsDic['disgust'][2],
+            'fear' : resultsDic['fear'][2],
+            'neutral' : resultsDic['neutral'][2],
+        }
+    }
+    resultsDic = {}
+    return JsonResponse(payload)

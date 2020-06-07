@@ -6,6 +6,7 @@ body {
   width: 100%;
   height: 100%;
 }
+
 html {
   width: 100%;
   height: 100% !important;
@@ -81,7 +82,8 @@ html {
 .menuLink {
   color: black;
 }
-.recharts-wrapper {
+
+.recharts-wrapper#realtimeChart {
   position: absolute !important;
   bottom: -30px;
   right: 20px;
@@ -90,8 +92,8 @@ html {
   text-align: center;
 }
 
-.recharts-surface {
-  position: absolute !important;
+.recharts-surface#realtimeChart {
+  position: absolute !important ;
   bottom: 0px;
   right: 0px;
   width: 100% !important;
@@ -187,7 +189,11 @@ label {
   top: 40%;
   left: 30%;
   color: white;
-  text-align: center;
+}
+#resultText {
+  position: absolute;
+  top: 18%;
+  color: white;
 }
 #AnalyzeOption {
   position: relative;
@@ -221,4 +227,19 @@ label {
 
 #real-time-box {
   height: ;
+}
+
+#connections {
+  position: absolute;
+  top: 55%;
+  left: 87%;
+}
+.recharts-layer.recharts-pie {
+  position: absolute;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.recharts-wrapper#PieEEG {
+  margin-top: 200px;
 }
