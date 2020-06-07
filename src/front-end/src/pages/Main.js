@@ -21,14 +21,13 @@ theme = responsiveFontSizes(theme);
 class Main extends Component {
   render() {
     return (
-
       <ThemeProvider theme={theme}>
         <div className="full-container">
-    <NavBar/>
+          <NavBar />
           <Grid
             container
             style={{
-              height: '100%',
+              height: '95%',
             }}
           >
             <Grid
@@ -41,7 +40,6 @@ class Main extends Component {
               justify="center"
               alignItems="center"
             >
-             
               <Card id="startCard">
                 <CardContent
                   style={{

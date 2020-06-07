@@ -5,6 +5,14 @@ import ReactPlayer from 'react-player';
 import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import {
+  ComposedChart,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  Area,
+  Bar,
+  Line,
   Radar,
   RadarChart,
   PolarGrid,
@@ -30,38 +38,33 @@ class VideoPlay extends Component {
       signalData: [
         {
           emotionTag: 'happiness',
-          multi: 0.0,
+          multi: 10.0,
           face: 0.0,
           eeg: 0.0,
-          fullMark: 1.0,
         },
         {
           emotionTag: 'sadness',
           multi: 0.0,
           face: 0.0,
           eeg: 0.0,
-          fullMark: 1.0,
         },
         {
           emotionTag: 'disgust',
           multi: 0.0,
           face: 0.0,
           eeg: 0.0,
-          fullMark: 1.0,
         },
         {
           emotionTag: 'fear',
           multi: 0.0,
           face: 0.0,
           eeg: 0.0,
-          fullMark: 1.0,
         },
         {
           emotionTag: 'neutral',
           multi: 0.0,
           face: 0.0,
           eeg: 0.0,
-          fullMark: 1.0,
         },
       ],
       user: {
@@ -257,10 +260,11 @@ class VideoPlay extends Component {
       this.getUserImg();
     }
     let connection = this.state.badConnection;
-
+    const varFromState = this.state.signalChange;
     return (
       <div class="full-container">
         <NavBar />
+        {/* <div id="real-time-box"> */}
         <ReactPlayer
           className="videoPlayer"
           url={this.state.video.link}
@@ -268,71 +272,114 @@ class VideoPlay extends Component {
           width="80%"
           height="94%"
         />
-
-        <Webcam
-          class="videoWebcam"
-          audio={false}
-          facingmode="user"
-          mirrored={true}
-          screenshotQuality={1}
-          ref={this.setRef}
-          screenshotFormat="image/jpeg"
-        />
-        <img src={railed} id="railed"></img>
-        {this.state.fullConnected ? (
-          <Typography variant="subtitle2" id="connection">
-            All sensors are connected!
-          </Typography>
-        ) : (
-          <div>
+        <div>
+          <Webcam
+            class="videoWebcam"
+            audio={false}
+            facingmode="user"
+            mirrored={true}
+            screenshotQuality={1}
+            ref={this.setRef}
+            screenshotFormat="image/jpeg"
+          />
+          <img src={railed} id="railed"></img>
+          {this.state.fullConnected ? (
             <Typography variant="subtitle2" id="connection">
-              BadConnection Railed :{' '}
+              All sensors are connected!
             </Typography>
-            <Typography variant="subtitle2" id="connections">
-              {connection.eeg1 ? '1 ' : ''}
-              {connection.eeg2 ? '2 ' : ''}
-              {connection.eeg3 ? '3 ' : ''}
-              {connection.eeg4 ? '4 ' : ''}
-              {connection.eeg5 ? '5 ' : ''}
-              {connection.eeg6 ? '6 ' : ''}
-              {connection.eeg7 ? '7 ' : ''}
-              {connection.eeg8 ? '8 ' : ''}
-              {/* {this.state.badConnection} */}
-            </Typography>
-          </div>
-        )}
-        <RadarChart
-          outerRadius={68}
-          width={250}
-          height={250}
-          data={this.state.signalData}
-        >
-          <PolarGrid />
+          ) : (
+            <div>
+              <Typography variant="subtitle2" id="connection">
+                BadConnection Railed :{' '}
+              </Typography>
+              <Typography variant="subtitle2" id="connections">
+                {connection.eeg1 ? '1 ' : ''}
+                {connection.eeg2 ? '2 ' : ''}
+                {connection.eeg3 ? '3 ' : ''}
+                {connection.eeg4 ? '4 ' : ''}
+                {connection.eeg5 ? '5 ' : ''}
+                {connection.eeg6 ? '6 ' : ''}
+                {connection.eeg7 ? '7 ' : ''}
+                {connection.eeg8 ? '8 ' : ''}
+                {/* {this.state.badConnection} */}
+              </Typography>
+            </div>
+          )}
+          {/* <RadarChart
+            outerRadius={68}
+            width={250}
+            height={250}
+            data={this.state.signalData}
+          >
+            <PolarGrid />
 
-          <PolarAngleAxis dataKey="emotionTag" />
-          <PolarRadiusAxis angle={18} domain={[0, 1.0]} />
-          <Radar
-            name="emotion"
-            dataKey="multi"
-            stroke="#ff6f69"
-            fill="#ff6f69"
-            fillOpacity={0.6}
-          />
-          <Radar
-            name="EEG"
-            dataKey="eeg"
-            stroke="#ffdd77"
-            fill="#ffdd77"
-            fillOpacity={0.6}
-          />
-          <Radar
-            name="Face"
-            dataKey="face"
-            stroke="#96ceb4"
-            fill="#96ceb4"
-            fillOpacity={0.6}
-          />
-        </RadarChart>
+            <PolarAngleAxis dataKey="emotionTag" />
+            <PolarRadiusAxis angle={18} domain={[0, 1.0]} />
+            <Radar
+              name="emotion"
+              dataKey="multi"
+              stroke="#ff6f69"
+              fill="#ff6f69"
+              fillOpacity={0.6}
+            />
+            <Radar
+              name="EEG"
+              dataKey="eeg"
+              stroke="#ffdd77"
+              fill="#ffdd77"
+              fillOpacity={0.6}
+            />
+            <Radar
+              name="Face"
+              dataKey="face"
+              stroke="#96ceb4"
+              fill="#96ceb4"
+              fillOpacity={0.6}
+            />
+          </RadarChart> */}
+          <ComposedChart
+            width={300}
+            height={250}
+            data={this.state.signalData}
+            style={{ position: 'absolute' }}
+          >
+            <XAxis dataKey="emotionTag" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <CartesianGrid stroke="#f5f5f5" />
+            <Area
+              type="monotone"
+              name="Face"
+              dataKey="face"
+              fill="white"
+              stroke="#ffc2c2"
+            />
+            <Area
+              type="monotone"
+              name="EEG"
+              dataKey="eeg"
+              fill="white"
+              stroke="#86c1e0"
+            />
+            <Bar name="Multi" dataKey="multi" barSize={20} fill="#554475" />
+          </ComposedChart>
+          {/* <ComposedChart width={300} height={250} data={this.state.signalData}>
+            <CartesianGrid stroke="#f5f5f5" />
+            <XAxis dataKey="emotionTag" />
+            <YAxis key={varFromState} />
+            <Tooltip />
+            <Legend />
+            <Area
+              type="monotone"
+              dataKey="multi"
+              fill="gray"
+              stroke="#8884d8"
+            />
+            <Bar dataKey="face" barSize={20} fill="#413ea0" />
+            <Line type="monotone" dataKey="eeg" stroke="#ff7300" />
+          </ComposedChart> */}
+        </div>
       </div>
     );
   }

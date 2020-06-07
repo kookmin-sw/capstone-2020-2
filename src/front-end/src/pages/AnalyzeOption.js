@@ -38,7 +38,7 @@ class Analyze extends Component {
           <div class="full-container">
             <NavBar />
             <LoginAlert userName={user.name}></LoginAlert>
-            <Grid container id="loginBox">
+            <Grid container id="loginBox2">
               <Typography variant="h3" id="AnalyzeText">
                 Choose an emotion you want!
               </Typography>
@@ -74,17 +74,6 @@ class Analyze extends Component {
                       }}
                     >
                       Sad
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    {' '}
-                    <Link
-                      to={{
-                        pathname: '/VideoPlay',
-                        state: { emotionTag: 'anger' },
-                      }}
-                    >
-                      Angry
                     </Link>
                   </MenuItem>
                   <MenuItem>
