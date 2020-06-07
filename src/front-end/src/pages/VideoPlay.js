@@ -199,7 +199,8 @@ class VideoPlay extends Component {
               let values = response.emotionValues;
               console.log(response);
               // console.log(response.data);
-              let newSignalData = this.state.signalData;
+              // let newSignalData = this.state.signalData;
+              let newSignalData = [];
               console.log(newSignalData);
               const emotionList = [
                 'happiness',
@@ -209,12 +210,19 @@ class VideoPlay extends Component {
                 'neutral',
               ];
               for (let emotionIdx = 0; emotionIdx < 5; emotionIdx++) {
-                newSignalData[emotionIdx].multi =
-                  response.data.emotionValues[emotionList[emotionIdx]];
-                newSignalData[emotionIdx].face =
-                  response.data.faceValues[emotionList[emotionIdx]];
-                newSignalData[emotionIdx].eeg =
-                  response.data.eegValues[emotionList[emotionIdx]];
+                newSignalData.push({
+                  emotionTag: emotionList[emotionIdx],
+                  multi: response.data.emotionValues[emotionList[emotionIdx]],
+                  face: response.data.faceValues[emotionList[emotionIdx]],
+                  eeg: response.data.eegValues[emotionList[emotionIdx]],
+                });
+                // newSignalData[emotionIdx].emotionTag = emotionList[emotionIdx];
+                // newSignalData[emotionIdx].multi =
+                //   response.data.emotionValues[emotionList[emotionIdx]];
+                // newSignalData[emotionIdx].face =
+                //   response.data.faceValues[emotionList[emotionIdx]];
+                // newSignalData[emotionIdx].eeg =
+                //   response.data.eegValues[emotionList[emotionIdx]];
               }
               let _badConnection = response.data.eegConnections;
               let eegCheck = true;
@@ -259,6 +267,7 @@ class VideoPlay extends Component {
     if (this.state.realtimeStart == 1) {
       this.getUserImg();
     }
+    console.log(this.state.signalData);
     let connection = this.state.badConnection;
     const varFromState = this.state.signalChange;
     return (
@@ -305,7 +314,7 @@ class VideoPlay extends Component {
               </Typography>
             </div>
           )}
-          <RadarChart
+          {/* <RadarChart
             id="realtimeChart"
             outerRadius={68}
             width={250}
@@ -336,8 +345,7 @@ class VideoPlay extends Component {
               fill="#96ceb4"
               fillOpacity={0.6}
             />
-          </RadarChart>{' '}
-          */}
+          </RadarChart>{' '} */}
           <ComposedChart
             width={300}
             height={250}
