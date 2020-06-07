@@ -165,7 +165,7 @@ label {
   height: 95%;
 }
 #loginBox1 {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.904);
   align-items: center;
   text-align: center;
   height: 100%;
@@ -177,6 +177,7 @@ label {
   height: 87%;
 }
 #startCard {
+  background-color: #d1e2e7;
   position: relative;
   width: 70%;
   height: 40%;
@@ -214,7 +215,7 @@ label {
   height: 100%;
 }
 #connection {
-  margin-top: 10%;
+  top: 10%;
 }
 
 .recharts-layer.recharts-pie {

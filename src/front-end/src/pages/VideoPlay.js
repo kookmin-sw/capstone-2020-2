@@ -326,38 +326,6 @@ class VideoPlay extends Component {
                 </Grid>
               )}
             </Grid>
-            {/* <RadarChart
-            id="realtimeChart"
-            outerRadius={68}
-            width={250}
-            height={250}
-            data={this.state.signalData}
-          >
-            <PolarGrid />
-            <PolarAngleAxis dataKey="emotionTag" />
-            <PolarRadiusAxis angle={18} domain={[0, 1.0]} />
-            <Radar
-              name="emotion"
-              dataKey="multi"
-              stroke="#ff6f69"
-              fill="#ff6f69"
-              fillOpacity={0.6}
-            />
-            <Radar
-              name="EEG"
-              dataKey="eeg"
-              stroke="#ffdd77"
-              fill="#ffdd77"
-              fillOpacity={0.6}
-            />
-            <Radar
-              name="Face"
-              dataKey="face"
-              stroke="#96ceb4"
-              fill="#96ceb4"
-              fillOpacity={0.6}
-            />
-          </RadarChart>{' '} */}
             <Grid>
               <ComposedChart
                 // id="realtimeChart"
@@ -390,21 +358,6 @@ class VideoPlay extends Component {
             </Grid>
           </Grid>
         </Grid>
-        {/* <ComposedChart width={300} height={250} data={this.state.signalData}>
-            <CartesianGrid stroke="#f5f5f5" />
-            <XAxis dataKey="emotionTag" />
-            <YAxis key={varFromState} />
-            <Tooltip />
-            <Legend />
-            <Area
-              type="monotone"
-              dataKey="multi"
-              fill="gray"
-              stroke="#8884d8"
-            />
-            <Bar dataKey="face" barSize={20} fill="#413ea0" />
-            <Line type="monotone" dataKey="eeg" stroke="#ff7300" />
-          </ComposedChart> */}
       </div>
     );
   }
