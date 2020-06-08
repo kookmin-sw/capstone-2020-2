@@ -178,7 +178,7 @@ class VideoPlay extends Component {
           this.props.history.push(this.props.location);
         }
       }
-    }, 2000);
+    }, 1000);
 
     const dataURLtoFile = (dataurl, filename) => {
       var arr = dataurl.split(','),

@@ -193,8 +193,7 @@ label {
   color: white;
 }
 #resultText {
-  position: absolute;
-  top: 18%;
+  margin-top: 7%;
   color: white;
 }
 #AnalyzeOption {

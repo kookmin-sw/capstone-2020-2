@@ -36,6 +36,9 @@ const renderActiveShape = (props) => {
     payload,
     percent,
     multi,
+    eeg,
+    face,
+    data,
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
@@ -46,19 +49,8 @@ const renderActiveShape = (props) => {
   const ex = mx + (cos >= 0 ? 1 : -1) * 22;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
-
   return (
     <g>
-      <text
-        font-size="30px"
-        x={cx}
-        y={cy}
-        dy={8}
-        textAnchor="middle"
-        fill={fill}
-      >
-        {payload.emotionTag}
-      </text>
       <Sector
         cx={cx}
         cy={cy}
@@ -83,14 +75,14 @@ const renderActiveShape = (props) => {
         fill="none"
       />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text
+      {/* <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         textAnchor={textAnchor}
         fill="#333"
       >
         {`${multi}`}{' '}
-      </text>
+      </text> */}
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
@@ -98,7 +90,92 @@ const renderActiveShape = (props) => {
         textAnchor={textAnchor}
         fill="#999"
       >
-        {`(${percent * 100}%)`}
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    </g>
+  );
+};
+
+const renderActiveShapeM = (props) => {
+  const RADIAN = Math.PI / 180;
+  const {
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    fill,
+    payload,
+    percent,
+    multi,
+    eeg,
+    face,
+    data,
+  } = props;
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * midAngle);
+  const sx = cx + (outerRadius + 10) * cos;
+  const sy = cy + (outerRadius + 10) * sin;
+  const mx = cx + (outerRadius + 30) * cos;
+  const my = cy + (outerRadius + 30) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  const ey = my;
+  const textAnchor = cos >= 0 ? 'start' : 'end';
+  return (
+    <g>
+      <text
+        font-size="30px"
+        x={cx}
+        y={cy}
+        dy={8}
+        textAnchor="middle"
+        fill={fill}
+      >
+        {payload.emotionTag}
+      </text>
+
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        fill={fill}
+      />
+      <path
+        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+        stroke={fill}
+        fill="none"
+      />
+      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+      {/* <text
+        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        y={ey}
+        textAnchor={textAnchor}
+        fill="#333"
+      >
+        {`${multi}`}{' '}
+      </text> */}
+      <text
+        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        y={ey}
+        dy={18}
+        textAnchor={textAnchor}
+        fill="#999"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
       </text>
     </g>
   );
@@ -207,73 +284,111 @@ class Result extends Component {
         ) : (
           <div>
             <NavBar />
-            <Grid container id="loginBox" direction="column" justify="center">
-              <Typography variant="h3" id="resultText">
-                {user.name}님의 최종감정입니다.
-              </Typography>
-              <PieChart width={400} height={400} class="Pie" id="PieEEG">
-                <Pie
-                  name="emotionTag"
-                  data={this.state.signalData}
-                  cx={250}
-                  cy={300}
-                  startAngle={180}
-                  endAngle={0}
-                  outerRadius={110}
-                  fill="#ffc2c2"
-                  dataKey="face"
-                  label
-                >
-                  {this.state.signalData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-              <PieChart width={600} height={600} class="Pie" id="PieMulti">
-                <Pie
-                  data={this.state.signalData}
-                  activeIndex={this.state.activeIndex}
-                  activeShape={renderActiveShape}
-                  cx={300}
-                  cy={300}
-                  innerRadius={110}
-                  outerRadius={180}
-                  fill="#554475"
-                  dataKey="multi"
-                  labelLine={false}
-                  onMouseEnter={this.onPieEnter}
-                >
-                  {this.state.signalData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-              <PieChart width={400} height={400} class="Pie" id="PieFace">
-                <Pie
-                  data={this.state.signalData}
-                  cx={200}
-                  cy={300}
-                  startAngle={180}
-                  endAngle={0}
-                  outerRadius={110}
-                  fill="#86c1e0"
-                  dataKey="eeg"
-                  label
-                >
-                  {this.state.signalData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
+            <Grid container id="loginBox" justify="center">
+              <Grid item xs={12}>
+                <Typography variant="h3" id="resultText">
+                  {user.name}님의 최종감정입니다.
+                </Typography>
+              </Grid>
+              <Grid item container xs={12} justify="center">
+                <Grid item xs={3}>
+                  <PieChart width={400} height={400} class="Pie" id="PieEEG">
+                    <Pie
+                      name="emotionTag"
+                      data={this.state.signalData}
+                      activeIndex={this.state.activeIndex}
+                      activeShape={renderActiveShape}
+                      cx={250}
+                      cy={300}
+                      startAngle={180}
+                      endAngle={0}
+                      outerRadius={110}
+                      fill="#ffc2c2"
+                      dataKey="face"
+                    >
+                      {this.state.signalData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </Grid>
+                <Grid item xs={6}>
+                  <PieChart
+                    width={600}
+                    height={600}
+                    class="Pie"
+                    id="PieMulti"
+                    style={{ width: '100%' }}
+                  >
+                    <Pie
+                      data={this.state.signalData}
+                      activeIndex={this.state.activeIndex}
+                      activeShape={renderActiveShapeM}
+                      cx={300}
+                      cy={300}
+                      innerRadius={110}
+                      outerRadius={180}
+                      fill="#554475"
+                      dataKey="multi"
+                      labelLine={false}
+                      onMouseEnter={this.onPieEnter}
+                    >
+                      {this.state.signalData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </Grid>
+                <Grid item xs={3}>
+                  <PieChart width={400} height={400} class="Pie" id="PieFace">
+                    <Pie
+                      data={this.state.signalData}
+                      activeIndex={this.state.activeIndex}
+                      activeShape={renderActiveShape}
+                      cx={200}
+                      cy={300}
+                      startAngle={180}
+                      endAngle={0}
+                      outerRadius={110}
+                      fill="#86c1e0"
+                      dataKey="eeg"
+                    >
+                      {this.state.signalData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </Grid>
+              </Grid>
+              <Grid item container xs={12} style={{ marginBottom: '95px' }}>
+                <Grid item xs={3}>
+                  {' '}
+                  <Typography variant="h4" style={{ color: 'white' }}>
+                    Face
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  {' '}
+                  <Typography variant="h4" style={{ color: 'white' }}>
+                    Face&EEG
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  {' '}
+                  <Typography variant="h4" style={{ color: 'white' }}>
+                    EEG
+                  </Typography>
+                </Grid>
+              </Grid>
             </Grid>
           </div>
         )}
