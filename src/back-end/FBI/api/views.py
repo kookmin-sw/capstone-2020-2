@@ -200,11 +200,14 @@ def realTimeAnalyze(request):
     highestEmotion, multiResult, faceResult, eegResult, sensorStatus = detectEmotion(imgPath, eegTempPath, emotionTag)
     # Accumulate results.
     global resultsDic
-    if highestEmotion not in resultsDic:
-        resultsDic[highestEmotion] = [0,0,0]
-    resultsDic[highestEmotion][0] += faceResult[highestEmotion]
-    resultsDic[highestEmotion][1] += eegResult[highestEmotion]
-    resultsDic[highestEmotion][2] += multiResult[highestEmotion]
+    emotions = ["happiness", "sadness", "disgust", "fear", "neutral"]
+    for emotion in emotions:
+        if emotion not in resultsDic:
+            resultsDic[emotion] = [0, 0, 0]
+        resultsDic[emotion][0] += faceResult[emotion]
+        resultsDic[emotion][1] += eegResult[emotion]
+        resultsDic[emotion][2] += multiResult[emotion]
+
     payload = {
         'emotionTag': highestEmotion,
         'emotionValues': multiResult,
@@ -225,6 +228,8 @@ def realTimeAnalyze(request):
 
 @api_view(['GET'])
 def finalResult(request):
+    # Save accumulated EEG signal.
+
     # Save final result to DB.
     global resultsDic
     resultId = request.session.get('resultId')
