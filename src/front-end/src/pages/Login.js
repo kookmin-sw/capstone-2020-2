@@ -28,6 +28,10 @@ class Login extends Component {
   componentWillMount(Webcam) {
     this.getLogin();
   }
+  componentWillUnmount(){
+    clearTimeout(this.captureImg);
+    
+  };
 
   setRef = (webcam) => {
     this.webcam = webcam;
