@@ -113,12 +113,7 @@ class VideoPlay extends Component {
       this.props.history.push('/Analyze');
     }
   }
-  componentDidMount() {
-  
-  }
-
-
- 
+  componentDidMount() {}
 
   setRef = (webcam) => {
     this.webcam = webcam;
@@ -138,7 +133,7 @@ class VideoPlay extends Component {
   };
 
   getUserImg = () => {
-    var cnt = 0 ;
+    var cnt = 0;
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
@@ -155,8 +150,8 @@ class VideoPlay extends Component {
       });
       this.realtimeUserFace(file);
       // this.eegConnection();
-      if(cnt==60){
-        console.log("종료합니다.",cnt);
+      if (cnt == 60) {
+        console.log('종료합니다.', cnt);
         clearInterval(captureImg);
         return this.props.history.push(`/Result`);
       }
@@ -265,9 +260,9 @@ class VideoPlay extends Component {
   // };
 
   render() {
-    // if (this.state.realtimeStart == 1) {
-    //   this.getUserImg();
-    // }
+    if (this.state.realtimeStart == 1) {
+      this.getUserImg();
+    }
     console.log(this.state.signalData);
     let connection = this.state.badConnection;
     const varFromState = this.state.signalChange;
@@ -304,16 +299,16 @@ class VideoPlay extends Component {
               </Grid>
               {this.state.fullConnected ? (
                 <Grid item xs={6}>
-                  <Typography variant="subtitle2" id="connection">
+                  <Typography variant="h6" id="connection">
                     All sensors are connected!
                   </Typography>
                 </Grid>
               ) : (
                 <Grid item xs={6}>
-                  <Typography variant="subtitle2" id="connection">
+                  <Typography variant="h6" id="connection">
                     BadConnection Railed :
                   </Typography>
-                  <Typography variant="subtitle2" id="connections">
+                  <Typography variant="subtitle1" id="connections">
                     {connection.eeg1 ? '1 ' : ''}
                     {connection.eeg2 ? '2 ' : ''}
                     {connection.eeg3 ? '3 ' : ''}
@@ -340,21 +335,21 @@ class VideoPlay extends Component {
                 <Tooltip />
                 <Legend />
                 <CartesianGrid stroke="#f5f5f5" />
+                <Bar name="Multi" dataKey="multi" barSize={20} fill="#554475" />
                 <Area
                   type="monotone"
                   name="Face"
                   dataKey="face"
-                  fill="#F5F7FA"
+                  fill="#ECECEC"
                   stroke="#ffc2c2"
                 />
                 <Area
                   type="monotone"
                   name="EEG"
                   dataKey="eeg"
-                  fill="#F5F7FA"
+                  fill="#ECECEC"
                   stroke="#86c1e0"
                 />
-                <Bar name="Multi" dataKey="multi" barSize={20} fill="#554475" />
               </ComposedChart>
             </Grid>
           </Grid>
