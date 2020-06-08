@@ -229,8 +229,7 @@ def realTimeAnalyze(request):
 @api_view(['GET'])
 def finalResult(request):
     # Create text to send signal to save accumulated EEG signal text.
-    filePath = os.path.join(dirPath, "save.txt")
-    file = open(filePath, "w")
+    file = open(os.path.join(dirPath, "save.txt"), "w")
     file.write("Save accumulated EEG signals")
     file.close()
     # Save final result to DB.
@@ -268,7 +267,10 @@ def finalResult(request):
     }
     resultsDic = {}
     # Save accumulated EEG signal.
-    destination = os.path.join(dateDirPath, 'eeg')
-    while os.path.isfile(filePath):
-        dest = shutil.move(filePath, destination)
+    filePath = os.path.join(dirPath, "all_signal.txt")
+    destination = os.path.join(dateDirPath, "eeg")
+    while True:
+        if os.path.isfile(filePath):
+            dest = shutil.move(filePath, destination)
+            break
     return JsonResponse(payload)
