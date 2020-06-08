@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from . import serializers
 from .customLogin import *
-import random, os, pickle, sys
+import random, os, pickle, sys, shutil
 from PIL import Image
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(
@@ -228,8 +228,10 @@ def realTimeAnalyze(request):
 
 @api_view(['GET'])
 def finalResult(request):
-    # Save accumulated EEG signal.
-
+    # Create text to send signal to save accumulated EEG signal text.
+    file = open(os.path.join(dirPath, "save.txt"), "w")
+    file.write("Save accumulated EEG signals")
+    file.close()
     # Save final result to DB.
     global resultsDic
     resultId = request.session.get('resultId')
@@ -264,4 +266,11 @@ def finalResult(request):
         }
     }
     resultsDic = {}
+    # Save accumulated EEG signal.
+    filePath = os.path.join(dirPath, "all_signal.txt")
+    destination = os.path.join(dateDirPath, "eeg")
+    while True:
+        if os.path.isfile(filePath):
+            dest = shutil.move(filePath, destination)
+            break
     return JsonResponse(payload)
