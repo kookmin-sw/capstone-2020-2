@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
-import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  Link,
+  BrowserRouter as Router,
+  withRouter,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import {
   Grid,
   Button,
@@ -203,7 +209,7 @@ class Result extends Component {
             <NavBar />
             <Grid container id="loginBox" direction="column" justify="center">
               <Typography variant="h3" id="resultText">
-                {user.Name}님의 최종감정입니다.
+                {user.name}님의 최종감정입니다.
               </Typography>
               <PieChart width={400} height={400} class="Pie" id="PieEEG">
                 <Pie
@@ -270,10 +276,10 @@ class Result extends Component {
               </PieChart>
             </Grid>
           </div>
-       )}
+        )}
       </div>
     );
   }
 }
 
-export default Result;
+export default withRouter(Result);

@@ -7,7 +7,13 @@ import {
   Typography,
   IconButton,
 } from '@material-ui/core/';
-import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  Link,
+  BrowserRouter as Router,
+  withRouter,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -113,12 +119,12 @@ class Analyze extends Component {
               </FormControl>
             </Grid>
           </div>
-         ) : (
-           this.redirectToLogin()
-         )}
+        ) : (
+          this.redirectToLogin()
+        )}
       </>
     );
   }
 }
 
-export default Analyze;
+export default withRouter(Analyze);

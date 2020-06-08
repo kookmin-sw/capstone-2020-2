@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  Link,
+  BrowserRouter as Router,
+  withRouter,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import {
   Button,
   Card,
@@ -53,4 +59,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(Main);

@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
 import ReactPlayer from 'react-player';
-import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  Link,
+  BrowserRouter as Router,
+  withRouter,
+  Route,
+} from 'react-router-dom';
 import Webcam from 'react-webcam';
 import {
   ComposedChart,
@@ -119,6 +124,10 @@ class VideoPlay extends Component {
     this.webcam = webcam;
   };
 
+  componentWillUnmount() {
+    clearInterval(this.captureImg);
+  }
+
   getVideo = async (id, emotionTag) => {
     console.log(id, emotionTag);
     try {
@@ -134,26 +143,40 @@ class VideoPlay extends Component {
 
   getUserImg = () => {
     var cnt = 0;
-    const captureImg = setInterval(() => {
-      var base64Str = this.webcam.getScreenshot();
-      var file = dataURLtoFile(
-        base64Str,
-        `${this.state.user.id}-${this.state.video.id}-${(
-          '000' + this.state.imageIndex
-        ).slice(-3)}.jpg`,
-      );
-      console.log('getUserImg 실행중');
-      this.setState({
-        realtimeUserFace: file,
-        imageIndex: this.state.imageIndex + 1,
-        realtimeStart: this.state.realtimeStart + 1,
-      });
-      this.realtimeUserFace(file);
-      // this.eegConnection();
-      if (cnt == 60) {
-        console.log('종료합니다.', cnt);
-        clearInterval(captureImg);
-        return this.props.history.push(`/Result`);
+    this.captureImg = setInterval(() => {
+      try {
+        var base64Str = this.webcam.getScreenshot();
+
+        var file = dataURLtoFile(
+          base64Str,
+          `${this.state.user.id}-${this.state.video.id}-${(
+            '000' + this.state.imageIndex
+          ).slice(-3)}.jpg`,
+        );
+        console.log('getUserImg 실행중');
+        this.setState({
+          realtimeUserFace: file,
+          imageIndex: this.state.imageIndex + 1,
+          realtimeStart: this.state.realtimeStart + 1,
+        });
+        this.realtimeUserFace(file);
+        cnt++;
+        console.log('cnt is', cnt);
+        // this.eegConnection();
+        if (cnt == 7) clearInterval(this.captureImg);
+        if (cnt == 10) {
+          console.log('종료합니다.', cnt);
+          // clearInterval(captureImg);
+          return this.props.history.push(`/Result`);
+        }
+      } catch {
+        // location.reload();
+        if (
+          this.props.location == '/Result' ||
+          this.props.location == 'Analyze'
+        ) {
+          this.props.history.push(this.props.location);
+        }
       }
     }, 2000);
 
@@ -359,4 +382,4 @@ class VideoPlay extends Component {
   }
 }
 
-export default VideoPlay;
+export default withRouter(VideoPlay);
