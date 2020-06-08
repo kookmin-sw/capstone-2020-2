@@ -155,7 +155,7 @@ class VideoPlay extends Component {
       });
       this.realtimeUserFace(file);
       // this.eegConnection();
-      if(cnt==40){
+      if(cnt==60){
         console.log("종료합니다.",cnt);
         clearInterval(captureImg);
         return this.props.history.push(`/Result`);
