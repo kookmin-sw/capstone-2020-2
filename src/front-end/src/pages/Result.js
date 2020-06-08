@@ -270,7 +270,7 @@ class Result extends Component {
               </PieChart>
             </Grid>
           </div>
-        )}
+       )}
       </div>
     );
   }

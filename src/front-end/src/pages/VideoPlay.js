@@ -12,12 +12,6 @@ import {
   CartesianGrid,
   Area,
   Bar,
-  Line,
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
   Legend,
   Text,
 } from 'recharts';
@@ -119,11 +113,12 @@ class VideoPlay extends Component {
       this.props.history.push('/Analyze');
     }
   }
-  componentWillUnmount() {
-    this.getUserImg = null;
-    // this.props.isLast = true;
+  componentDidMount() {
+  
   }
-  componentDidMount() {}
+
+
+ 
 
   setRef = (webcam) => {
     this.webcam = webcam;
@@ -143,6 +138,7 @@ class VideoPlay extends Component {
   };
 
   getUserImg = () => {
+    var cnt = 0 ;
     const captureImg = setInterval(() => {
       var base64Str = this.webcam.getScreenshot();
       var file = dataURLtoFile(
@@ -159,6 +155,11 @@ class VideoPlay extends Component {
       });
       this.realtimeUserFace(file);
       // this.eegConnection();
+      if(cnt==40){
+        console.log("종료합니다.",cnt);
+        clearInterval(captureImg);
+        return this.props.history.push(`/Result`);
+      }
     }, 2000);
 
     const dataURLtoFile = (dataurl, filename) => {
