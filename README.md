@@ -62,7 +62,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 ### 이연지 (Yeon-Ji Lee)
 
 &nbsp;&nbsp;- Student ID: 20171668 <br/>
-&nbsp;&nbsp;- Role: 팀장, 뇌파 기반 감정 인식 모델 학습 및 개발, 멀티모달 분석모듈 개발 <br/>
+&nbsp;&nbsp;- Role: 팀장, 뇌파 기반 감정 인식 모델 학습, multi-modal 분석모듈 개발 <br/>
 &nbsp;&nbsp;- Email: nelumbotus@kookmin.ac.kr <br/>
 <br/><br/><br/><br/><br/><br/>
 
@@ -71,7 +71,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 ### 김경진 (Kyung-Jin Kim)
 
 &nbsp;&nbsp;- Student ID: 20170292 <br/>
-&nbsp;&nbsp;- Role: Back-end Server 및 DB 구축, Back-end api 개발 <br/>
+&nbsp;&nbsp;- Role: Back-end server 및 DB 구축, Back-end api 개발 <br/>
 &nbsp;&nbsp;- Email: jinnymini@gmail.com <br/>
 <br/><br/><br/><br/><br/><br/>
 
@@ -89,7 +89,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 ### 서명희 (Myoung-Hee Seo)
 
 &nbsp;&nbsp;- Student ID: 20171627 <br/>
-&nbsp;&nbsp;- Role: Back-end Server 연동, Front-end UI 구현, Github 관리, 통합 시연 환경 <br/>
+&nbsp;&nbsp;- Role: Back-end Server 및 연동, Front-end UI 구현, Github 관리, 통합 시연 환경 구성 <br/>
 &nbsp;&nbsp;- Email: myounghee.seo2@gmail.com <br/>
 <br/><br/><br/><br/><br/><br/>
 
@@ -99,7 +99,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 ### 이예림 (Ye-Rim Lee)
 
 &nbsp;&nbsp;- Student ID: 20171670 <br/>
-&nbsp;&nbsp;- Role: 표정 기반 감정 인식 모델 학습 및 개발, 멀티모달 분석모듈 개발<br/>
+&nbsp;&nbsp;- Role: 표정 기반 감정 인식 모델 학습, 표정 및 multi-modal 분석모듈 개발<br/>
 &nbsp;&nbsp;- Email: lylim5050@kookmin.ac.kr <br/>
 <br/><br/><br/><br/><br/><br/>
 <br/><br/>
