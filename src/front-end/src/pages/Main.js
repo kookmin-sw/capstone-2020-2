@@ -1,20 +1,9 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import {
-  Link,
-  BrowserRouter as Router,
-  withRouter,
-  Route,
-  Switch,
-} from 'react-router-dom';
-import {
-  Button,
-  Card,
-  CardContent,
   createMuiTheme,
   Grid,
-  Hidden,
   responsiveFontSizes,
-  Typography,
   ThemeProvider,
 } from '@material-ui/core';
 import IntroCarousel from '../components/IntroCarousel';

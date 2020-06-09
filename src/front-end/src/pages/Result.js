@@ -1,21 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
-import {
-  Link,
-  BrowserRouter as Router,
-  withRouter,
-  Route,
-  Switch,
-} from 'react-router-dom';
-import {
-  Grid,
-  Button,
-  Input,
-  TextField,
-  InputAdornment,
-  Typography,
-} from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import { Grid, Typography } from '@material-ui/core';
 import { PieChart, Pie, Sector, Cell } from 'recharts';
 import UserContext from '../UserContext';
 import NavBar from '../components/NavBar';
@@ -33,12 +20,7 @@ const renderActiveShape = (props) => {
     startAngle,
     endAngle,
     fill,
-    payload,
     percent,
-    multi,
-    eeg,
-    face,
-    data,
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
@@ -75,14 +57,7 @@ const renderActiveShape = (props) => {
         fill="none"
       />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      {/* <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        textAnchor={textAnchor}
-        fill="#333"
-      >
-        {`${multi}`}{' '}
-      </text> */}
+
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
@@ -160,14 +135,7 @@ const renderActiveShapeM = (props) => {
         fill="none"
       />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      {/* <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        textAnchor={textAnchor}
-        fill="#333"
-      >
-        {`${multi}`}{' '}
-      </text> */}
+
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
@@ -188,35 +156,35 @@ class Result extends Component {
       signalData: [
         {
           emotionTag: 'happiness',
-          multi: 0.2,
-          face: 0.1,
-          eeg: 0.3,
+          multi: 0.0,
+          face: 0.0,
+          eeg: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'sadness',
-          multi: 0.2,
-          face: 0.2,
-          eeg: 0.2,
+          multi: 0.0,
+          face: 0.0,
+          eeg: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'disgust',
-          multi: 0.3,
-          face: 0.7,
-          eeg: 0.5,
+          multi: 0.0,
+          face: 0.0,
+          eeg: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'fear',
-          multi: 0.1,
+          multi: 0.0,
           face: 0.0,
           eeg: 0.0,
           fullMark: 1.0,
         },
         {
           emotionTag: 'neutral',
-          multi: 0.2,
+          multi: 0.0,
           face: 0.0,
           eeg: 0.0,
           fullMark: 1.0,
@@ -369,7 +337,7 @@ class Result extends Component {
                   </PieChart>
                 </Grid>
               </Grid>
-              <Grid item container xs={12} style={{ marginBottom: '95px' }}>
+              <Grid item container xs={12} style={{ marginBottom: '100px' }}>
                 <Grid item xs={3}>
                   {' '}
                   <Typography variant="h4" style={{ color: 'white' }}>

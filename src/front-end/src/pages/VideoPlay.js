@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../App.css';
 import ReactPlayer from 'react-player';
-import {
-  Link,
-  BrowserRouter as Router,
-  withRouter,
-  Route,
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import {
   ComposedChart,
@@ -18,11 +13,10 @@ import {
   Area,
   Bar,
   Legend,
-  Text,
 } from 'recharts';
 
 import UserContext from '../UserContext';
-import { updateArrayBindingPattern, setTokenSourceMapRange } from 'typescript';
+
 import NavBar from '../components/NavBar';
 import railed from '../railed.png';
 import { Typography, Grid } from '@material-ui/core';
@@ -37,7 +31,7 @@ class VideoPlay extends Component {
       signalData: [
         {
           emotionTag: 'happiness',
-          multi: 10.0,
+          multi: 0.0,
           face: 0.0,
           eeg: 0.0,
         },
@@ -162,15 +156,12 @@ class VideoPlay extends Component {
         this.realtimeUserFace(file);
         cnt++;
         console.log('cnt is', cnt);
-        // this.eegConnection();
-        if (cnt == 7) clearInterval(this.captureImg);
-        if (cnt == 10) {
+        if (cnt == 77) clearInterval(this.captureImg);
+        if (cnt == 80) {
           console.log('종료합니다.', cnt);
-          // clearInterval(captureImg);
           return this.props.history.push(`/Result`);
         }
       } catch {
-        // location.reload();
         if (
           this.props.location == '/Result' ||
           this.props.location == 'Analyze'
@@ -204,83 +195,53 @@ class VideoPlay extends Component {
       console.log('realtimeUserFace image file', file);
       console.log(this.state.video.dateDirPath);
       console.log(this.state.badConnection);
-      // console.log('testing....', this.state.realtimeUserFace);
-      return (
-        axios
-          // .get(`api/v1/user/${id}/analyze/real-time-result/`, image, {
-          .post(`api/v1/user/analyze/real-time-result/`, realtimeData, {
-            headers: {
-              'content-type': 'multipart/form-data',
-            },
-          })
-          .then((response) => {
-            if (response.data.emotionValues) {
-              let values = response.emotionValues;
-              console.log(response);
-              // console.log(response.data);
-              // let newSignalData = this.state.signalData;
-              let newSignalData = [];
-              console.log(newSignalData);
-              const emotionList = [
-                'happiness',
-                'sadness',
-                'disgust',
-                'fear',
-                'neutral',
-              ];
-              for (let emotionIdx = 0; emotionIdx < 5; emotionIdx++) {
-                newSignalData.push({
-                  emotionTag: emotionList[emotionIdx],
-                  multi: response.data.emotionValues[emotionList[emotionIdx]],
-                  face: response.data.faceValues[emotionList[emotionIdx]],
-                  eeg: response.data.eegValues[emotionList[emotionIdx]],
-                });
-                // newSignalData[emotionIdx].emotionTag = emotionList[emotionIdx];
-                // newSignalData[emotionIdx].multi =
-                //   response.data.emotionValues[emotionList[emotionIdx]];
-                // newSignalData[emotionIdx].face =
-                //   response.data.faceValues[emotionList[emotionIdx]];
-                // newSignalData[emotionIdx].eeg =
-                //   response.data.eegValues[emotionList[emotionIdx]];
-              }
-              let _badConnection = response.data.eegConnections;
-              let eegCheck = true;
-              for (let eegIdx = 1; eegIdx < 8; eegIdx++) {
-                if (response.data.eegConnections['eeg' + eegIdx] == 1) {
-                  eegCheck = false;
-                }
-              }
-              console.log(this.state.badConnection);
-              this.setState({
-                signalData: newSignalData,
-                badConnection: _badConnection,
-                fullConnected: eegCheck,
+      return axios
+        .post(`api/v1/user/analyze/real-time-result/`, realtimeData, {
+          headers: {
+            'content-type': 'multipart/form-data',
+          },
+        })
+        .then((response) => {
+          if (response.data.emotionValues) {
+            let values = response.emotionValues;
+            console.log(response);
+
+            let newSignalData = [];
+            console.log(newSignalData);
+            const emotionList = [
+              'happiness',
+              'sadness',
+              'disgust',
+              'fear',
+              'neutral',
+            ];
+            for (let emotionIdx = 0; emotionIdx < 5; emotionIdx++) {
+              newSignalData.push({
+                emotionTag: emotionList[emotionIdx],
+                multi: response.data.emotionValues[emotionList[emotionIdx]],
+                face: response.data.faceValues[emotionList[emotionIdx]],
+                eeg: response.data.eegValues[emotionList[emotionIdx]],
               });
             }
-          })
-      );
+            let _badConnection = response.data.eegConnections;
+            let eegCheck = true;
+            for (let eegIdx = 1; eegIdx < 8; eegIdx++) {
+              if (response.data.eegConnections['eeg' + eegIdx] == 1) {
+                eegCheck = false;
+              }
+            }
+            console.log(this.state.badConnection);
+            this.setState({
+              signalData: newSignalData,
+              badConnection: _badConnection,
+              fullConnected: eegCheck,
+            });
+          }
+        });
     } catch (error) {
       console.log(error);
     }
   };
-  // eegConnection = async () => {
-  //   let badConnection = [];
-  //   for (let i = 1; i <= 8; i++) {
-  //     if (response.data.eegConnections[i] === 1) {
-  //       badConnection.push(i);
-  //     } else {
-  //       badConnection.push('None');
-  //     }
-  //   }
-  //   badConnection = badConnection.join(',');
-  // };
-  // getEmotions = async (id, emotionTag) => {
-  //   const response = await axios
-  //     .get(`api/v1/user/${id}/analyze/${emotionTag}/result/`)
-  //     .then((response) => console.log(response))
-  //     .catch((error) => console.log(error));
-  //   this.append(response);
-  // };
 
   render() {
     if (this.state.realtimeStart == 1) {
@@ -292,7 +253,6 @@ class VideoPlay extends Component {
     return (
       <div class="full-container">
         <NavBar />
-        {/* <div id="real-time-box"> */}
 
         <Grid container>
           <Grid item xs={9}>
@@ -340,14 +300,12 @@ class VideoPlay extends Component {
                     {connection.eeg6 ? '6 ' : ''}
                     {connection.eeg7 ? '7 ' : ''}
                     {connection.eeg8 ? '8 ' : ''}
-                    {/* {this.state.badConnection} */}
                   </Typography>
                 </Grid>
               )}
             </Grid>
             <Grid>
               <ComposedChart
-                // id="realtimeChart"
                 width={430}
                 height={330}
                 data={this.state.signalData}

@@ -2,15 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Webcam from 'react-webcam';
 import '../App.css';
-import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import {
-  Grid,
-  Button,
-  Input,
-  Typography,
-  TextField,
-  InputAdornment,
-} from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import { Grid, Button, TextField, InputAdornment } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import UserContext from '../UserContext';
 import NavBar from '../components/NavBar';
@@ -72,24 +65,23 @@ class Signup extends Component {
   render() {
     return (
       <div class="full-container">
-        <NavBar/>
+        <NavBar />
         <Grid container id="loginBox" direction="column" justify="center">
-        
-            <Webcam
-              class="webcam"
-              audio={false}
-              facingmode="user"
-              mirrored={true}
-              screenshotQuality={1}
-              ref={this.loginRef}
-              screenshotFormat="image/jpeg"
-            />
+          <Webcam
+            class="webcam"
+            audio={false}
+            facingmode="user"
+            mirrored={true}
+            screenshotQuality={1}
+            ref={this.loginRef}
+            screenshotFormat="image/jpeg"
+          />
           <p id="faceLogin">Sign Up</p>
-    
           <Grid item>
             <div class="input-group" id="userInput">
               <TextField
-                 id="standard-basic" label="UserName"
+                id="standard-basic"
+                label="UserName"
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -101,7 +93,7 @@ class Signup extends Component {
                 onChange={this.userNameChange.bind(this)}
               />{' '}
               <Button
-              id="signUp"
+                id="signUp"
                 variant="outlined"
                 color="primary"
                 label="Sign in"
@@ -120,4 +112,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);

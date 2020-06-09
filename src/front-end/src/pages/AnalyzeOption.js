@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
-import {
-  Button,
-  Grid,
-  withStyles,
-  Typography,
-  IconButton,
-} from '@material-ui/core/';
-import {
-  Link,
-  BrowserRouter as Router,
-  withRouter,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { Grid, Typography } from '@material-ui/core/';
+import { Link, withRouter } from 'react-router-dom';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';

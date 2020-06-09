@@ -59,9 +59,6 @@ html {
 }
 
 .videoWebcam {
-  /* position: absolute; */
-  /* top: 48px; */
-  /* right: 0px; */
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -85,20 +82,7 @@ html {
 }
 
 .recharts-wrapper#realtimeChart {
-  /* position: absolute !important;
-  bottom: -30px;
-  right: 20px;
-  width: 20% !important;
-  height: 50% !important; */
   text-align: center;
-}
-
-.recharts-surface#realtimeChart {
-  /* position: absolute !important ;
-  bottom: 0px;
-  right: 0px;
-  width: 100% !important;
-  height: 100% !important; */
 }
 
 @keyframes blinker {
@@ -154,9 +138,6 @@ label {
 .MuiInput-underline::after {
   border-bottom: 1px solid white !important;
 }
-/* #explain {
-  background-color: #5882FA;
-} */
 
 #loginBox {
   background-color: black;
