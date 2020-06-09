@@ -104,19 +104,4 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 <br/><br/><br/><br/><br/><br/>
 <br/><br/>
 
-### **4. 사용법**
----
 
-**4.1 환경설정**  <br/>
--  src/readme.md 참고 <br/>
-
-**4.2 실행하기** <br/>
-- EEG 센서 가동 및 실행 컴퓨터에 연결 USB 삽입 <br/>
-- src/analyze/eeg/ 폴더 이동 후 <br/>
-&nbsp;&nbsp;&nbsp;&nbsp; $ python record_signal.py y <br/>
-- src/back-end/FBI 폴더 이동 후 <br/>
-&nbsp;&nbsp;&nbsp;&nbsp; $ python manage.py runserver <br/>
-- src/front-end 폴더 이동 후 <br/>
-&nbsp;&nbsp;&nbsp;&nbsp; $ npm start <br/>
-
-<br/><br/>
