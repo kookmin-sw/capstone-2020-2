@@ -89,7 +89,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 ### 서명희 (Myoung-Hee Seo)
 
 &nbsp;&nbsp;- Student ID: 20171627 <br/>
-&nbsp;&nbsp;- Role: Back-end Server 및 연동, Front-end UI 구현, Github 관리, 통합 시연 환경 구성 <br/>
+&nbsp;&nbsp;- Role: Back-end Server 및 연동, Front-end UI 구현, Github 관리, 통합 시연 환경 <br/>
 &nbsp;&nbsp;- Email: myounghee.seo2@gmail.com <br/>
 <br/><br/><br/><br/><br/><br/>
 
