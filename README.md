@@ -71,7 +71,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 ### 김경진 (Kyung-Jin Kim)
 
 &nbsp;&nbsp;- Student ID: 20170292 <br/>
-&nbsp;&nbsp;- Role: Back-end server 및 DB 구축, Back-end api 개발 <br/>
+&nbsp;&nbsp;- Role: Back-end server 및 DB 구축, back-end API 개발 <br/>
 &nbsp;&nbsp;- Email: jinnymini@gmail.com <br/>
 <br/><br/><br/><br/><br/><br/>
 
@@ -89,7 +89,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 ### 서명희 (Myoung-Hee Seo)
 
 &nbsp;&nbsp;- Student ID: 20171627 <br/>
-&nbsp;&nbsp;- Role: Back-end Server 및 연동, Front-end UI 구현, Github 관리, 통합 시연 환경 <br/>
+&nbsp;&nbsp;- Role: Back-end server 및 연동, front-end UI 구현, Github 관리, 통합 시연 환경 <br/>
 &nbsp;&nbsp;- Email: myounghee.seo2@gmail.com <br/>
 <br/><br/><br/><br/><br/><br/>
 
