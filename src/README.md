@@ -4,7 +4,7 @@
 ### 1. Installations for Face Analyze
 <hr/>
 
-**&nbsp;&nbsp; 1.1 src/analyze/face 폴더로 이동 후 아래의 python 명령어 입력 <br/>**
+- src/analyze/face 폴더로 이동 후 아래의 python 명령어 입력 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp; $ pip install pillow <br/>
 &nbsp;&nbsp;&nbsp;&nbsp; - face recognition 사용 위한 설정 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ pip install opencv-python <br/>
@@ -18,10 +18,9 @@
 ### 2. Installations for EEG analyze
 <hr/>
 
-
-**&nbsp;&nbsp; 2.1 src/analyze/eeg 폴더로 이동 후, 아래 python 명령어들 입력  <br/>**
-&nbsp;&nbsp;&nbsp;&nbsp; - "환경설정 완료" 출력이 되면 끝! 다음 스크립트로 쭉쭉 넘어가기 <br/>
-&nbsp;&nbsp;&nbsp;&nbsp; - 에러가 나면 아래 명령어로 라이브러리 설치 (anaconda가 아니면 conda를 pip로 대체) <br/><br/>
+- src/analyze/eeg 폴더로 이동 후, 아래 python 명령어들 입력  <br/>
+- "환경설정 완료" 출력이 되면 끝! 다음 스크립트로 쭉쭉 넘어가기 <br/>
+- 에러가 나면 아래 명령어로 라이브러리 설치 (anaconda가 아니면 conda를 pip로 대체) <br/><br/>
 &nbsp;&nbsp;&nbsp;&nbsp; $ python CustomDatasetClass.py //또는 Models.py <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ conda install pytorch (pip install torch) <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ conda install -c pytorch torchvision (pip install torchvision) <br/>
@@ -44,9 +43,9 @@
 ### 3. Installations for Server&DB (Django, MySQL)
 <hr/>
 
-**&nbsp;&nbsp;3.1 django 설치 <br/>**
-&nbsp;&nbsp;&nbsp;&nbsp; $ pip install django <br/>
-**&nbsp;&nbsp;3.2 DB 설정 <br/>**
+- django 설치 <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; $ pip install django <br/><br/>
+- DB 설정 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp; - src/back-end/FBI/mysql.cnf 파일 수정 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  [client] <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  database = 'db_name' <br/>
@@ -64,6 +63,6 @@
 ### 4. Installations for Client (React)
 <hr/>
 
-**&nbsp;&nbsp; 4.1 src/front-end 폴더 이동 후 <br/>**
+- src/front-end 폴더 이동 후 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp; $npm install <br/>
 <br/>
