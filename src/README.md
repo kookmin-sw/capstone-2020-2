@@ -66,3 +66,15 @@
 - src/front-end 폴더 이동 후 <br/>
 &nbsp;&nbsp;&nbsp;&nbsp; $npm install <br/>
 <br/>
+
+### 5. Start 
+<hr/>
+
+- EEG 센서 가동 및 실행 컴퓨터에 연결 USB 삽입 <br/>
+- src/analyze/eeg/ 폴더 이동 후 <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; $ python record_signal.py y <br/>
+- src/back-end/FBI 폴더 이동 후 <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; $ python manage.py runserver <br/>
+- src/front-end 폴더 이동 후 <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; $ npm start <br/>
+<br/>
