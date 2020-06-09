@@ -68,7 +68,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 
 <img align="left" width="35%" height="35%" src="./doc/images/KJ Kim.jpg">
 
-### 김경진 (Kyung-Jin Kim)
+### 김경진 (Kyoungjin Kim)
 
 &nbsp;&nbsp;- Student ID: 20170292 <br/>
 &nbsp;&nbsp;- Role: Back-end server 및 DB 구축, back-end API 개발 <br/>
