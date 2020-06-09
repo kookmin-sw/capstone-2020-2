@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
-import {
-  Button,
-  Grid,
-  withStyles,
-  Typography,
-  IconButton,
-} from '@material-ui/core/';
-import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Grid, Typography } from '@material-ui/core/';
+import { Link, withRouter } from 'react-router-dom';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -38,9 +32,9 @@ class Analyze extends Component {
           <div class="full-container">
             <NavBar />
             <LoginAlert userName={user.name}></LoginAlert>
-            <Grid container id="loginBox">
+            <Grid container id="loginBox2">
               <Typography variant="h3" id="AnalyzeText">
-                Choose an Emotion what you want!
+                Choose an emotion you want!
               </Typography>
 
               <FormControl variant="filled" id="emotionSelect">
@@ -74,17 +68,6 @@ class Analyze extends Component {
                       }}
                     >
                       Sad
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    {' '}
-                    <Link
-                      to={{
-                        pathname: '/VideoPlay',
-                        state: { emotionTag: 'anger' },
-                      }}
-                    >
-                      Angry
                     </Link>
                   </MenuItem>
                   <MenuItem>
@@ -132,4 +115,4 @@ class Analyze extends Component {
   }
 }
 
-export default Analyze;
+export default withRouter(Analyze);

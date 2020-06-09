@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {
-  Button,
-  Card,
-  CardContent,
   createMuiTheme,
   Grid,
-  Hidden,
   responsiveFontSizes,
-  Typography,
   ThemeProvider,
 } from '@material-ui/core';
 import IntroCarousel from '../components/IntroCarousel';
+import IntroCard from '../components/IntroCard';
 import '../App.css';
 import NavBar from '../components/NavBar';
 
@@ -21,16 +17,18 @@ theme = responsiveFontSizes(theme);
 class Main extends Component {
   render() {
     return (
-
       <ThemeProvider theme={theme}>
         <div className="full-container">
-    <NavBar/>
+          <NavBar />
           <Grid
             container
             style={{
-              height: '100%',
+              height: '95%',
             }}
           >
+            <Grid item xs={12} sm={8} id="explain">
+              <IntroCarousel />
+            </Grid>{' '}
             <Grid
               item
               container
@@ -41,65 +39,7 @@ class Main extends Component {
               justify="center"
               alignItems="center"
             >
-             
-              <Card id="startCard">
-                <CardContent
-                  style={{
-                    height: '100%',
-                    paddingTop: '8%',
-                    textAlign: 'center',
-                  }}
-                >
-                  <Grid
-                    item
-                    style={{
-                      marginBottom: '10%',
-                    }}
-                  >
-                    <Typography
-                      variant="h4"
-                      style={{
-                        marginBottom: '5%',
-                      }}
-                    >
-                      Get started!
-                    </Typography>{' '}
-                    <Hidden smDown>
-                      <Typography variant="subtitle1">
-                        이 곳에 당신의 얼굴을 보여주세요. <br />
-                        EEG와 표정을 이용한 감정인식이 가능합니다.{' '}
-                      </Typography>{' '}
-                    </Hidden>{' '}
-                  </Grid>{' '}
-                  <Grid item>
-                    <Hidden smDown>
-                      <hr />
-                      <Typography
-                        variant="caption"
-                        style={{
-                          marginTop: '10%',
-                        }}
-                      >
-                        * 수집된 데이터는 삭제되지 않습니다.{' '}
-                      </Typography>{' '}
-                    </Hidden>{' '}
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      href="/Login"
-                      id="startCardBtn"
-                      style={{
-                        margin: '5%',
-                      }}
-                    >
-                      start{' '}
-                    </Button>{' '}
-                  </Grid>{' '}
-                </CardContent>{' '}
-              </Card>{' '}
-            </Grid>{' '}
-            <Grid item xs={12} sm={8} id="explain">
-              <IntroCarousel />
+              <IntroCard />
             </Grid>{' '}
           </Grid>{' '}
         </div>{' '}
@@ -108,4 +48,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(Main);

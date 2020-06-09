@@ -1,22 +1,20 @@
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 body {
-        width: 100%;
-        height: 100%;
-      }
-html {
-        width: 100%;
-        height: 100% !important;
-      }
+  width: 100%;
+  height: 100%;
+}
 
+html {
+  width: 100%;
+  height: 100% !important;
+}
 
 .full-container {
-width: 100%;
-height: 100%;
-
+  width: 100%;
+  height: 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -48,24 +46,21 @@ height: 100%;
     transform: rotate(360deg);
   }
 }
-.carousel{
+.carousel {
   height: 100%;
-
 }
-.carousel-caption{
- top: 500px;  
- z-index: 1;
+.carousel-caption {
+  top: 500px;
+  z-index: 1;
 }
 
 .carousel-inner {
   height: 100%;
 }
-.videoWebcam{
- position: absolute;
-  top:48px;
-  right:0px;
-  width: 20%;
-  height: 40%;
+
+.videoWebcam {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 .webcam {
@@ -74,42 +69,28 @@ height: 100%;
   left: -12%;
   position: relative;
   object-fit: cover;
-
-  
 }
 
-#menu{
+#menu {
   position: absolute;
   right: 10px;
-  color : black ;
-}
-
-.menuLink{
   color: black;
 }
-.recharts-wrapper{
-    position: absolute !important;
-    bottom: -30px;
-    right: 20px;
-    width: 20% !important;
-    height:50% !important;
-    text-align: center;
-  }
 
-  .recharts-surface{
-    position: absolute !important;
-    bottom: 0px;
-    right: 0px;
-    width: 100% !important;
-    height: 100% !important;
-  }
+.menuLink {
+  color: black;
+}
+
+.recharts-wrapper#realtimeChart {
+  text-align: center;
+}
 
 @keyframes blinker {
   50% {
     opacity: 0;
   }
 }
-#faceLogin{
+#faceLogin {
   position: absolute;
   top: 15%;
   left: 70%;
@@ -117,7 +98,7 @@ height: 100%;
   font-size: 60px;
   font-weight: bold;
 }
-#faceLogin2{
+#faceLogin2 {
   position: absolute;
   top: 28%;
   left: 70%;
@@ -129,31 +110,56 @@ height: 100%;
   height: 100%;
 }
 #userInput {
-  position: absolute;;
-  /* background-color: white; */
-  top: 28%;
-  left: 70%;
+  position: absolute;
+  color: white !important;
+  top: 29%;
+  left: 69%;
   width: 350px;
   justify-content: center;
 }
-/* #explain {
-  background-color: #5882FA;
-} */
+.MuiInputBase-root,
+.MuiInput-root,
+label {
+  color: white !important;
+  border: white !important;
+}
+.MuiButton-outlinedPrimary {
+  border: 1px solid white !important;
+  color: white !important;
+}
+.MuiButton-outlinedPrimary#startCardBtn {
+  width: 60%;
+  height: 50%;
+  color: blue !important;
+  border: 1px solid blue !important;
+}
+
+.MuiInput-underline::before,
+.MuiInput-underline::after {
+  border-bottom: 1px solid white !important;
+}
 
 #loginBox {
-  background-color:black;
+  background-color: black;
+  align-items: center;
+  text-align: center;
+  height: 95%;
+}
+#loginBox1 {
+  background-color: rgba(255, 255, 255, 0.904);
   align-items: center;
   text-align: center;
   height: 100%;
 }
-#loginBox1{
-  background-color:white;
+#loginBox2 {
+  background-color: black;
   align-items: center;
   text-align: center;
-  height: 100%;
+  height: 87%;
 }
-#startCard{
-  position:relative;
+#startCard {
+  background-color: #d1e2e7;
+  position: relative;
   width: 70%;
   height: 40%;
 }
@@ -161,17 +167,21 @@ height: 100%;
   width: 60%;
   height: 50%;
 }
-#AnalyzeText{
+#AnalyzeText {
   position: absolute;
-  top:40%;
-  left: 22%;
+  top: 40%;
+  left: 30%;
   color: white;
 }
-#AnalyzeOption{
-  position: relative;
-text-align: center;
+#resultText {
+  margin-top: 7%;
+  color: white;
 }
-#emotionSelect{
+#AnalyzeOption {
+  position: relative;
+  text-align: center;
+}
+#emotionSelect {
   position: relative;
   left: 35%;
 
@@ -179,20 +189,25 @@ text-align: center;
   z-index: 1;
   background-color: white;
 }
-#railed{
+#railed {
+  margin-left: 4%;
+  width: 80%;
+  height: 100%;
+}
+#connection {
+  margin-top: 12%;
+}
+
+#connections {
+  color: red;
+}
+
+.recharts-layer.recharts-pie {
   position: absolute;
-  top:47%;
-  right:13%;
-  width: 8%;
-  height: 15%;
+  width: 100% !important;
+  height: 100% !important;
 }
-#connection{
-  position:absolute;
-  top :50%;
-  left:87%;
-}
-#connections{
-  position:absolute;
-  top :55%;
-  left:87%;
+
+.recharts-wrapper#PieEEG {
+  margin-top: 200px;
 }
