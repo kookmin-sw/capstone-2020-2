@@ -39,11 +39,15 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 <br/><br/>
 **2차 중간평가 발표 영상**
 <br/>
-[![youtube_img](https://img.youtube.com/vi/9Aiapp7FzLo/0.jpg)](https://www.youtube.com/watch?v=9Aiapp7FzLo&feature=youtu.be&t=0s)
+Link: https://www.youtube.com/watch?v=9Aiapp7FzLo&feature=youtu.be&t=0s
 <br/><br/>
 **2차 중간평가 시연 영상**
 <br/>
-[![youtube_img](https://img.youtube.com/vi/CUAWhUwhbk0/0.jpg)](https://www.youtube.com/watch?v=CUAWhUwhbk0&t=0s)
+Link: https://www.youtube.com/watch?v=CUAWhUwhbk0&t=0s
+<br/><br/>
+**최종 평가 시연 영상**
+<br/>
+[![youtube_img](https://img.youtube.com/vi/cNzKsm_rX5A/0.jpg)](https://www.youtube.com/watch?v=cNzKsm_rX5A&t=0s)
 <br/><br/>
 
 ### **3. 팀 소개**
@@ -89,7 +93,7 @@ Link: https://www.youtube.com/watch?v=JV1dCH-8sd8?t=0s
 ### 서명희 (Myoung-Hee Seo)
 
 &nbsp;&nbsp;- Student ID: 20171627 <br/>
-&nbsp;&nbsp;- Role: Back-end server 및 연동, front-end UI 구현, Github 관리, 통합 시연 환경 <br/>
+&nbsp;&nbsp;- Role: Back-end server 및 연동, front-end UI 구현, Git 관리, 통합 시연 환경 <br/>
 &nbsp;&nbsp;- Email: myounghee.seo2@gmail.com <br/>
 <br/><br/><br/><br/><br/><br/>
 
