@@ -47,7 +47,6 @@ Link: https://www.youtube.com/watch?v=CUAWhUwhbk0&t=0s
 <br/><br/>
 **최종 평가 발표 영상**
 <br/>
-https://www.youtube.com/watch?v=5rxb3kujUFA&feature=youtu.be
 [![youtube_img](https://img.youtube.com/vi/5rxb3kujUFA/0.jpg)](https://www.youtube.com/watch?v=5rxb3kujUFA&t=0s)
 <br/><br/>
 **최종 평가 시연 영상**
