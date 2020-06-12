@@ -49,9 +49,13 @@ Link: https://www.youtube.com/watch?v=CUAWhUwhbk0&t=0s
 <br/>
 [![youtube_img](https://img.youtube.com/vi/5rxb3kujUFA/0.jpg)](https://youtu.be/SnbIfh3Ph5c)
 <br/><br/>
-**최종 평가 시연 영상**
+**최종 평가 시연 영상(Full.ver)**
 <br/>
 [![youtube_img](https://img.youtube.com/vi/cNzKsm_rX5A/0.jpg)](https://www.youtube.com/watch?v=cNzKsm_rX5A&t=0s)
+<br/><br/>
+**최종 평가 시연 영상(Short.ver)**
+<br/>
+[![youtube_img](https://img.youtube.com/vi/i19ny52nIEM/0.jpg)](https://www.youtube.com/watch?v=i19ny52nIEM&t=0s)
 <br/><br/>
 
 ### **3. 팀 소개**
