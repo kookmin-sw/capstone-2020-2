@@ -20,7 +20,7 @@
     "eslint-config-airbnb": "^18.1.0",
     "face-api.js": "file:face-api.js",
     "kill-port": "^1.6.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "ract": "0.0.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
