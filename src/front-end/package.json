@@ -16,7 +16,7 @@
     "axios": "^0.19.2",
     "base64-to-image": "^1.0.2",
     "bootstrap": "^4.4.1",
-    "browserslist": "^4.11.1",
+    "browserslist": "^4.16.5",
     "eslint-config-airbnb": "^18.1.0",
     "face-api.js": "file:face-api.js",
     "kill-port": "^1.6.0",
